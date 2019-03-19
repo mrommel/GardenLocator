@@ -31,6 +31,7 @@
 		C90160A922403CFC007309BC /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160A822403CFC007309BC /* ItemViewController.swift */; };
 		C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AA22403E0E007309BC /* ItemPresenter.swift */; };
 		C90160AD22403E42007309BC /* ItemInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AC22403E42007309BC /* ItemInteractor.swift */; };
+		C90160AF22414EBF007309BC /* PatchSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AE22414EBF007309BC /* PatchSelectionViewController.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -71,6 +72,7 @@
 		C90160A822403CFC007309BC /* ItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		C90160AA22403E0E007309BC /* ItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPresenter.swift; sourceTree = "<group>"; };
 		C90160AC22403E42007309BC /* ItemInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInteractor.swift; sourceTree = "<group>"; };
+		C90160AE22414EBF007309BC /* PatchSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchSelectionViewController.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				C91048AC223DA70000EE8FDB /* PatchesViewController.swift */,
 				C9016084223EECFA007309BC /* PatchViewController.swift */,
 				C91048AF223DA70000EE8FDB /* SettingsViewController.swift */,
+				C90160AE22414EBF007309BC /* PatchSelectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */,
 				C90160A722403A48007309BC /* ItemsPresenter.swift in Sources */,
 				C9016097223FF7DA007309BC /* PatchInteractor.swift in Sources */,
+				C90160AF22414EBF007309BC /* PatchSelectionViewController.swift in Sources */,
 				C91048BA223DA78700EE8FDB /* MapViewController.swift in Sources */,
 				C9016085223EECFA007309BC /* PatchViewController.swift in Sources */,
 				C91048B9223DA78400EE8FDB /* PatchesViewController.swift in Sources */,

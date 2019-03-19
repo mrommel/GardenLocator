@@ -44,6 +44,7 @@ class Router {
                 let itemInteractor = ItemInteractor()
                 let itemPresenter = ItemPresenter()
                 let itemDao = ItemDao()
+                let patchDao = PatchDao()
                 
                 itemPresenter.interator = itemInteractor
                 itemPresenter.viewInput = itemViewController
@@ -51,6 +52,7 @@ class Router {
                 itemInteractor.router = self
                 itemInteractor.presenterInput = itemPresenter
                 itemInteractor.itemDao = itemDao
+                itemInteractor.patchDao = patchDao
                 
                 itemViewController.interactor = itemInteractor
                 itemViewController.presenter = itemPresenter
@@ -58,6 +60,19 @@ class Router {
                 
                 topController.navigationController?.pushViewController(itemViewController, animated: true)
             }
+        }
+    }
+    
+    func showPatchSelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
+        
+        if let topController = UIApplication.topViewController() {
+            let viewController = PatchSelectionViewController(
+                title: title,
+                data: data,
+                selectedIndex: selectedIndex,
+                onSelect: onSelect)
+        
+            topController.navigationController?.pushViewController(viewController, animated: true)
         }
     }
     

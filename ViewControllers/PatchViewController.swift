@@ -162,7 +162,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         
-        return UITableViewCell(style: .value2, reuseIdentifier: self.reuseNameLabelIdentifier)
+        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNameLabelIdentifier)
     }
     
     func getButtonCell() -> UITableViewCell {
@@ -210,13 +210,18 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if self.editMode && indexPath.section == 1 {
-            
-            if let patchViewModel = self.viewModel {
+        if indexPath == self.deleteButtonIndexPath {
+        
+            if self.editMode {
                 
-                self.askQuestion(title: "Sure?", message: "Do you really want to delete patch '\(patchViewModel.name)'?", buttonTitle: "Delete"){ (action) in
-                    self.interactor?.delete(patch: patchViewModel)
+                if let patchViewModel = self.viewModel {
+                    
+                    self.askQuestion(title: "Sure?", message: "Do you really want to delete patch '\(patchViewModel.name)'?", buttonTitle: "Delete"){ (action) in
+                        self.interactor?.delete(patch: patchViewModel)
+                    }
                 }
+            } else {
+                fatalError("Can't delete patch outside edit mode")
             }
         }
         

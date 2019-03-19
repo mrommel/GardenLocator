@@ -12,7 +12,7 @@ protocol ItemDaoProtocol {
     
     func fetch() -> [Item]?
     func get(by objectId: NSManagedObjectID) -> Item?
-    func create(named name: String, latitude: Double, longitude: Double) -> Bool
+    func create(named name: String, latitude: Double, longitude: Double, patch: Patch) -> Bool
     func save(item: Item?) -> Bool
     func delete(item: Item?) -> Bool
 }
@@ -57,7 +57,7 @@ extension ItemDao: ItemDaoProtocol {
         }
     }
     
-    func create(named name: String, latitude: Double, longitude: Double) -> Bool {
+    func create(named name: String, latitude: Double, longitude: Double, patch: Patch) -> Bool {
         
         guard let context = self.context else {
             fatalError("Can't get context for creating patch")
@@ -67,6 +67,7 @@ extension ItemDao: ItemDaoProtocol {
         newItem.name = name
         newItem.latitude = latitude
         newItem.longitude = longitude
+        newItem.patch = patch
         
         do {
             try context.save()

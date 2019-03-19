@@ -12,6 +12,7 @@ protocol PatchDaoProtocol {
     
     func fetch() -> [Patch]?
     func get(by objectId: NSManagedObjectID) -> Patch?
+    func get(by name: String) -> Patch?
     func create(named name: String) -> Bool
     func save(patch: Patch?) -> Bool
     func delete(patch: Patch?) -> Bool
@@ -52,6 +53,24 @@ extension PatchDao: PatchDaoProtocol {
         
         do {
             return try context.existingObject(with: objectId) as? Patch
+        } catch {
+            return nil
+        }
+    }
+    
+    func get(by name: String) -> Patch? {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for creating patch")
+        }
+        
+        do {
+            let fetchRequest: NSFetchRequest<Patch> = Patch.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+
+            let patches = try context.fetch(fetchRequest)
+            
+            return patches.first
         } catch {
             return nil
         }
