@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notice" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="patch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patch" inverseName="items" inverseEntity="Patch" syncable="YES"/>
+    </entity>
+    <entity name="Patch" representedClassName="Patch" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="patch" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Patch" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Item" positionX="-54" positionY="0" width="128" height="120"/>
+    </elements>
+</model>

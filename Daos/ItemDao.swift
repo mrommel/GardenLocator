@@ -1,0 +1,116 @@
+//
+//  ItemDao.swift
+//  GardenLocator
+//
+//  Created by Michael Rommel on 18.03.19.
+//  Copyright © 2019 Michael Rommel. All rights reserved.
+//
+
+import CoreData
+
+protocol ItemDaoProtocol {
+    
+    func fetch() -> [Item]?
+    func get(by objectId: NSManagedObjectID) -> Item?
+    func create(named name: String, latitude: Double, longitude: Double) -> Bool
+    func save(item: Item?) -> Bool
+    func delete(item: Item?) -> Bool
+}
+
+class ItemDao {
+    
+    var context: NSManagedObjectContext? {
+        get {
+            return AppDelegate.shared?.persistentContainer.viewContext
+        }
+    }
+}
+
+extension ItemDao: ItemDaoProtocol {
+    
+    func fetch() -> [Item]? {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for fetching patches")
+        }
+        
+        do {
+            let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+            //fetch.predicate = NSPredicate(format: "genreValue == %@", genre)
+            //fetchRequest.sortDescriptors
+            return try context.fetch(fetchRequest)
+        } catch {
+            return nil
+        }
+    }
+    
+    func get(by objectId: NSManagedObjectID) -> Item? {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for creating patch")
+        }
+        
+        do {
+            return try context.existingObject(with: objectId) as? Item
+        } catch {
+            return nil
+        }
+    }
+    
+    func create(named name: String, latitude: Double, longitude: Double) -> Bool {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for creating patch")
+        }
+        
+        let newItem = Item(context: context)
+        newItem.name = name
+        newItem.latitude = latitude
+        newItem.longitude = longitude
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    func save(item: Item?) -> Bool {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for deletion")
+        }
+        
+        guard let _ = item else {
+            fatalError("Can't save nil item")
+        }
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    func delete(item: Item?) -> Bool {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for deletion")
+        }
+        
+        guard let item = item else {
+            fatalError("Can't delete nil item")
+        }
+        
+        context.delete(item)
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+}
