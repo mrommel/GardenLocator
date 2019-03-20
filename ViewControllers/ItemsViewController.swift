@@ -29,18 +29,6 @@ class ItemsViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.tableFooterView = UIView()
         
-        let itemDao = ItemDao()
-        let router = Router()
-        self.interactor = ItemsInteractor()
-        self.presenter = ItemsPresenter()
-        
-        self.interactor?.presenterInput = self.presenter
-        self.interactor?.itemDao = itemDao
-        self.interactor?.router = router
-        
-        self.presenter?.viewInput = self
-        self.presenter?.interator = self.interactor
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
     }
     

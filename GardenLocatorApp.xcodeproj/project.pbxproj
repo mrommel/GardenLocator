@@ -32,6 +32,9 @@
 		C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AA22403E0E007309BC /* ItemPresenter.swift */; };
 		C90160AD22403E42007309BC /* ItemInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AC22403E42007309BC /* ItemInteractor.swift */; };
 		C90160AF22414EBF007309BC /* PatchSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160AE22414EBF007309BC /* PatchSelectionViewController.swift */; };
+		C90160B12242CC97007309BC /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160B02242CC97007309BC /* MapViewModel.swift */; };
+		C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160B22242D0DA007309BC /* MapPresenter.swift */; };
+		C90160B52242D25A007309BC /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160B42242D25A007309BC /* MapInteractor.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -73,6 +76,9 @@
 		C90160AA22403E0E007309BC /* ItemPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPresenter.swift; sourceTree = "<group>"; };
 		C90160AC22403E42007309BC /* ItemInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInteractor.swift; sourceTree = "<group>"; };
 		C90160AE22414EBF007309BC /* PatchSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchSelectionViewController.swift; sourceTree = "<group>"; };
+		C90160B02242CC97007309BC /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		C90160B22242D0DA007309BC /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		C90160B42242D25A007309BC /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -111,10 +117,11 @@
 		C901607B223ED581007309BC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C90160B02242CC97007309BC /* MapViewModel.swift */,
+				C90160A422403A0C007309BC /* ItemsViewModel.swift */,
+				C90160A222403989007309BC /* ItemViewModel.swift */,
 				C9016082223EE26F007309BC /* PatchesViewModel.swift */,
 				C9016080223EDEC0007309BC /* PatchViewModel.swift */,
-				C90160A222403989007309BC /* ItemViewModel.swift */,
-				C90160A422403A0C007309BC /* ItemsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 		C901607D223ED9EF007309BC /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				C90160B22242D0DA007309BC /* MapPresenter.swift */,
 				C901607E223EDA14007309BC /* PatchesPresenter.swift */,
 				C9016094223FF6F1007309BC /* PatchPresenter.swift */,
 				C90160A622403A48007309BC /* ItemsPresenter.swift */,
@@ -158,6 +166,7 @@
 		C9016091223FA222007309BC /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				C90160B42242D25A007309BC /* MapInteractor.swift */,
 				C9016092223FA254007309BC /* PatchesInteractor.swift */,
 				C9016096223FF7DA007309BC /* PatchInteractor.swift */,
 				C90160A022403880007309BC /* ItemsInteractor.swift */,
@@ -431,11 +440,13 @@
 				C901609F224037D3007309BC /* ItemDao.swift in Sources */,
 				C90160A322403989007309BC /* ItemViewModel.swift in Sources */,
 				C901607A223ED556007309BC /* PatchDao.swift in Sources */,
+				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
 				C901608D223EF253007309BC /* Router.swift in Sources */,
 				C9016083223EE26F007309BC /* PatchesViewModel.swift in Sources */,
 				C9016081223EDEC0007309BC /* PatchViewModel.swift in Sources */,
 				C91048B7223DA72D00EE8FDB /* App.swift in Sources */,
 				C90160AD22403E42007309BC /* ItemInteractor.swift in Sources */,
+				C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */,
 				C9016095223FF6F1007309BC /* PatchPresenter.swift in Sources */,
 				C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */,
 				C90160A722403A48007309BC /* ItemsPresenter.swift in Sources */,
@@ -445,6 +456,7 @@
 				C9016085223EECFA007309BC /* PatchViewController.swift in Sources */,
 				C91048B9223DA78400EE8FDB /* PatchesViewController.swift in Sources */,
 				C91048BD223DA79000EE8FDB /* GardenLocator.xcdatamodeld in Sources */,
+				C90160B52242D25A007309BC /* MapInteractor.swift in Sources */,
 				C90160A522403A0C007309BC /* ItemsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

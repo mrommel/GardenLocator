@@ -172,9 +172,6 @@ class ItemViewController: UIViewController {
         } else {
             self.interactor?.save(item: self.viewModel)
         }
-        
-        self.editMode = false
-        self.setup()
     }
 }
 
@@ -254,6 +251,8 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
                 cell.configure(title: "Name", textFieldValue: self.viewModel?.name ?? "", placeHolder: "Enter some text!")
+                cell.textField.tag = 0
+                cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
@@ -271,6 +270,8 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
                 cell.configure(title: "Latitude", textFieldValue: "\(self.viewModel?.latitude ?? self.latitudeTmp)", placeHolder: "Enter some latitude")
+                cell.textField.tag = 1
+                cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
@@ -288,6 +289,8 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
                 cell.configure(title: "Longitude", textFieldValue: "\(self.viewModel?.longitude ?? self.longitudeTmp)", placeHolder: "Enter some longitude")
+                cell.textField.tag = 2
+                cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
@@ -400,6 +403,11 @@ extension ItemViewController: ItemViewInputProtocol {
         
         self.viewModel?.identifier = identifier
     }
+    
+    func toggleDetail() {
+        self.editMode = false
+        self.setup()
+    }
 }
 
 extension ItemViewController: GMSMapViewDelegate {
@@ -456,5 +464,20 @@ extension ItemViewController: CLLocationManagerDelegate {
         self.longitudeTmp = location.coordinate.longitude
         
         self.tableView.reloadRows(at: [self.latitudeIndexPath, self.longitudeIndexPath], with: .automatic)
+    }
+}
+
+extension ItemViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
     }
 }

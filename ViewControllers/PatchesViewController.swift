@@ -29,18 +29,6 @@ class PatchesViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.tableFooterView = UIView()
-        
-        let patchDao = PatchDao()
-        let router = Router()
-        self.interactor = PatchesInteractor()
-        self.presenter = PatchesPresenter()
-        
-        self.interactor?.presenterInput = self.presenter
-        self.interactor?.patchDao = patchDao
-        self.interactor?.router = router
-        
-        self.presenter?.viewInput = self
-        self.presenter?.interator = self.interactor
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPatch))
     }

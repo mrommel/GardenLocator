@@ -235,6 +235,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 1 {
             if !self.editMode {
                 let cell = getItemCell()
+                cell.imageView?.image = R.image.pin()
                 cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
                 cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .disclosureIndicator

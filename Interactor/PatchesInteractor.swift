@@ -33,10 +33,6 @@ class PatchesInteractor {
     var router: Router?
     var patchDao: PatchDaoProtocol?
     var presenterInput: PatchesPresenterInputProtocol?
-    
-    init() {
-        
-    }
 }
 
 extension PatchesInteractor: PatchesInteractorInputProtocol {

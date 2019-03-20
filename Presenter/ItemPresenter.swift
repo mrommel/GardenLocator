@@ -14,6 +14,7 @@ protocol ItemViewInputProtocol {
     
     func presentUserFeedback(message: String)
     func updateViewModel(identifier: NSManagedObjectID?)
+    func toggleDetail()
 }
 
 enum ItemFailure {
@@ -48,6 +49,8 @@ extension ItemPresenter: ItemPresenterInputProtocol {
         self.viewInput?.updateViewModel(identifier: identifier)
         self.viewInput?.presentUserFeedback(message: "Successfully saved")
         self.interator?.showItems()
+        
+        self.viewInput?.toggleDetail()
     }
     
     func saveFailure(failure: ItemFailure) {
@@ -59,6 +62,8 @@ extension ItemPresenter: ItemPresenterInputProtocol {
         
         self.viewInput?.presentUserFeedback(message: "Successfully deleted")
         self.interator?.showItems()
+        
+        self.viewInput?.toggleDetail()
     }
     
     func deleteFailure(failure: ItemFailure) {
