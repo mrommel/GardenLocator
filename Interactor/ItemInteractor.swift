@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 protocol ItemInteractorInputProtocol {
     
@@ -24,6 +25,7 @@ protocol ItemInteractorInputProtocol {
     func showItems()
     
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
+    func showPatch(named patchName: String)
 }
 
 class ItemInteractor {
@@ -39,12 +41,12 @@ extension ItemInteractor: ItemInteractorInputProtocol {
     func create(item: ItemViewModel?) {
         
         guard let patchName = item?.patchName else {
-            self.presenterInput?.saveFailure()
+            self.presenterInput?.saveFailure(failure: .generic)
             return
         }
         
         guard let patch = patchDao?.get(by: patchName) else {
-            self.presenterInput?.saveFailure()
+            self.presenterInput?.saveFailure(failure: .notFound)
             return
         }
         
@@ -54,19 +56,23 @@ extension ItemInteractor: ItemInteractorInputProtocol {
             
             if let saved = self.itemDao?.create(named: name, latitude: latitude, longitude: longitude, patch: patch) {
                 if saved {
-                    self.presenterInput?.saveSuccess()
+                    
+                    // put identifier into model
+                    if let storedItem = self.itemDao?.get(by: name) {
+                        self.presenterInput?.saveSuccess(identifier: storedItem.objectID)
+                    }
                     return
                 }
             }
         }
         
-        self.presenterInput?.saveFailure()
+        self.presenterInput?.saveFailure(failure: .generic)
     }
     
     func save(item: ItemViewModel?) {
         
         guard let patchName = item?.patchName else {
-            self.presenterInput?.saveFailure()
+            self.presenterInput?.saveFailure(failure: .notFound)
             return
         }
         
@@ -83,13 +89,13 @@ extension ItemInteractor: ItemInteractorInputProtocol {
             
             if let saved = self.itemDao?.save(item: itemObject) {
                 if saved {
-                    self.presenterInput?.saveSuccess()
+                    self.presenterInput?.saveSuccess(identifier: identifier)
                     return
                 }
             }
         }
         
-        self.presenterInput?.saveFailure()
+        self.presenterInput?.saveFailure(failure: .generic)
     }
     
     func delete(item: ItemViewModel?) {
@@ -104,7 +110,7 @@ extension ItemInteractor: ItemInteractorInputProtocol {
             }
         }
         
-        self.presenterInput?.deleteFailure()
+        self.presenterInput?.deleteFailure(failure: .generic)
     }
     
     func getAllPatchNames() -> [String] {
@@ -130,5 +136,13 @@ extension ItemInteractor: ItemInteractorInputProtocol {
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
         
         self.router?.showPatchSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
+    }
+    
+    func showPatch(named patchName: String) {
+        
+        if let patch = self.patchDao?.get(by: patchName) {
+            let patchViewModel = PatchViewModel(patch: patch)
+            self.router?.show(patch: patchViewModel)
+        }
     }
 }

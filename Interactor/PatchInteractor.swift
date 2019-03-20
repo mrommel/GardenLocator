@@ -12,6 +12,7 @@ protocol PatchInteractorInputProtocol {
     
     var router: Router? { get set }
     var patchDao: PatchDaoProtocol? { get set }
+    var itemDao: ItemDaoProtocol? { get set }
     var presenterInput: PatchPresenterInputProtocol? { get set }
     
     func create(patch: PatchViewModel?)
@@ -19,12 +20,14 @@ protocol PatchInteractorInputProtocol {
     func delete(patch: PatchViewModel?)
     
     func showPatches()
+    func showItem(named itemName: String)
 }
 
 class PatchInteractor {
     
     var router: Router?
     var patchDao: PatchDaoProtocol?
+    var itemDao: ItemDaoProtocol?
     var presenterInput: PatchPresenterInputProtocol?
 }
 
@@ -81,5 +84,13 @@ extension PatchInteractor: PatchInteractorInputProtocol {
     func showPatches() {
         // we are in the details > go back
         self.router?.popViewController()
+    }
+    
+    func showItem(named itemName: String) {
+        
+        if let item = self.itemDao?.get(by: itemName) {
+            let itemViewModel = ItemViewModel(item: item)
+            self.router?.show(item: itemViewModel)
+        }
     }
 }

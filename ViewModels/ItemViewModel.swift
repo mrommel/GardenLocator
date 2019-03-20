@@ -10,7 +10,7 @@ import CoreData
 
 class ItemViewModel {
     
-    let identifier: NSManagedObjectID?
+    var identifier: NSManagedObjectID?
     var name: String
     var latitude: Double
     var longitude: Double

@@ -18,6 +18,7 @@ class Router {
                 
                 let patchInteractor = PatchInteractor()
                 let patchPresenter = PatchPresenter()
+                let itemDao = ItemDao()
                 let patchDao = PatchDao()
                 
                 patchPresenter.interator = patchInteractor
@@ -26,6 +27,7 @@ class Router {
                 patchInteractor.router = self
                 patchInteractor.presenterInput = patchPresenter
                 patchInteractor.patchDao = patchDao
+                patchInteractor.itemDao = itemDao
                 
                 patchViewController.interactor = patchInteractor
                 patchViewController.presenter = patchPresenter

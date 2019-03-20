@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import CoreData
 
 class ItemViewController: UIViewController {
     
@@ -20,12 +21,18 @@ class ItemViewController: UIViewController {
     var editMode: Bool = false
     var camera: GMSCameraPosition?
     var itemMarker: GMSMarker?
+    let locationManager = CLLocationManager()
     let initialLatitude = 52.520736
     let initialLongitude = 13.409423
 
     var presenter: ItemPresenterInputProtocol?
     var interactor: ItemInteractorInputProtocol?
     var viewModel: ItemViewModel?
+    
+    // tmp values
+    var patchNameTmp: String = ""
+    var longitudeTmp: Double = 0.0
+    var latitudeTmp: Double = 0.0
     
     let reuseButtonIdentifier: String = "reuseButtonIdentifier"
     let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
@@ -55,19 +62,26 @@ class ItemViewController: UIViewController {
         
         if let model = self.viewModel {
             self.camera = GMSCameraPosition.camera(withLatitude: model.latitude, longitude: model.longitude, zoom: 20)
+            self.latitudeTmp = model.latitude
+            self.longitudeTmp = model.longitude
+            self.patchNameTmp = model.patchName
         } else {
             self.camera = GMSCameraPosition.camera(withLatitude: self.initialLatitude, longitude: self.initialLongitude, zoom: 20)
         }
         
         // init map in table header
         self.mapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 280), camera: self.camera!)
-        self.mapView?.isMyLocationEnabled = true
+        self.mapView?.settings.myLocationButton = true
         self.mapView?.delegate = self
+        
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
         
         // add marker
         if let model = self.viewModel {
             let coordinate = CLLocationCoordinate2D(latitude: model.latitude, longitude: model.longitude)
             self.itemMarker = GMSMarker(position: coordinate)
+            self.itemMarker?.title = model.name
             self.itemMarker?.map = self.mapView
         }
         
@@ -85,6 +99,8 @@ class ItemViewController: UIViewController {
             
             // unlock movement of camera
             self.mapView?.settings.setAllGesturesEnabled(true)
+            self.mapView?.isMyLocationEnabled = true
+            self.mapView?.settings.myLocationButton = true
         } else {
             self.navigationItem.leftBarButtonItem = self.backButton
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(enableEditMode))
@@ -96,6 +112,8 @@ class ItemViewController: UIViewController {
                 self.camera = GMSCameraPosition.camera(withLatitude: self.initialLatitude, longitude: self.initialLongitude, zoom: 20)
             }
             self.mapView?.settings.setAllGesturesEnabled(false)
+            self.mapView?.isMyLocationEnabled = false
+            self.mapView?.settings.myLocationButton = false
         }
         
         self.tableView.reloadData()
@@ -119,27 +137,18 @@ class ItemViewController: UIViewController {
             return
         }
         
-        guard let latitudeCell = self.tableView.cellForRow(at: self.latitudeIndexPath) as? TextInputTableViewCell else {
-            return
-        }
-        
-        guard let longitudeCell = self.tableView.cellForRow(at: self.longitudeIndexPath) as? TextInputTableViewCell else {
-            return
-        }
-        
-        guard let patchNameCell = self.tableView.cellForRow(at: self.patchIndexPath) else {
-            return
-        }
-        
         var isNewPatch: Bool = false
         let name = nameCell.textFieldValue()
-        let latitude = Double(latitudeCell.textFieldValue()) ?? 0.0
-        let longitude = Double(longitudeCell.textFieldValue()) ?? 0.0
-        let patchName = patchNameCell.detailTextLabel?.text ?? "---"
+        let latitude = Double(self.latitudeTmp)
+        let longitude = Double(self.longitudeTmp)
+        let patchName = self.patchNameTmp
         
         if self.viewModel == nil {
             // create new patch
-            self.viewModel = ItemViewModel(latitude: latitude, longitude: longitude, name: name, patchName: patchName)
+            self.viewModel = ItemViewModel(latitude: latitude,
+                                           longitude: longitude,
+                                           name: name,
+                                           patchName: patchName)
             isNewPatch = true
         } else {
             // update current patch
@@ -261,13 +270,13 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Latitude", textFieldValue: "\(self.viewModel?.latitude ?? 0.0)", placeHolder: "Enter some latitude")
+                cell.configure(title: "Latitude", textFieldValue: "\(self.viewModel?.latitude ?? self.latitudeTmp)", placeHolder: "Enter some latitude")
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
                 cell.textLabel?.text = "Latitude"
-                cell.detailTextLabel?.text = "\(self.viewModel?.latitude ?? 0.0)"
+                cell.detailTextLabel?.text = "\(self.viewModel?.latitude ?? self.latitudeTmp)"
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
                 return cell
@@ -278,13 +287,13 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Longitude", textFieldValue: "\(self.viewModel?.longitude ?? 0.0)", placeHolder: "Enter some longitude")
+                cell.configure(title: "Longitude", textFieldValue: "\(self.viewModel?.longitude ?? self.longitudeTmp)", placeHolder: "Enter some longitude")
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
                 cell.textLabel?.text = "Longitude"
-                cell.detailTextLabel?.text = "\(self.viewModel?.longitude ?? 0.0)"
+                cell.detailTextLabel?.text = "\(self.viewModel?.longitude ?? self.longitudeTmp)"
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
                 return cell
@@ -297,9 +306,13 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = self.getPatchCell()
                 
                 cell.textLabel?.text = "Patch"
-                cell.detailTextLabel?.text = self.viewModel?.patchName
+                if let viewModel = self.viewModel {
+                    cell.detailTextLabel?.text = viewModel.patchName
+                } else {
+                    cell.detailTextLabel?.text = self.patchNameTmp
+                }
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .disclosureIndicator
+                cell.accessoryType = .none
                 
                 return cell
             } else {
@@ -308,7 +321,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.textLabel?.text = "Patch"
                 cell.detailTextLabel?.text = self.viewModel?.patchName
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .none
+                cell.accessoryType = .disclosureIndicator
                 
                 return cell
             }
@@ -348,9 +361,12 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                     
                     print("newSelection: \(newSelection)")
                     self.viewModel?.patchName = newSelection
+                    self.patchNameTmp = newSelection
                     self.tableView.reloadRows(at: [self.patchIndexPath], with: .automatic)
                 })
-            } 
+            } else {
+                self.interactor?.showPatch(named: self.viewModel?.patchName ?? "--")
+            }
         }
         
         if indexPath == self.deleteButtonIndexPath {
@@ -379,6 +395,11 @@ extension ItemViewController: ItemViewInputProtocol {
         
         self.showToast(message: message)
     }
+    
+    func updateViewModel(identifier: NSManagedObjectID?) {
+        
+        self.viewModel?.identifier = identifier
+    }
 }
 
 extension ItemViewController: GMSMapViewDelegate {
@@ -393,6 +414,46 @@ extension ItemViewController: GMSMapViewDelegate {
         
         self.viewModel?.latitude = position.target.latitude
         self.viewModel?.longitude = position.target.longitude
+        
+        self.latitudeTmp = position.target.latitude
+        self.longitudeTmp = position.target.longitude
+        
+        self.tableView.reloadRows(at: [self.latitudeIndexPath, self.longitudeIndexPath], with: .automatic)
+    }
+}
+
+extension ItemViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        guard status == .authorizedWhenInUse else {
+            return
+        }
+        
+        self.locationManager.startUpdatingLocation()
+        
+        self.mapView?.mapType = .satellite
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if !self.editMode {
+            return
+        }
+        
+        guard let location = locations.first else {
+            return
+        }
+        
+        self.locationManager.stopUpdatingLocation()
+        
+        self.itemMarker?.position = location.coordinate
+        
+        self.viewModel?.latitude = location.coordinate.latitude
+        self.viewModel?.longitude = location.coordinate.longitude
+        
+        self.latitudeTmp = location.coordinate.latitude
+        self.longitudeTmp = location.coordinate.longitude
         
         self.tableView.reloadRows(at: [self.latitudeIndexPath, self.longitudeIndexPath], with: .automatic)
     }

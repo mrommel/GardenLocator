@@ -24,6 +24,7 @@ class PatchViewController: UIViewController {
     let reuseButtonIdentifier: String = "reuseButtonIdentifier"
     let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
+    let reuseItemLabelIdentifier: String = "reuseItemLabelIdentifier"
     
     let nameIndexPath = IndexPath(row: 0, section: 0)
     let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
@@ -125,17 +126,27 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if section == 0 && !self.editMode {
-            let headerImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: 80))
-            headerImageView.image = R.image.field()
-            headerImageView.contentMode = .scaleAspectFit
-        
-            let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 100))
-            headerView.addSubview(headerImageView)
-            return headerView
-        } else {
-            return nil
+        if section == 0 {
+            if !self.editMode {
+                let headerImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 80, height: 80))
+                headerImageView.image = R.image.field()
+                headerImageView.contentMode = .scaleAspectFit
+            
+                let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 100))
+                headerView.addSubview(headerImageView)
+                return headerView
+            }
         }
+        
+        if section == 1 {
+            if !self.editMode {
+                let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
+                headerView.textLabel?.text = "Items"
+                return headerView
+            }
+        }
+        
+        return nil
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -143,17 +154,25 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         if self.editMode && self.viewModel != nil {
             return 2
         } else {
-            return 1
+            return 2
         }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if self.editMode {
-            return 1
-        } else {
-            return 1
+        if section == 0 {
+            return 1 // only name
         }
+        
+        if section == 1 {
+            if self.editMode {
+                return 1 // delete button
+            } else {
+                return self.viewModel?.itemNames.count ?? 0
+            }
+        }
+        
+        return 0
     }
     
     func getNameCell() -> UITableViewCell {
@@ -163,6 +182,15 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNameLabelIdentifier)
+    }
+    
+    func getItemCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseItemLabelIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseItemLabelIdentifier)
     }
     
     func getButtonCell() -> UITableViewCell {
@@ -193,6 +221,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
+        // is also
         if indexPath == self.deleteButtonIndexPath {
             if self.editMode {
                 let cell = self.getButtonCell()
@@ -200,8 +229,16 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.textLabel?.text = "Delete"
                 cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
                 return cell
-            } else {
-                fatalError("can't have a delete button outside edit mode")
+            }
+        }
+        
+        if indexPath.section == 1 {
+            if !self.editMode {
+                let cell = getItemCell()
+                cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
+                cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
+                cell.accessoryType = .disclosureIndicator
+                return cell
             }
         }
         
@@ -220,9 +257,13 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                         self.interactor?.delete(patch: patchViewModel)
                     }
                 }
-            } else {
-                fatalError("Can't delete patch outside edit mode")
+                return
             }
+        }
+        
+        if indexPath.section == 1 {
+            let itemName = self.viewModel?.itemName(at: indexPath.row)
+            self.interactor?.showItem(named: itemName ?? "--")
         }
         
         self.tableView.deselectRow(at: indexPath, animated: true)

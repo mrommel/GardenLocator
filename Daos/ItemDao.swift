@@ -12,6 +12,7 @@ protocol ItemDaoProtocol {
     
     func fetch() -> [Item]?
     func get(by objectId: NSManagedObjectID) -> Item?
+    func get(by name: String) -> Item?
     func create(named name: String, latitude: Double, longitude: Double, patch: Patch) -> Bool
     func save(item: Item?) -> Bool
     func delete(item: Item?) -> Bool
@@ -52,6 +53,24 @@ extension ItemDao: ItemDaoProtocol {
         
         do {
             return try context.existingObject(with: objectId) as? Item
+        } catch {
+            return nil
+        }
+    }
+    
+    func get(by name: String) -> Item? {
+        
+        guard let context = self.context else {
+            fatalError("Can't get context for creating patch")
+        }
+        
+        do {
+            let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            
+            let items = try context.fetch(fetchRequest)
+            
+            return items.first
         } catch {
             return nil
         }

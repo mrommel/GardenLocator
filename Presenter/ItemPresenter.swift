@@ -7,20 +7,28 @@
 //
 
 import Foundation
+import CoreData
 
 // View Controller must implement this
 protocol ItemViewInputProtocol {
     
     func presentUserFeedback(message: String)
+    func updateViewModel(identifier: NSManagedObjectID?)
+}
+
+enum ItemFailure {
+    
+    case generic
+    case notFound
 }
 
 protocol ItemPresenterInputProtocol {
     
-    func saveSuccess()
-    func saveFailure()
+    func saveSuccess(identifier: NSManagedObjectID?)
+    func saveFailure(failure: ItemFailure)
     
     func deleteSuccess()
-    func deleteFailure()
+    func deleteFailure(failure: ItemFailure)
 }
 
 class ItemPresenter {
@@ -35,13 +43,14 @@ class ItemPresenter {
 
 extension ItemPresenter: ItemPresenterInputProtocol {
     
-    func saveSuccess() {
+    func saveSuccess(identifier: NSManagedObjectID?) {
         
+        self.viewInput?.updateViewModel(identifier: identifier)
         self.viewInput?.presentUserFeedback(message: "Successfully saved")
         self.interator?.showItems()
     }
     
-    func saveFailure() {
+    func saveFailure(failure: ItemFailure) {
         
         self.viewInput?.presentUserFeedback(message: "Could not save")
     }
@@ -52,7 +61,7 @@ extension ItemPresenter: ItemPresenterInputProtocol {
         self.interator?.showItems()
     }
     
-    func deleteFailure() {
+    func deleteFailure(failure: ItemFailure) {
         
         self.viewInput?.presentUserFeedback(message: "Could not delete")
     }

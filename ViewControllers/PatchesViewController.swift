@@ -101,7 +101,7 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
             return cell
         } else {
-            return UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
+            return UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifier)
         }
     }
     
@@ -110,6 +110,7 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
         if let patchViewModel = self.viewModel?.patches[indexPath.row] {
             cell.imageView?.image = R.image.field()
             cell.textLabel?.text = patchViewModel.name
+            cell.detailTextLabel?.text = "\(patchViewModel.itemNames.count) Items"
         }
         
         cell.tintColor = App.Color.tableViewCellAccessoryColor
