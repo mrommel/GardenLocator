@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Rswift
 
 class PatchViewController: UIViewController {
     
@@ -97,7 +98,8 @@ class PatchViewController: UIViewController {
         // is valid?
         if !(self.viewModel?.isValid() ?? false) {
             
-            self.showError(title: "Invalid", message: "Name must not be empty")
+            self.showError(title: R.string.localizable.patchInvalidTitle(),
+                           message: R.string.localizable.patchInvalidMessage())
             return
         }
         
@@ -141,7 +143,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 1 {
             if !self.editMode {
                 let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
-                headerView.textLabel?.text = "Items"
+                headerView.textLabel?.text = R.string.localizable.patchItems()
                 return headerView
             }
         }
@@ -208,12 +210,12 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Name", textFieldValue: self.viewModel?.name ?? "", placeHolder: "Enter some text!")
+                cell.configure(title: R.string.localizable.patchNameTitle(), textFieldValue: self.viewModel?.name ?? "", placeHolder: R.string.localizable.patchNamePlaceholder())
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
-                cell.textLabel?.text = "Name"
+                cell.textLabel?.text = R.string.localizable.patchNameTitle()
                 cell.detailTextLabel?.text = self.viewModel?.name ?? ""
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                     
@@ -226,7 +228,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getButtonCell()
                 cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = "Delete"
+                cell.textLabel?.text = R.string.localizable.buttonDelete()
                 cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
                 return cell
             }
@@ -254,7 +256,9 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let patchViewModel = self.viewModel {
                     
-                    self.askQuestion(title: "Sure?", message: "Do you really want to delete patch '\(patchViewModel.name)'?", buttonTitle: "Delete"){ (action) in
+                    self.askQuestion(title: R.string.localizable.patchDeleteQuestionTitle(),
+                                     message: R.string.localizable.patchDeleteQuestionMessage(patchViewModel.name),
+                                     buttonTitle: R.string.localizable.buttonDelete()){ (action) in
                         self.interactor?.delete(patch: patchViewModel)
                     }
                 }

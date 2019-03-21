@@ -24,7 +24,7 @@ class PatchesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Beete"
+        self.title = R.string.localizable.patchesTitle()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -69,7 +69,8 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
             return patchCount
         }
         else {
-            self.tableView.setEmptyView(title: "No patches.", message: "Your patches will be in here.")
+            self.tableView.setEmptyView(title: R.string.localizable.patchInvalidTitle(),
+                                        message: R.string.localizable.patchInvalidMessage())
             return 0
         }
     }
@@ -81,7 +82,7 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "Beete"
+        return R.string.localizable.patchesTitle()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,7 +99,7 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
         if let patchViewModel = self.viewModel?.patches[indexPath.row] {
             cell.imageView?.image = R.image.field()
             cell.textLabel?.text = patchViewModel.name
-            cell.detailTextLabel?.text = "\(patchViewModel.itemNames.count) Items"
+            cell.detailTextLabel?.text = "\(patchViewModel.itemNames.count) \(R.string.localizable.patchesItems())"
         }
         
         cell.tintColor = App.Color.tableViewCellAccessoryColor

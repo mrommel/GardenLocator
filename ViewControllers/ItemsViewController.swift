@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Rswift
 
 class ItemsViewController: UIViewController {
     
@@ -23,7 +24,7 @@ class ItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Einträge"
+        self.title = R.string.localizable.itemsTitle()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -80,7 +81,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "Einträge"
+        return R.string.localizable.itemsTitle()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

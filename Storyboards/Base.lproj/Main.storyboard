@@ -191,10 +191,16 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="euE-69-jup" kind="show" identifier="d" id="Xoe-Vs-DzS"/>
+                        <segue destination="t7l-D5-fko" kind="show" identifier="c" id="YLV-oK-1k4"/>
+                        <segue destination="VBg-Bs-pm4" kind="show" identifier="b" id="Wns-gP-e1E"/>
+                        <segue destination="ArR-jj-8kI" kind="show" identifier="a" id="hON-kc-mNE"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xq7-06-6fa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-974" y="589"/>
+            <point key="canvasLocation" x="343" y="193"/>
         </scene>
         <!--Karte-->
         <scene sceneID="WdZ-vx-lx9">

@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import CoreData
+import Rswift
 
 class ItemViewController: UIViewController {
     
@@ -162,7 +163,8 @@ class ItemViewController: UIViewController {
         // is valid?
         if !(self.viewModel?.isValid() ?? false) {
             
-            self.showError(title: "Invalid", message: "Name must not be empty")
+            self.showError(title: R.string.localizable.itemInvalidTitle(),
+                           message: R.string.localizable.itemInvalidMessage())
             return
         }
         
@@ -250,14 +252,16 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Name", textFieldValue: self.viewModel?.name ?? "", placeHolder: "Enter some text!")
+                cell.configure(title: R.string.localizable.itemNameTitle(),
+                               textFieldValue: self.viewModel?.name ?? "",
+                               placeHolder: R.string.localizable.itemNamePlaceholder())
                 cell.textField.tag = 0
                 cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
-                cell.textLabel?.text = "Name"
+                cell.textLabel?.text = R.string.localizable.itemNameTitle()
                 cell.detailTextLabel?.text = self.viewModel?.name ?? ""
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
@@ -269,14 +273,16 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Latitude", textFieldValue: "\(self.viewModel?.latitude ?? self.latitudeTmp)", placeHolder: "Enter some latitude")
+                cell.configure(title: R.string.localizable.itemLatitudeTitle(),
+                               textFieldValue: "\(self.viewModel?.latitude ?? self.latitudeTmp)",
+                               placeHolder: R.string.localizable.itemLatitudePlaceholder())
                 cell.textField.tag = 1
                 cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
-                cell.textLabel?.text = "Latitude"
+                cell.textLabel?.text = R.string.localizable.itemLatitudeTitle()
                 cell.detailTextLabel?.text = "\(self.viewModel?.latitude ?? self.latitudeTmp)"
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
@@ -288,14 +294,16 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Longitude", textFieldValue: "\(self.viewModel?.longitude ?? self.longitudeTmp)", placeHolder: "Enter some longitude")
+                cell.configure(title: R.string.localizable.itemLongitudeTitle(),
+                               textFieldValue: "\(self.viewModel?.longitude ?? self.longitudeTmp)",
+                               placeHolder: R.string.localizable.itemLongitudePlaceholder())
                 cell.textField.tag = 2
                 cell.textField.delegate = self
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
-                cell.textLabel?.text = "Longitude"
+                cell.textLabel?.text = R.string.localizable.itemLongitudeTitle()
                 cell.detailTextLabel?.text = "\(self.viewModel?.longitude ?? self.longitudeTmp)"
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
@@ -308,7 +316,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getPatchCell()
                 
-                cell.textLabel?.text = "Patch"
+                cell.textLabel?.text = R.string.localizable.itemPatch()
                 if let viewModel = self.viewModel {
                     cell.detailTextLabel?.text = viewModel.patchName
                 } else {
@@ -321,7 +329,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 let cell = self.getPatchCell()
                 
-                cell.textLabel?.text = "Patch"
+                cell.textLabel?.text = R.string.localizable.itemPatch()
                 cell.detailTextLabel?.text = self.viewModel?.patchName
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .disclosureIndicator
@@ -334,7 +342,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getButtonCell()
                 cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = "Delete"
+                cell.textLabel?.text = R.string.localizable.buttonDelete()
                 cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
                 return cell
             } else {
@@ -360,9 +368,8 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                     selectedIndex = 0
                 }
                 
-                self.interactor?.showPatchName(title: "Patch", data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
-                    
-                    print("newSelection: \(newSelection)")
+                self.interactor?.showPatchName(title: R.string.localizable.itemPatch(), data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
+
                     self.viewModel?.patchName = newSelection
                     self.patchNameTmp = newSelection
                     self.tableView.reloadRows(at: [self.patchIndexPath], with: .automatic)
@@ -378,7 +385,9 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let itemViewModel = self.viewModel {
                     
-                    self.askQuestion(title: "Sure?", message: "Do you really want to delete item '\(itemViewModel.name)'?", buttonTitle: "Delete"){ (action) in
+                    self.askQuestion(title: R.string.localizable.itemDeleteQuestionTitle(),
+                                     message: R.string.localizable.itemDeleteQuestionMessage(itemViewModel.name),
+                                     buttonTitle: R.string.localizable.buttonDelete()){ (action) in
                         self.interactor?.delete(item: itemViewModel)
                     }
                 }

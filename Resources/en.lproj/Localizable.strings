@@ -1,0 +1,57 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Michael Rommel on 21.03.19.
+  
+*/
+
+/* General */
+"Button.Okay" = "Okay";
+"Button.Cancel" = "Cancel";
+"Button.Delete" = "Delete";
+
+/* ApplicationTabBarController */
+"TabBarButton.Map.Title" = "Map";
+"TabBarButton.Patches.Title" = "Patches";
+"TabBarButton.Items.Title" = "Items";
+"TabBarButton.Settings.Title" = "Settings";
+
+/* MapViewController */
+"Maps.Title" = "Map";
+
+/* ItemsViewController */
+"Items.Title" = "Items";
+"Items.NoItems.Title" = "No items";
+"Items.NoItems.Message" = "Your items will be in here. Simply add an item via the +.";
+
+/* ItemViewController */
+"Item.Invalid.Title" = "Invalid";
+"Item.Invalid.Message" = "Name and patch must not be empty";
+"Item.Delete.Question.Title" = "Are you Sure?";
+"Item.Delete.Question.Message" = "Do you really want to delete item '%@'?";
+"Item.Name.Title" = "Name";
+"Item.Name.Placeholder" = "Enter some text!";
+"Item.Longitude.Title" = "Longitude";
+"Item.Longitude.Placeholder" = "Enter some longitude!";
+"Item.Latitude.Title" = "Latitude";
+"Item.Latitude.Placeholder" = "Enter some latitude!";
+"Item.Patch" = "Patch";
+
+/* PatchesViewController */
+"Patches.Title" = "Patches";
+"Patches.NoPatches.Title" = "No patches.";
+"Patches.NoPatches.Message" = "Your patches will be in here. Simply add a patch via the +.";
+"Patches.Items" = "Items";
+
+/* PatchViewController */
+"Patch.Invalid.Title" = "Invalid";
+"Patch.Invalid.Message" = "Name must not be empty";
+"Patch.Name.Title" = "Name";
+"Patch.Name.Placeholder" = "Enter some text!";
+"Patch.Delete.Question.Title" = "Are you Sure?";
+"Patch.Delete.Question.Message" = "Do you really want to delete patch '%@'?";
+"Patch.Items" = "Items";
+
+/* SettingsViewController */
+"Settings.Title" = "Settings";

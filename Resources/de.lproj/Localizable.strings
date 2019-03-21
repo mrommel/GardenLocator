@@ -1,0 +1,57 @@
+/* 
+  Localizable.strings
+  
+
+  Created by Michael Rommel on 21.03.19.
+  
+*/
+
+/* General */
+"Button.Okay" = "Okay";
+"Button.Cancel" = "Abbrechen";
+"Button.Delete" = "Löschen";
+
+/* ApplicationTabBarController */
+"TabBarButton.Map.Title" = "Karte";
+"TabBarButton.Patches.Title" = "Beete";
+"TabBarButton.Items.Title" = "Einträge";
+"TabBarButton.Settings.Title" = "Einstellungen";
+
+/* MapViewController */
+"Maps.Title" = "Karte";
+
+/* ItemsViewController */
+"Items.Title" = "Einträge";
+"Items.NoItems.Title" = "Keine Einträge";
+"Items.NoItems.Message" = "Deine Einträge werden hier angezeigt. Einfach einen Eintrag über das + anlegen.";
+
+/* ItemViewController */
+"Item.Invalid.Title" = "Ungültig";
+"Item.Invalid.Message" = "Name und Beet müssen gesetzt sein.";
+"Item.Delete.Question.Title" = "Bist du sicher?";
+"Item.Delete.Question.Message" = "Willst du wirklich den Eintrag '%@' löschen?";
+"Item.Name.Title" = "Name";
+"Item.Name.Placeholder" = "Hier Text einfügen!";
+"Item.Longitude.Title" = "Längengrad";
+"Item.Longitude.Placeholder" = "Hier Längengrad einfügen!";
+"Item.Latitude.Title" = "Breitengrad";
+"Item.Latitude.Placeholder" = "Hier Breitengrad einfügen!";
+"Item.Patch" = "Beet";
+
+/* PatchesViewController */
+"Patches.Title" = "Beete";
+"Patches.NoPatches.Title" = "Keine Beete";
+"Patches.NoPatches.Message" = "Deine Beete werden hier angezeigt. Einfach ein Beet über das + anlegen.";
+"Patches.Items" = "Einträge";
+
+/* PatchViewController */
+"Patch.Invalid.Title" = "Ungültig";
+"Patch.Invalid.Message" = "Der Name muss gesetzt sein.";
+"Patch.Name.Title" = "Name";
+"Patch.Name.Placeholder" = "Hier Text einfügen!";
+"Patch.Delete.Question.Title" = "Bist du sicher?";
+"Patch.Delete.Question.Message" = "Willst du wirklich das Beet '%@' löschen?";
+"Patch.Items" = "Einträge";
+
+/* SettingsViewController */
+"Settings.Title" = "Einstellungen";

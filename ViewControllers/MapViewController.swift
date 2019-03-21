@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Rswift
 
 class MapViewController: UIViewController {
     
@@ -26,7 +27,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Karte"
+        self.title = R.string.localizable.mapsTitle()
         
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()

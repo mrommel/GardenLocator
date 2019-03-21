@@ -6,15 +6,14 @@
 //  Copyright © 2019 Michael Rommel. All rights reserved.
 //
 
-import Foundation
-
 import UIKit
+import Rswift
 
 class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Einstellungen"
+        self.title = R.string.localizable.tabBarButtonSettingsTitle()
     }
 }
