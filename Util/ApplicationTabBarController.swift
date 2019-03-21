@@ -86,6 +86,18 @@ class ApplicationTabBarController: UITabBarController {
         let settingsViewController = R.storyboard.main.settingsViewController()!
         let settingsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.settings(), selectedImage: R.image.settings())
         
+        let settingsInteractor = SettingsInteractor()
+        let settingsPresenter = SettingsPresenter()
+        
+        settingsViewController.interactor = settingsInteractor
+        settingsViewController.presenter = settingsPresenter
+        
+        settingsViewController.interactor?.presenterInput = settingsPresenter
+        settingsViewController.interactor?.router = router
+        
+        settingsViewController.presenter?.viewInput = settingsViewController
+        settingsViewController.presenter?.interator = settingsInteractor
+        
         settingsViewController.tabBarItem = settingsBarItem
         
         let controllers = [mapViewController, patchesViewController, itemsViewController, settingsViewController]

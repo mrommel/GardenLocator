@@ -36,6 +36,9 @@
 		C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160B22242D0DA007309BC /* MapPresenter.swift */; };
 		C90160B52242D25A007309BC /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160B42242D25A007309BC /* MapInteractor.swift */; };
 		C90160BF2243B757007309BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C90160BD2243B634007309BC /* Localizable.strings */; };
+		C90160C12243F108007309BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C02243F108007309BC /* SettingsViewModel.swift */; };
+		C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C22243F197007309BC /* SettingsPresenter.swift */; };
+		C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C42243F210007309BC /* SettingsInteractor.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -82,6 +85,9 @@
 		C90160B42242D25A007309BC /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		C90160BC2243B634007309BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C90160BE2243B683007309BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C90160C02243F108007309BC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		C90160C22243F197007309BC /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		C90160C42243F210007309BC /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 				C90160A222403989007309BC /* ItemViewModel.swift */,
 				C9016082223EE26F007309BC /* PatchesViewModel.swift */,
 				C9016080223EDEC0007309BC /* PatchViewModel.swift */,
+				C90160C02243F108007309BC /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -146,6 +153,7 @@
 				C9016094223FF6F1007309BC /* PatchPresenter.swift */,
 				C90160A622403A48007309BC /* ItemsPresenter.swift */,
 				C90160AA22403E0E007309BC /* ItemPresenter.swift */,
+				C90160C22243F197007309BC /* SettingsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -174,6 +182,7 @@
 				C9016096223FF7DA007309BC /* PatchInteractor.swift */,
 				C90160A022403880007309BC /* ItemsInteractor.swift */,
 				C90160AC22403E42007309BC /* ItemInteractor.swift */,
+				C90160C42243F210007309BC /* SettingsInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -445,6 +454,7 @@
 				C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */,
 				C901609F224037D3007309BC /* ItemDao.swift in Sources */,
 				C90160A322403989007309BC /* ItemViewModel.swift in Sources */,
+				C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */,
 				C901607A223ED556007309BC /* PatchDao.swift in Sources */,
 				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
 				C901608D223EF253007309BC /* Router.swift in Sources */,
@@ -455,6 +465,7 @@
 				C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */,
 				C9016095223FF6F1007309BC /* PatchPresenter.swift in Sources */,
 				C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */,
+				C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */,
 				C90160A722403A48007309BC /* ItemsPresenter.swift in Sources */,
 				C9016097223FF7DA007309BC /* PatchInteractor.swift in Sources */,
 				C90160AF22414EBF007309BC /* PatchSelectionViewController.swift in Sources */,
@@ -464,6 +475,7 @@
 				C91048BD223DA79000EE8FDB /* GardenLocator.xcdatamodeld in Sources */,
 				C90160B52242D25A007309BC /* MapInteractor.swift in Sources */,
 				C90160A522403A0C007309BC /* ItemsViewModel.swift in Sources */,
+				C90160C12243F108007309BC /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
