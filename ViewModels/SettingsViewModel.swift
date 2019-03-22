@@ -11,6 +11,13 @@ import Foundation
 struct SettingItem {
     
     let title: String
+    let selectionHandler: (()->Void)?
+    
+    func execute() {
+        if let selectionHandler = self.selectionHandler {
+            selectionHandler()
+        }
+    }
 }
 
 struct SettingSection {

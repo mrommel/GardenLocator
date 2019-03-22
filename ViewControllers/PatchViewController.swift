@@ -122,7 +122,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 && !self.editMode {
             return 100.0
         } else {
-            return 20.0
+            return 30.0
         }
     }
     
@@ -142,7 +142,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         
         if section == 1 {
             if !self.editMode {
-                let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
+                let headerView = UITableViewHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30.0))
                 headerView.textLabel?.text = R.string.localizable.patchItems()
                 return headerView
             }

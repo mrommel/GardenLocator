@@ -184,7 +184,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 280.0
         } else {
-            return 20.0
+            return 30.0
         }
     }
     

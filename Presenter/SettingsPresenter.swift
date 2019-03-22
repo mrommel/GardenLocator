@@ -6,12 +6,16 @@
 //  Copyright © 2019 Michael Rommel. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // View Controller must implement this
 protocol SettingsViewInputProtocol {
     
     func present(viewModel: SettingsViewModel?)
+    
+    func showError(title: String, message: String)
+    func askQuestion(title: String, message: String, buttonTitle: String, handler: ((UIAlertAction) -> Void)?)
+    func showToast(message: String)
 }
 
 class SettingsPresenter {

@@ -19,6 +19,7 @@ class ApplicationTabBarController: UITabBarController {
         super.viewDidLoad()
         
         self.tabBar.tintColor = App.Color.tabBarItemSelectedColor
+        self.tabBar.unselectedItemTintColor = App.Color.tabBarItemNormalColor
         
         self.delegate = self
     }
@@ -28,7 +29,7 @@ class ApplicationTabBarController: UITabBarController {
         
         // Create Tab one
         let mapViewController = R.storyboard.main.mapViewController()!
-        let mapBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonMapTitle(), image: R.image.map_white(), selectedImage: R.image.map())
+        let mapBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonMapTitle(), image: R.image.map_outline(), selectedImage: R.image.map())
         
         let mapInteractor = MapInteractor()
         let mapPresenter = MapPresenter()
@@ -46,7 +47,7 @@ class ApplicationTabBarController: UITabBarController {
         
         // Create Tab two
         let patchesViewController = R.storyboard.main.patchesViewController()!
-        let patchesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonPatchesTitle(), image: R.image.field(), selectedImage: R.image.field())
+        let patchesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonPatchesTitle(), image: R.image.field_outline(), selectedImage: R.image.field())
         
         let patchesInteractor = PatchesInteractor()
         let patchesPresenter = PatchesPresenter()
@@ -65,7 +66,7 @@ class ApplicationTabBarController: UITabBarController {
         
         // Create Tab three
         let itemsViewController = R.storyboard.main.itemsViewController()!
-        let itemsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonItemsTitle(), image: R.image.pin(), selectedImage: R.image.pin())
+        let itemsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonItemsTitle(), image: R.image.pin_outline(), selectedImage: R.image.pin())
         
         let itemsInteractor = ItemsInteractor()
         let itemsPresenter = ItemsPresenter()
@@ -84,7 +85,7 @@ class ApplicationTabBarController: UITabBarController {
         
         // Creare Tab four
         let settingsViewController = R.storyboard.main.settingsViewController()!
-        let settingsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.settings(), selectedImage: R.image.settings())
+        let settingsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.settings_outline(), selectedImage: R.image.settings())
         
         let settingsInteractor = SettingsInteractor()
         let settingsPresenter = SettingsPresenter()
@@ -93,6 +94,8 @@ class ApplicationTabBarController: UITabBarController {
         settingsViewController.presenter = settingsPresenter
         
         settingsViewController.interactor?.presenterInput = settingsPresenter
+        settingsViewController.interactor?.itemDao = itemDao
+        settingsViewController.interactor?.patchDao = patchDao
         settingsViewController.interactor?.router = router
         
         settingsViewController.presenter?.viewInput = settingsViewController

@@ -39,6 +39,7 @@
 		C90160C12243F108007309BC /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C02243F108007309BC /* SettingsViewModel.swift */; };
 		C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C22243F197007309BC /* SettingsPresenter.swift */; };
 		C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C42243F210007309BC /* SettingsInteractor.swift */; };
+		C90160C72244F2DD007309BC /* BaseDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C62244F2DD007309BC /* BaseDao.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -88,6 +89,7 @@
 		C90160C02243F108007309BC /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C90160C22243F197007309BC /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		C90160C42243F210007309BC /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		C90160C62244F2DD007309BC /* BaseDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDao.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		C901607C223ED58D007309BC /* Daos */ = {
 			isa = PBXGroup;
 			children = (
+				C90160C62244F2DD007309BC /* BaseDao.swift */,
 				C9016079223ED556007309BC /* PatchDao.swift */,
 				C901609E224037D3007309BC /* ItemDao.swift */,
 			);
@@ -463,6 +466,7 @@
 				C91048B7223DA72D00EE8FDB /* App.swift in Sources */,
 				C90160AD22403E42007309BC /* ItemInteractor.swift in Sources */,
 				C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */,
+				C90160C72244F2DD007309BC /* BaseDao.swift in Sources */,
 				C9016095223FF6F1007309BC /* PatchPresenter.swift in Sources */,
 				C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */,
 				C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */,

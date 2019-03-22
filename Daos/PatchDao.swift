@@ -16,15 +16,10 @@ protocol PatchDaoProtocol {
     func create(named name: String) -> Bool
     func save(patch: Patch?) -> Bool
     func delete(patch: Patch?) -> Bool
+    func deleteAll() -> Bool
 }
 
-class PatchDao {
-    
-    var context: NSManagedObjectContext? {
-        get {
-            return AppDelegate.shared?.persistentContainer.viewContext
-        }
-    }
+class PatchDao: BaseDao {
 }
 
 extension PatchDao: PatchDaoProtocol {
@@ -129,5 +124,14 @@ extension PatchDao: PatchDaoProtocol {
         } catch {
             return false
         }
+    }
+    
+    func deleteAll() -> Bool {
+        
+        if let entityName = Patch.entity().name {
+            return self.deleteAllData(of: entityName)
+        }
+        
+        return false
     }
 }

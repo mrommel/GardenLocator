@@ -16,15 +16,10 @@ protocol ItemDaoProtocol {
     func create(named name: String, latitude: Double, longitude: Double, patch: Patch) -> Bool
     func save(item: Item?) -> Bool
     func delete(item: Item?) -> Bool
+    func deleteAll() -> Bool
 }
 
-class ItemDao {
-    
-    var context: NSManagedObjectContext? {
-        get {
-            return AppDelegate.shared?.persistentContainer.viewContext
-        }
-    }
+class ItemDao: BaseDao {
 }
 
 extension ItemDao: ItemDaoProtocol {
@@ -132,5 +127,14 @@ extension ItemDao: ItemDaoProtocol {
         } catch {
             return false
         }
+    }
+    
+    func deleteAll() -> Bool {
+        
+        if let entityName = Item.entity().name {
+            return self.deleteAllData(of: entityName)
+        }
+        
+        return false
     }
 }

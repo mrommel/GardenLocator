@@ -65,7 +65,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 20.0
+        return 30.0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,9 +95,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        /*if let patchViewModel = self.viewModel?.patches[indexPath.row] {
-            self.interactor?.show(patch: patchViewModel)
-        }*/
+        if let setting = self.viewModel?.sections[indexPath.section].items[indexPath.row] {
+            setting.execute()
+        }
         
         self.tableView.deselectRow(at: indexPath, animated: true)
     }

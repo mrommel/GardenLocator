@@ -14,7 +14,7 @@ class App {
         static var navigationBarBackgroundColor: UIColor { return UIColor(red: 218, green: 99, blue: 93) } // #DA635D
         static var navigationBarTextColor: UIColor { return .white }
         
-        static var tabBarItemNormalColor: UIColor { return .darkGray }
+        static var tabBarItemNormalColor: UIColor { return UIColor(red: 218, green: 218, blue: 218) }
         static var tabBarItemSelectedColor: UIColor { return .white }
         
         static var viewBackgroundColor: UIColor { return .white }
