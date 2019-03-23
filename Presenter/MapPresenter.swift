@@ -28,12 +28,12 @@ extension MapPresenter: MapPresenterInputProtocol {
         self.interator?.fetchItems()
     }
     
-    func show(items: [ItemViewModel]) {
+    func show(items: [ItemViewModel], patches: [PatchViewModel]) {
         
         if items.count == 0 {
             self.viewInput?.presentNoItemsHint()
         } else {
-            self.viewInput?.present(viewModel: MapViewModel(items: items))
+            self.viewInput?.present(viewModel: MapViewModel(items: items, patches: patches))
         }
     }
 }

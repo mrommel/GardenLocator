@@ -38,7 +38,6 @@ extension PatchPresenter: PatchPresenterInputProtocol {
     func saveSuccess() {
         
         self.viewInput?.presentUserFeedback(message: "Successfully saved")
-        self.interator?.showPatches()
     }
     
     func saveFailure() {

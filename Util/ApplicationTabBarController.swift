@@ -39,6 +39,7 @@ class ApplicationTabBarController: UITabBarController {
         
         mapViewController.interactor?.presenterInput = mapPresenter
         mapViewController.interactor?.itemDao = itemDao
+        mapViewController.interactor?.patchDao = patchDao
         
         mapViewController.presenter?.viewInput = mapViewController
         mapViewController.presenter?.interator = mapInteractor

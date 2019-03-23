@@ -19,6 +19,7 @@ protocol PatchInteractorInputProtocol {
     func save(patch: PatchViewModel?)
     func delete(patch: PatchViewModel?)
     
+    func showPatchShapes(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
     func showPatches()
     func showItem(named itemName: String)
 }
@@ -35,9 +36,11 @@ extension PatchInteractor: PatchInteractorInputProtocol {
     
     func create(patch: PatchViewModel?) {
         
-        if let name = patch?.name {
+        if let name = patch?.name, let latitude = patch?.latitude, let longitude = patch?.longitude, let shape = patch?.shape {
         
-            if let saved = self.patchDao?.create(named: name) {
+            let type = shape.rawValue
+            
+            if let saved = self.patchDao?.create(named: name, latitude: latitude, longitude: longitude, type: type) {
                 if saved {
                     self.presenterInput?.saveSuccess()
                     return
@@ -54,6 +57,9 @@ extension PatchInteractor: PatchInteractorInputProtocol {
             let patchObject = self.patchDao?.get(by: identifier)
         
             patchObject?.name = patch?.name
+            patchObject?.latitude = patch?.latitude ?? 0.0
+            patchObject?.longitude = patch?.longitude ?? 0.0
+            patchObject?.type = patch?.shape.rawValue ?? 0
             
             if let saved = self.patchDao?.save(patch: patchObject) {
                 if saved {
@@ -79,6 +85,11 @@ extension PatchInteractor: PatchInteractorInputProtocol {
         }
         
         self.presenterInput?.deleteFailure()
+    }
+    
+    func showPatchShapes(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
+        
+        self.router?.showShapeSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
     }
     
     func showPatches() {

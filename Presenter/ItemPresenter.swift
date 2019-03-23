@@ -48,7 +48,6 @@ extension ItemPresenter: ItemPresenterInputProtocol {
         
         self.viewInput?.updateViewModel(identifier: identifier)
         self.viewInput?.presentUserFeedback(message: "Successfully saved")
-        self.interator?.showItems()
         
         self.viewInput?.toggleDetail()
     }

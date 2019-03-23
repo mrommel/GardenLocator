@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Rswift
 
 extension UIViewController {
 
@@ -14,7 +15,7 @@ extension UIViewController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Okay", style: .default)
+        let okAction = UIAlertAction(title: R.string.localizable.buttonOkay(), style: .default)
         alertController.addAction(okAction)
         
         alertController.view.tintColor = App.Color.alertControllerTintColor
@@ -27,7 +28,7 @@ extension UIViewController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: R.string.localizable.buttonCancel(), style: .cancel)
         alertController.addAction(cancelAction)
         
         let buttonAction = UIAlertAction(title: buttonTitle, style: .default, handler: handler)

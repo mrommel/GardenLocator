@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
     var viewModel: MapViewModel?
     
     // marker
-    var markers: [GMSMarker] = []
+    var markers: [GMSOverlay] = []
     
     private let locationManager = CLLocationManager()
     
@@ -56,6 +56,38 @@ class MapViewController: UIViewController {
                 self.markers.append(itemMarker)
             }
         }
+        
+        if let patches = self.viewModel?.patches {
+            for patch in patches {
+                if let patchMarker = patch.polygon() {
+                    patchMarker.map = self.mapView
+                    self.markers.append(patchMarker)
+                }
+                
+                let coordinate = CLLocationCoordinate2D(latitude: patch.latitude, longitude: patch.longitude)
+                let patchTextMarker = GMSMarker(position: coordinate)
+                patchTextMarker.icon = self.imageWith(name: patch.name)
+                patchTextMarker.map = self.mapView
+                self.markers.append(patchTextMarker)
+            }
+        }
+    }
+    
+    func imageWith(name: String?) -> UIImage? {
+        let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        let nameLabel = UILabel(frame: frame)
+        nameLabel.textAlignment = .center
+        nameLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
+        nameLabel.textColor = .white
+        nameLabel.font = App.Font.alertTextFont
+        nameLabel.text = name
+        UIGraphicsBeginImageContext(frame.size)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            nameLabel.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+        return nil
     }
 }
 

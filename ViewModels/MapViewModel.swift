@@ -11,8 +11,10 @@ import Foundation
 class MapViewModel {
     
     let items: [ItemViewModel]
+    let patches: [PatchViewModel]
     
-    init(items: [ItemViewModel]) {
+    init(items: [ItemViewModel], patches: [PatchViewModel]) {
         self.items = items
+        self.patches = patches
     }
 }

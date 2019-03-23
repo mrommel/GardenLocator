@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Rswift
 
 protocol SettingsPresenterInputProtocol {
     
@@ -46,27 +47,29 @@ extension SettingsInteractor: SettingsInteractorInputProtocol {
     
     func fetchSettings() {
 
-        let item0_1 = SettingItem(title: "App version", selectionHandler: {
+        let item0_1 = SettingItem(title: R.string.localizable.settingsAppVersion(), selectionHandler: {
             
-            self.presenterInput?.viewInput?.showError(title: "App Version", message: self.version())
+            self.presenterInput?.viewInput?.showError(title: R.string.localizable.settingsAppVersion(), message: self.version())
         })
-        let section0 = SettingSection(title: "App", items: [item0_1])
+        let section0 = SettingSection(title: R.string.localizable.settingsSectionApp(), items: [item0_1])
         
-        let item1_0 = SettingItem(title: "Daten zurücksetzen", selectionHandler: {
+        let item1_0 = SettingItem(title: R.string.localizable.settingsResetData(), selectionHandler: {
             
-            self.presenterInput?.viewInput?.askQuestion(title: "Sure?", message: "Do you really want reset all your data?", buttonTitle: "Delete", handler: { arg in
+            self.presenterInput?.viewInput?.askQuestion(title: R.string.localizable.settingsDeleteDataQuestionTitle(),
+                                                        message: R.string.localizable.settingsDeleteDataQuestionQuestion(),
+                                                        buttonTitle: R.string.localizable.buttonDelete(), handler: { arg in
                 
                 let itemsDeleted = self.itemDao?.deleteAll() ?? false
                 let patchesDeleted = self.patchDao?.deleteAll() ?? false
                 
                 if itemsDeleted && patchesDeleted {
-                    self.presenterInput?.viewInput?.showToast(message: "All deleted")
+                    self.presenterInput?.viewInput?.showToast(message: R.string.localizable.settingsDeleteDataSuccess())
                 } else {
-                    self.presenterInput?.viewInput?.showToast(message: "Deleting failed")
+                    self.presenterInput?.viewInput?.showToast(message: R.string.localizable.settingsDeleteDataFailure())
                 }
             })
         })
-        let section1 = SettingSection(title: "Daten", items: [item1_0])
+        let section1 = SettingSection(title: R.string.localizable.settingsSectionData(), items: [item1_0])
         
         self.presenterInput?.show(sections: [section0, section1])
     }

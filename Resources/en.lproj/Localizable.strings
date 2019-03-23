@@ -55,3 +55,11 @@
 
 /* SettingsViewController */
 "Settings.Title" = "Settings";
+"Settings.Section.App" = "App";
+"Settings.AppVersion" = "App version";
+"Settings.Section.Data" = "Data";
+"Settings.ResetData" = "Reset data";
+"Settings.DeleteData.Question.Title" = "Sure?";
+"Settings.DeleteData.Question.Question" = "Do you really want reset all your data?";
+"Settings.DeleteData.Success" = "All deleted";
+"Settings.DeleteData.Failure" = "Deleting failed";

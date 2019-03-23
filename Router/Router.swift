@@ -78,6 +78,19 @@ class Router {
         }
     }
     
+    func showShapeSelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
+        
+        if let topController = UIApplication.topViewController() {
+            let viewController = PatchSelectionViewController(
+                title: title,
+                data: data,
+                selectedIndex: selectedIndex,
+                onSelect: onSelect)
+            
+            topController.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
     func popViewController() {
         
         if let topController = UIApplication.topViewController() {

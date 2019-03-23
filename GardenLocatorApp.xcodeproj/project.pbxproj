@@ -40,6 +40,8 @@
 		C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C22243F197007309BC /* SettingsPresenter.swift */; };
 		C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C42243F210007309BC /* SettingsInteractor.swift */; };
 		C90160C72244F2DD007309BC /* BaseDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C62244F2DD007309BC /* BaseDao.swift */; };
+		C90160CA2246B9E8007309BC /* PatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C92246B9E8007309BC /* PatchExtension.swift */; };
+		C90160CC2246CE98007309BC /* GMSPolygonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -90,6 +92,8 @@
 		C90160C22243F197007309BC /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		C90160C42243F210007309BC /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		C90160C62244F2DD007309BC /* BaseDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDao.swift; sourceTree = "<group>"; };
+		C90160C92246B9E8007309BC /* PatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchExtension.swift; sourceTree = "<group>"; };
+		C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSPolygonExtension.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -190,9 +194,18 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		C90160C82246B9D5007309BC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C90160C92246B9E8007309BC /* PatchExtension.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		C910485D223D66B300EE8FDB = {
 			isa = PBXGroup;
 			children = (
+				C90160C82246B9D5007309BC /* Data */,
 				C901608E223EF61B007309BC /* Views */,
 				C901608B223EF234007309BC /* Router */,
 				C901607C223ED58D007309BC /* Daos */,
@@ -248,6 +261,7 @@
 				C9016077223ED038007309BC /* ApplicationTabBarController.swift */,
 				C901609A224027F5007309BC /* TableViewExtension.swift */,
 				C901609C22402E11007309BC /* ViewControllerExtension.swift */,
+				C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -453,11 +467,13 @@
 				C9016078223ED038007309BC /* ApplicationTabBarController.swift in Sources */,
 				C901607F223EDA14007309BC /* PatchesPresenter.swift in Sources */,
 				C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */,
+				C90160CA2246B9E8007309BC /* PatchExtension.swift in Sources */,
 				C90160A122403880007309BC /* ItemsInteractor.swift in Sources */,
 				C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */,
 				C901609F224037D3007309BC /* ItemDao.swift in Sources */,
 				C90160A322403989007309BC /* ItemViewModel.swift in Sources */,
 				C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */,
+				C90160CC2246CE98007309BC /* GMSPolygonExtension.swift in Sources */,
 				C901607A223ED556007309BC /* PatchDao.swift in Sources */,
 				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
 				C901608D223EF253007309BC /* Router.swift in Sources */,
