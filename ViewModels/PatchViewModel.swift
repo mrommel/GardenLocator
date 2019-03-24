@@ -11,7 +11,7 @@ import GoogleMaps
 
 class PatchViewModel {
 
-    let identifier: NSManagedObjectID?
+    var identifier: NSManagedObjectID?
     var name: String
     var latitude: Double
     var longitude: Double

@@ -42,13 +42,16 @@ extension PatchInteractor: PatchInteractorInputProtocol {
             
             if let saved = self.patchDao?.create(named: name, latitude: latitude, longitude: longitude, type: type) {
                 if saved {
-                    self.presenterInput?.saveSuccess()
+                    // put identifier into model
+                    if let storedItem = self.itemDao?.get(by: name) {
+                        self.presenterInput?.saveSuccess(identifier: storedItem.objectID)
+                    }
                     return
                 }
             }
         }
         
-       self.presenterInput?.saveFailure()
+        self.presenterInput?.saveFailure(failure: .generic)
     }
     
     func save(patch: PatchViewModel?) {
@@ -63,13 +66,13 @@ extension PatchInteractor: PatchInteractorInputProtocol {
             
             if let saved = self.patchDao?.save(patch: patchObject) {
                 if saved {
-                    self.presenterInput?.saveSuccess()
+                    self.presenterInput?.saveSuccess(identifier: identifier)
                     return
                 }
             }
         }
     
-        self.presenterInput?.saveFailure()
+        self.presenterInput?.saveFailure(failure: .generic)
     }
     
     func delete(patch: PatchViewModel?) {
@@ -84,7 +87,7 @@ extension PatchInteractor: PatchInteractorInputProtocol {
             }
         }
         
-        self.presenterInput?.deleteFailure()
+        self.presenterInput?.deleteFailure(failure: .generic)
     }
     
     func showPatchShapes(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {

@@ -9,6 +9,7 @@
 import UIKit
 import Rswift
 import GoogleMaps
+import CoreData
 
 class PatchViewController: UIViewController {
     
@@ -140,19 +141,21 @@ class PatchViewController: UIViewController {
         let name = cell.textFieldValue()
         let latitude = Double(self.latitudeTmp)
         let longitude = Double(self.longitudeTmp)
+        let shapeValue = self.shapeTmp
 
         if self.viewModel == nil {
             // create new patch
             self.viewModel = PatchViewModel(name: name,
                                             latitude: latitude,
                                             longitude: longitude,
-                                            shape: .circle) // TODO
+                                            shape: shapeValue)
             isNewPatch = true
         } else {
             // update current patch
             self.viewModel?.name = name
             self.viewModel?.latitude = latitude
             self.viewModel?.longitude = longitude
+            self.viewModel?.shape = shapeValue
             isNewPatch = false
         }
         
@@ -495,6 +498,11 @@ extension PatchViewController: CLLocationManagerDelegate {
 }
 
 extension PatchViewController: PatchViewInputProtocol {
+    
+    func updateViewModel(identifier: NSManagedObjectID?) {
+        
+        self.viewModel?.identifier = identifier
+    }
     
     func presentUserFeedback(message: String) {
         
