@@ -52,6 +52,10 @@
 "Patch.Delete.Question.Title" = "Are you Sure?";
 "Patch.Delete.Question.Message" = "Do you really want to delete patch '%@'?";
 "Patch.Items" = "Items";
+"Patch.Shape.Circle" = "Circle";
+"Patch.Shape.Square" = "Square";
+"Patch.Shape.RectPortrait" = "Portrait";
+"Patch.Shape.RectLandscape" = "Landscape";
 
 /* SettingsViewController */
 "Settings.Title" = "Settings";

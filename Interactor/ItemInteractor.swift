@@ -52,9 +52,10 @@ extension ItemInteractor: ItemInteractorInputProtocol {
         
         if let name = item?.name,
             let latitude = item?.latitude,
-            let longitude = item?.longitude {
+            let longitude = item?.longitude,
+            let notice = item?.notice {
             
-            if let saved = self.itemDao?.create(named: name, latitude: latitude, longitude: longitude, patch: patch) {
+            if let saved = self.itemDao?.create(named: name, latitude: latitude, longitude: longitude, patch: patch, notice: notice) {
                 if saved {
                     
                     // put identifier into model
@@ -86,6 +87,7 @@ extension ItemInteractor: ItemInteractorInputProtocol {
             itemObject?.latitude = item?.latitude ?? 0.0
             itemObject?.longitude = item?.longitude ?? 0.0
             itemObject?.patch = patch
+            itemObject?.notice = item?.notice
             
             if let saved = self.itemDao?.save(item: itemObject) {
                 if saved {

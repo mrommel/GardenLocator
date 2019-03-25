@@ -36,11 +36,12 @@ extension PatchInteractor: PatchInteractorInputProtocol {
     
     func create(patch: PatchViewModel?) {
         
-        if let name = patch?.name, let latitude = patch?.latitude, let longitude = patch?.longitude, let shape = patch?.shape {
+        if let name = patch?.name, let latitude = patch?.latitude, let longitude = patch?.longitude, let shape = patch?.shape, let color = patch?.color {
         
             let type = shape.rawValue
+            let colorValue = color.rawValue
             
-            if let saved = self.patchDao?.create(named: name, latitude: latitude, longitude: longitude, type: type) {
+            if let saved = self.patchDao?.create(named: name, latitude: latitude, longitude: longitude, type: type, color: colorValue) {
                 if saved {
                     // put identifier into model
                     if let storedItem = self.itemDao?.get(by: name) {
@@ -63,6 +64,7 @@ extension PatchInteractor: PatchInteractorInputProtocol {
             patchObject?.latitude = patch?.latitude ?? 0.0
             patchObject?.longitude = patch?.longitude ?? 0.0
             patchObject?.type = patch?.shape.rawValue ?? 0
+            patchObject?.colorValue = patch?.color.rawValue ?? 0
             
             if let saved = self.patchDao?.save(patch: patchObject) {
                 if saved {

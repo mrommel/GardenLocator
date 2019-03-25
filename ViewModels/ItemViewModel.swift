@@ -15,13 +15,15 @@ class ItemViewModel {
     var latitude: Double
     var longitude: Double
     var patchName: String
+    var notice: String
     
-    init(latitude: Double, longitude: Double, name: String, patchName: String) {
+    init(latitude: Double, longitude: Double, name: String, patchName: String, notice: String) {
         self.identifier = nil
         self.latitude = latitude
         self.longitude = longitude
         self.name = name
         self.patchName = patchName
+        self.notice = notice
     }
     
     init(item: Item) {
@@ -29,6 +31,7 @@ class ItemViewModel {
         self.latitude = item.latitude
         self.longitude = item.longitude
         self.name = item.name ?? "---"
+        self.notice = item.notice ?? "---"
         
         if let itemPatch = item.patch {
             self.patchName = itemPatch.name ?? "---"

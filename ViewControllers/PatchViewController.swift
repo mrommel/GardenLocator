@@ -33,17 +33,20 @@ class PatchViewController: UIViewController {
     var shapeTmp: PatchShape = .circle
     var longitudeTmp: Double = 0.0
     var latitudeTmp: Double = 0.0
+    var colorTmp: PatchColor = .maroon
     
     let reuseButtonIdentifier: String = "reuseButtonIdentifier"
     let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
     let reuseItemLabelIdentifier: String = "reuseItemLabelIdentifier"
     let reuseShapeSelectionIdentifier: String = "reuseShapeSelectionIdentifier"
+    let reuseColorSelectionIdentifier: String = "reuseColorSelectionIdentifier"
     
     let nameIndexPath = IndexPath(row: 0, section: 0)
     let latitudeIndexPath = IndexPath(row: 1, section: 0)
     let longitudeIndexPath = IndexPath(row: 2, section: 0)
     let shapeIndexPath = IndexPath(row: 3, section: 0)
+    let colorIndexPath = IndexPath(row: 4, section: 0)
     
     let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
     
@@ -142,13 +145,15 @@ class PatchViewController: UIViewController {
         let latitude = Double(self.latitudeTmp)
         let longitude = Double(self.longitudeTmp)
         let shapeValue = self.shapeTmp
+        let colorValue = self.colorTmp
 
         if self.viewModel == nil {
             // create new patch
             self.viewModel = PatchViewModel(name: name,
                                             latitude: latitude,
                                             longitude: longitude,
-                                            shape: shapeValue)
+                                            shape: shapeValue,
+                                            color: colorValue)
             isNewPatch = true
         } else {
             // update current patch
@@ -215,7 +220,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return 4 // name, lat, lon, shape
+            return 5 // name, lat, lon, shape, color
         }
         
         if section == 1 {
@@ -254,6 +259,15 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell(style: .value1, reuseIdentifier: self.reuseShapeSelectionIdentifier)
+    }
+    
+    func getColorCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseColorSelectionIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseColorSelectionIdentifier)
     }
     
     func getButtonCell() -> UITableViewCell {
@@ -331,7 +345,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getShapeCell()
                 
-                cell.textLabel?.text = "Shape"
+                cell.textLabel?.text = "Shape" // TODO
                 if let viewModel = self.viewModel {
                     cell.detailTextLabel?.text = viewModel.shape.title
                 } else {
@@ -344,8 +358,35 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 let cell = self.getShapeCell()
                 
-                cell.textLabel?.text = "Shape"
+                cell.textLabel?.text = "Shape" // TODO
                 cell.detailTextLabel?.text = self.viewModel?.shape.title
+                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
+                cell.accessoryType = .none
+                
+                return cell
+            }
+        }
+        
+        if indexPath == self.colorIndexPath {
+            
+            if self.editMode {
+                let cell = self.getColorCell()
+                
+                cell.textLabel?.text = "Color" // TODO
+                if let viewModel = self.viewModel {
+                    cell.detailTextLabel?.text = viewModel.color.title
+                } else {
+                    cell.detailTextLabel?.text = self.colorTmp.title
+                }
+                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
+                cell.accessoryType = .none
+                
+                return cell
+            } else {
+                let cell = self.getColorCell()
+                
+                cell.textLabel?.text = "Color" // TODO
+                cell.detailTextLabel?.text = self.viewModel?.color.title
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .none
                 
@@ -409,6 +450,35 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
+        if indexPath == self.colorIndexPath {
+            
+            if self.editMode {
+                
+                let data = PatchColor.allCases.map { $0.title }
+                
+                var selectedIndex: Int = data.firstIndex(of: self.viewModel?.color.title ?? "--") ?? -1
+                if selectedIndex == -1 {
+                    selectedIndex = 0
+                }
+                
+                self.interactor?.showPatchShapes(title: "Color", data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
+                    
+                    if let newColor = PatchColor.allCases.first(where: { $0.title == newSelection }) {
+                        
+                        self.viewModel?.color = newColor
+                        self.colorTmp = newColor
+                        
+                        // reset old marker
+                        self.shape?.map = nil
+                        
+                        self.shape = self.viewModel?.polygon()
+                        self.shape?.map = self.mapView
+                    }
+                    self.tableView.reloadRows(at: [self.shapeIndexPath], with: .automatic)
+                })
+            }
+        }
+        
         if indexPath == self.deleteButtonIndexPath {
         
             if self.editMode {
@@ -442,13 +512,11 @@ extension PatchViewController: GMSMapViewDelegate {
             return
         }
         
-        // TODO
         if let circle = self.shape as? GMSCircle {
             circle.position = position.target
         } else if let polygon = self.shape as? GMSPolygon {
             polygon.center(at: position.target)
         }
-        // self.itemMarker?.position = position.target
         
         self.viewModel?.latitude = position.target.latitude
         self.viewModel?.longitude = position.target.longitude
@@ -475,25 +543,6 @@ extension PatchViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if !self.editMode {
-            return
-        }
-        
-        guard let location = locations.first else {
-            return
-        }
-        
-        self.locationManager.stopUpdatingLocation()
-        
-        // self.itemMarker?.position = location.coordinate // TODO
-        
-        self.viewModel?.latitude = location.coordinate.latitude
-        self.viewModel?.longitude = location.coordinate.longitude
-        
-        self.latitudeTmp = location.coordinate.latitude
-        self.longitudeTmp = location.coordinate.longitude
-        
-        self.tableView.reloadRows(at: [self.latitudeIndexPath, self.longitudeIndexPath], with: .automatic)
     }
 }
 

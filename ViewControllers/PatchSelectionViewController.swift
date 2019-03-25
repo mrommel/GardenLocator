@@ -40,7 +40,7 @@ class PatchSelectionViewController: UITableViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
             return cell
         } else {
-            return UITableViewCell(style: .subtitle, reuseIdentifier: reuseIdentifier)
+            return UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
         }
     }
     
@@ -48,7 +48,6 @@ class PatchSelectionViewController: UITableViewController {
         
         if let option = self.data?[indexPath.row] {
             cell.textLabel?.text = option
-            cell.detailTextLabel?.text = option.description
         }
         
         cell.tintColor = App.Color.tableViewCellAccessoryColor

@@ -13,7 +13,7 @@ protocol PatchDaoProtocol {
     func fetch() -> [Patch]?
     func get(by objectId: NSManagedObjectID) -> Patch?
     func get(by name: String) -> Patch?
-    func create(named name: String, latitude: Double, longitude: Double, type: Int64) -> Bool
+    func create(named name: String, latitude: Double, longitude: Double, type: Int64, color: Int64) -> Bool
     func save(patch: Patch?) -> Bool
     func delete(patch: Patch?) -> Bool
     func deleteAll() -> Bool
@@ -71,7 +71,7 @@ extension PatchDao: PatchDaoProtocol {
         }
     }
     
-    func create(named name: String, latitude: Double, longitude: Double, type: Int64) -> Bool {
+    func create(named name: String, latitude: Double, longitude: Double, type: Int64, color: Int64) -> Bool {
         
         guard let context = self.context else {
             fatalError("Can't get context for creating patch")
@@ -82,6 +82,7 @@ extension PatchDao: PatchDaoProtocol {
         newPatch.latitude = latitude
         newPatch.longitude = longitude
         newPatch.type = type
+        newPatch.colorValue = color
         
         do {
             try context.save()

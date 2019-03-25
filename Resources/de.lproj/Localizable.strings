@@ -52,6 +52,10 @@
 "Patch.Delete.Question.Title" = "Bist du sicher?";
 "Patch.Delete.Question.Message" = "Willst du wirklich das Beet '%@' löschen?";
 "Patch.Items" = "Einträge";
+"Patch.Shape.Circle" = "Kreis";
+"Patch.Shape.Square" = "Quadrat";
+"Patch.Shape.RectPortrait" = "Portrait";
+"Patch.Shape.RectLandscape" = "Landscape";
 
 /* SettingsViewController */
 "Settings.Title" = "Einstellungen";

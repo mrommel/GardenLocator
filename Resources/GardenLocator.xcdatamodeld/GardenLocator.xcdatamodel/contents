@@ -8,6 +8,7 @@
         <relationship name="patch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Patch" inverseName="items" inverseEntity="Patch" syncable="YES"/>
     </entity>
     <entity name="Patch" representedClassName="Patch" syncable="YES" codeGenerationType="class">
+        <attribute name="colorValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,6 +17,6 @@
     </entity>
     <elements>
         <element name="Item" positionX="-54" positionY="0" width="128" height="120"/>
-        <element name="Patch" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Patch" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>
