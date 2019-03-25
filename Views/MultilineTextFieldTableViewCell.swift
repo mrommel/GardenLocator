@@ -8,17 +8,10 @@
 
 import UIKit
 
-protocol ExpandingCellDelegate {
-    func updateCellHeight(indexPath: NSIndexPath, comment: String)
-}
-
 class MultilineTextFieldTableViewCell: UITableViewCell {
 
     /// A UITextField
     open var textView = UITextView()
-    
-    var delegate: ExpandingCellDelegate?
-    var cellIndexPath: NSIndexPath!
     
     var placeholderText = "Placeholder"
     var isEditMode = false
@@ -47,14 +40,18 @@ class MultilineTextFieldTableViewCell: UITableViewCell {
         self.contentView.viewWithTag(magicNumber)?.removeFromSuperview()
         self.textView.tag = magicNumber
         self.textView.translatesAutoresizingMaskIntoConstraints = false
+        self.textView.contentMode = .scaleToFill
+        self.textView.font = App.Font.textViewFont
+        self.textView.isScrollEnabled = false
+        self.textView.textAlignment = .left
+        self.textView.delegate = self
         self.contentView.addSubview(self.textView)
+        
         self.addConstraint(NSLayoutConstraint(item: self.textView, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leading, multiplier: 1, constant: 8))
         self.addConstraint(NSLayoutConstraint(item: self.textView, attribute: .top, relatedBy: .equal, toItem: self.contentView, attribute: .top, multiplier: 1, constant: 8))
         self.addConstraint(NSLayoutConstraint(item: self.textView, attribute: .bottom, relatedBy: .equal, toItem: self.contentView, attribute: .bottom, multiplier: 1, constant: -8))
         self.addConstraint(NSLayoutConstraint(item: self.textView, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailing, multiplier: 1, constant: -16))
-        self.textView.textAlignment = .left
-        self.textView.delegate = self
-
+        
         self.updateState()
     }
 
@@ -103,9 +100,5 @@ extension MultilineTextFieldTableViewCell: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         self.isEditMode = false
         self.updateState()
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        self.delegate?.updateCellHeight(indexPath: self.cellIndexPath, comment: textView.text)
     }
 }

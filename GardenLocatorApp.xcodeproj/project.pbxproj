@@ -43,6 +43,7 @@
 		C90160CA2246B9E8007309BC /* PatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160C92246B9E8007309BC /* PatchExtension.swift */; };
 		C90160CC2246CE98007309BC /* GMSPolygonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */; };
 		C90160CE22493725007309BC /* MultilineTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160CD22493724007309BC /* MultilineTextFieldTableViewCell.swift */; };
+		C90160D022496967007309BC /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90160CF22496967007309BC /* StringExtension.swift */; };
 		C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B4223DA72D00EE8FDB /* AppDelegate.swift */; };
 		C91048B7223DA72D00EE8FDB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048B5223DA72D00EE8FDB /* App.swift */; };
 		C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91048AA223DA6FC00EE8FDB /* ColorExtension.swift */; };
@@ -96,6 +97,7 @@
 		C90160C92246B9E8007309BC /* PatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchExtension.swift; sourceTree = "<group>"; };
 		C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GMSPolygonExtension.swift; sourceTree = "<group>"; };
 		C90160CD22493724007309BC /* MultilineTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		C90160CF22496967007309BC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C9104866223D66B400EE8FDB /* GardenLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GardenLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91048A0223DA6DA00EE8FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C91048A2223DA6DA00EE8FDB /* GardenLocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GardenLocator.xcdatamodel; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				C901609A224027F5007309BC /* TableViewExtension.swift */,
 				C901609C22402E11007309BC /* ViewControllerExtension.swift */,
 				C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */,
+				C90160CF22496967007309BC /* StringExtension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				C9016078223ED038007309BC /* ApplicationTabBarController.swift in Sources */,
 				C901607F223EDA14007309BC /* PatchesPresenter.swift in Sources */,
 				C91048B6223DA72D00EE8FDB /* AppDelegate.swift in Sources */,
+				C90160D022496967007309BC /* StringExtension.swift in Sources */,
 				C90160CA2246B9E8007309BC /* PatchExtension.swift in Sources */,
 				C90160A122403880007309BC /* ItemsInteractor.swift in Sources */,
 				C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */,

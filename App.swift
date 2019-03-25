@@ -35,6 +35,8 @@ class App {
         static var alertTitleFont: UIFont { return UIFont(name: "Avenir-Roman", size: 20.0)! }
         static var alertSubtitleFont: UIFont { return UIFont(name: "Avenir-Roman", size: 14.0)! }
         static var alertTextFont: UIFont { return UIFont(name: "Avenir-Roman", size: 12.0)! }
+        
+        static var textViewFont: UIFont { return UIFont(name: "Avenir-Roman", size: 16.0)! }
     }
     
     func setup() {

@@ -17,7 +17,6 @@ class ItemViewController: UIViewController {
     var mapView: GMSMapView?
     @IBOutlet weak var tableView: UITableView!
     var backButton: UIBarButtonItem?
-    var activeTextField: UITextField!
 
     // Misc
     var editMode: Bool = false
@@ -58,13 +57,13 @@ class ItemViewController: UIViewController {
         if self.viewModel == nil {
             self.editMode = true
         }
-
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
 
         self.tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: reuseNameTextfieldIdentifier)
-        self.tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: reuseNoticeTextfieldIdentifier)
+        self.tableView.register(MultilineTextFieldTableViewCell.self, forCellReuseIdentifier: reuseNoticeTextfieldIdentifier)
 
         if let model = self.viewModel {
             self.camera = GMSCameraPosition.camera(withLatitude: model.latitude, longitude: model.longitude, zoom: 20)
@@ -147,7 +146,7 @@ class ItemViewController: UIViewController {
             return
         }
 
-        guard let noticeCell = self.tableView.cellForRow(at: self.noticeIndexPath) as? TextInputTableViewCell else {
+        guard let noticeCell = self.tableView.cellForRow(at: self.noticeIndexPath) as? MultilineTextFieldTableViewCell else {
             return
         }
 
@@ -194,29 +193,12 @@ class ItemViewController: UIViewController {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         
-        var userInfo = notification.userInfo!
-        
-        if let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            let myheight = tableView.frame.height // Get my height size
-            let keyboardEndPoint = myheight - keyboardFrame.height // Get the top Y point where the keyboard will finish on the view
-            
-            // Get the the bottom Y point of the textInput and transform it to the currentView coordinates.
-            if let pointInTable = self.activeTextField.superview?.convert(self.activeTextField.frame.origin, to: tableView) {
-                let textFieldBottomPoint = pointInTable.y + self.activeTextField.frame.size.height + 20
-                
-                if keyboardEndPoint <= textFieldBottomPoint { // Finally check if the keyboard will cover the textInput
-                    self.tableView.contentOffset.y = textFieldBottomPoint - keyboardEndPoint
-                    self.mapView?.isHidden = true
-                } else {
-                    self.tableView.contentOffset.y = 0
-                    self.mapView?.isHidden = false
-                }
-            }
-        }
+        self.tableView.contentOffset.y = 200
+        self.mapView?.isHidden = true
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
+        
         self.tableView.contentOffset.y = 0
         self.mapView?.isHidden = false
     }
@@ -298,6 +280,21 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         return UITableViewCell(style: .default, reuseIdentifier: self.reuseButtonIdentifier)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath == noticeIndexPath {
+            if self.editMode {
+                let height = self.viewModel?.notice.heightWithConstrained(width: self.view.bounds.width - 30, font: App.Font.textViewFont) ?? 50
+                return max(height + 24, 50)
+            } else {
+                let height = self.viewModel?.notice.heightWithConstrained(width: self.view.bounds.width - 100, font: App.Font.textViewFont) ?? 50
+                return max(height + 24, 50)
+            }
+        }
+        
+        return 50
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -395,17 +392,17 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath == self.noticeIndexPath {
 
             if self.editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNoticeTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: "Notice",
-                    textFieldValue: self.viewModel?.notice ?? "",
+                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNoticeTextfieldIdentifier) as! MultilineTextFieldTableViewCell
+                cell.configure(textFieldValue: self.viewModel?.notice ?? "",
                     placeHolder: "Please add Notices")
-                cell.textField.tag = 4
-                cell.textField.delegate = self
+                cell.textView.isScrollEnabled = false
+                
                 return cell
             } else {
                 let cell = self.getNoticeCell()
 
                 cell.textLabel?.text = "Notice"
+                cell.detailTextLabel?.numberOfLines = 0
                 cell.detailTextLabel?.text = self.viewModel?.notice ?? ""
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
 
@@ -533,11 +530,6 @@ extension ItemViewController: CLLocationManagerDelegate {
 }
 
 extension ItemViewController: UITextFieldDelegate {
-
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.activeTextField = textField
-        return true
-    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
