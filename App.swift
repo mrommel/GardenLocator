@@ -32,11 +32,11 @@ class App {
     }
     
     struct Font {
-        static var alertTitleFont: UIFont { return UIFont(name: "Avenir-Roman", size: 20.0)! }
-        static var alertSubtitleFont: UIFont { return UIFont(name: "Avenir-Roman", size: 14.0)! }
-        static var alertTextFont: UIFont { return UIFont(name: "Avenir-Roman", size: 12.0)! }
+        static var alertTitleFont: UIFont { return UIFont.systemFont(ofSize: 20.0) }
+        static var alertSubtitleFont: UIFont { return UIFont.systemFont(ofSize: 14.0) }
+        static var alertTextFont: UIFont { return UIFont.systemFont(ofSize: 12.0) }
         
-        static var textViewFont: UIFont { return UIFont(name: "Avenir-Roman", size: 16.0)! }
+        static var textViewFont: UIFont { return UIFont.systemFont(ofSize: 16.0) }
     }
     
     func setup() {

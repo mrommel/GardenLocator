@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Rswift
 
 enum PatchFailure {
     
@@ -35,10 +36,6 @@ class PatchPresenter {
     
     var viewInput: PatchViewInputProtocol?
     var interator: PatchInteractorInputProtocol?
-    
-    init() {
-        
-    }
 }
 
 extension PatchPresenter: PatchPresenterInputProtocol {
@@ -46,22 +43,22 @@ extension PatchPresenter: PatchPresenterInputProtocol {
     func saveSuccess(identifier: NSManagedObjectID?) {
         
         self.viewInput?.updateViewModel(identifier: identifier)
-        self.viewInput?.presentUserFeedback(message: "Successfully saved")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.patchSaveSuccess())
     }
     
     func saveFailure(failure: PatchFailure) {
         
-        self.viewInput?.presentUserFeedback(message: "Could not save")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.patchSaveFailure())
     }
     
     func deleteSuccess() {
         
-        self.viewInput?.presentUserFeedback(message: "Successfully deleted")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.patchDeleteSuccess())
         self.interator?.showPatches()
     }
     
     func deleteFailure(failure: PatchFailure) {
         
-        self.viewInput?.presentUserFeedback(message: "Could not delete")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.patchDeleteFailure())
     }
 }

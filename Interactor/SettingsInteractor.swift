@@ -47,13 +47,17 @@ extension SettingsInteractor: SettingsInteractorInputProtocol {
     
     func fetchSettings() {
 
-        let item0_1 = SettingItem(title: R.string.localizable.settingsAppVersion(), selectionHandler: {
+        let item0_1 = SettingItem(icon: R.image.info(),
+                                  title: R.string.localizable.settingsAppVersion(),
+                                  selectionHandler: {
             
             self.presenterInput?.viewInput?.showError(title: R.string.localizable.settingsAppVersion(), message: self.version())
         })
         let section0 = SettingSection(title: R.string.localizable.settingsSectionApp(), items: [item0_1])
         
-        let item1_0 = SettingItem(title: R.string.localizable.settingsResetData(), selectionHandler: {
+        let item1_0 = SettingItem(icon: R.image.reset(),
+                                  title: R.string.localizable.settingsResetData(),
+                                  selectionHandler: {
             
             self.presenterInput?.viewInput?.askQuestion(title: R.string.localizable.settingsDeleteDataQuestionTitle(),
                                                         message: R.string.localizable.settingsDeleteDataQuestionQuestion(),

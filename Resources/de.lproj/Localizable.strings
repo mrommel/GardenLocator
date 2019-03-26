@@ -37,6 +37,13 @@
 "Item.Latitude.Title" = "Breitengrad";
 "Item.Latitude.Placeholder" = "Hier Breitengrad einfügen!";
 "Item.Patch" = "Beet";
+"Item.Notice.Title" = "Notizen";
+"Item.Notice.Placeholder" = "Bitte fügen sie hier Notizen ein";
+
+"Item.Save.Success" = "Speichern erfolgreich";
+"Item.Save.Failure" = "Speichern fehlgeschlagen";
+"Item.Delete.Success" = "Erfolgreich gelöscht";
+"Item.Delete.Failure" = "Löschen fehlgeschlagen";
 
 /* PatchesViewController */
 "Patches.Title" = "Beete";
@@ -56,6 +63,11 @@
 "Patch.Shape.Square" = "Quadrat";
 "Patch.Shape.RectPortrait" = "Portrait";
 "Patch.Shape.RectLandscape" = "Landscape";
+
+"Patch.Save.Success" = "Speichern erfolgreich";
+"Patch.Save.Failure" = "Speichern fehlgeschlagen";
+"Patch.Delete.Success" = "Erfolgreich gelöscht";
+"Patch.Delete.Failure" = "Löschen fehlgeschlagen";
 
 /* SettingsViewController */
 "Settings.Title" = "Einstellungen";

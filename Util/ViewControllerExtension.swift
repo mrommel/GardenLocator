@@ -12,34 +12,34 @@ import Rswift
 extension UIViewController {
 
     func showError(title: String, message: String) {
-        
+
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         let okAction = UIAlertAction(title: R.string.localizable.buttonOkay(), style: .default)
         alertController.addAction(okAction)
-        
+
         alertController.view.tintColor = App.Color.alertControllerTintColor
         alertController.view.backgroundColor = App.Color.alertControllerBackgroundColor
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func askQuestion(title: String, message: String, buttonTitle: String, handler: ((UIAlertAction) -> Void)? = nil) {
-        
+
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         let cancelAction = UIAlertAction(title: R.string.localizable.buttonCancel(), style: .cancel)
         alertController.addAction(cancelAction)
-        
+
         let buttonAction = UIAlertAction(title: buttonTitle, style: .default, handler: handler)
         alertController.addAction(buttonAction)
-        
+
         alertController.view.tintColor = App.Color.alertControllerTintColor
         alertController.view.backgroundColor = App.Color.alertControllerBackgroundColor
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func showToast(message: String) {
 
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width / 2 - 75, y: self.view.frame.size.height - 150, width: 150, height: 35))
@@ -56,6 +56,6 @@ extension UIViewController {
             toastLabel.alpha = 0.0
         }, completion: { (isCompleted) in
                 toastLabel.removeFromSuperview()
-            })
+        })
     }
 }

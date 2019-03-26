@@ -66,21 +66,21 @@ class MapViewController: UIViewController {
                 
                 let coordinate = CLLocationCoordinate2D(latitude: patch.latitude, longitude: patch.longitude)
                 let patchTextMarker = GMSMarker(position: coordinate)
-                patchTextMarker.icon = self.imageWith(name: patch.name)
+                patchTextMarker.icon = self.imageWith(title: patch.name)
                 patchTextMarker.map = self.mapView
                 self.markers.append(patchTextMarker)
             }
         }
     }
     
-    func imageWith(name: String?) -> UIImage? {
+    func imageWith(title: String?) -> UIImage? {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .center
         nameLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
         nameLabel.textColor = .white
         nameLabel.font = App.Font.alertTextFont
-        nameLabel.text = name
+        nameLabel.text = title
         UIGraphicsBeginImageContext(frame.size)
         if let currentContext = UIGraphicsGetCurrentContext() {
             nameLabel.layer.render(in: currentContext)
@@ -99,7 +99,7 @@ extension MapViewController: MapViewInputProtocol {
         self.populateMarker()
     }
     
-    func presentNoItemsHint() {
+    func presentNoItemsOrPatchesHint() {
         
         self.viewModel = nil
         self.populateMarker()

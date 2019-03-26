@@ -69,7 +69,8 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
             return patchCount
         }
         else {
-            self.tableView.setEmptyView(title: "No items.", message: "Your items will be in here.")
+            self.tableView.setEmptyView(title: R.string.localizable.itemsNoItemsTitle(),
+                                        message: R.string.localizable.itemsNoItemsMessage())
             return 0
         }
     }

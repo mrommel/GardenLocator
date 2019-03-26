@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Rswift
 
 // View Controller must implement this
 protocol ItemViewInputProtocol {
@@ -47,19 +48,19 @@ extension ItemPresenter: ItemPresenterInputProtocol {
     func saveSuccess(identifier: NSManagedObjectID?) {
         
         self.viewInput?.updateViewModel(identifier: identifier)
-        self.viewInput?.presentUserFeedback(message: "Successfully saved")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.itemSaveSuccess())
         
         self.viewInput?.toggleDetail()
     }
     
     func saveFailure(failure: ItemFailure) {
         
-        self.viewInput?.presentUserFeedback(message: "Could not save")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.itemSaveFailure())
     }
     
     func deleteSuccess() {
         
-        self.viewInput?.presentUserFeedback(message: "Successfully deleted")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.itemDeleteSuccess())
         self.interator?.showItems()
         
         self.viewInput?.toggleDetail()
@@ -67,6 +68,6 @@ extension ItemPresenter: ItemPresenterInputProtocol {
     
     func deleteFailure(failure: ItemFailure) {
         
-        self.viewInput?.presentUserFeedback(message: "Could not delete")
+        self.viewInput?.presentUserFeedback(message: R.string.localizable.itemDeleteFailure())
     }
 }

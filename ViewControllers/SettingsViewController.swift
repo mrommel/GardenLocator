@@ -89,6 +89,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = self.getSettingCell()
         
         cell.textLabel?.text = settingItem?.title
+        cell.imageView?.image = settingItem?.icon
         
         return cell
     }

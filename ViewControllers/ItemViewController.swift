@@ -394,14 +394,14 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNoticeTextfieldIdentifier) as! MultilineTextFieldTableViewCell
                 cell.configure(textFieldValue: self.viewModel?.notice ?? "",
-                    placeHolder: "Please add Notices")
+                               placeHolder: R.string.localizable.itemNoticePlaceholder())
                 cell.textView.isScrollEnabled = false
                 
                 return cell
             } else {
                 let cell = self.getNoticeCell()
 
-                cell.textLabel?.text = "Notice"
+                cell.textLabel?.text = R.string.localizable.itemNoticeTitle()
                 cell.detailTextLabel?.numberOfLines = 0
                 cell.detailTextLabel?.text = self.viewModel?.notice ?? ""
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor

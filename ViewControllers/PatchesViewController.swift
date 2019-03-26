@@ -69,8 +69,8 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
             return patchCount
         }
         else {
-            self.tableView.setEmptyView(title: R.string.localizable.patchInvalidTitle(),
-                                        message: R.string.localizable.patchInvalidMessage())
+            self.tableView.setEmptyView(title: R.string.localizable.patchesNoPatchesTitle(),
+                                        message: R.string.localizable.patchesNoPatchesMessage())
             return 0
         }
     }

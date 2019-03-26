@@ -37,6 +37,13 @@
 "Item.Latitude.Title" = "Latitude";
 "Item.Latitude.Placeholder" = "Enter some latitude!";
 "Item.Patch" = "Patch";
+"Item.Notice.Title" = "Notice";
+"Item.Notice.Placeholder" = "Please add Notices";
+
+"Item.Save.Success" = "Successfully saved";
+"Item.Save.Failure" = "Could not save";
+"Item.Delete.Success" = "Successfully deleted";
+"Item.Delete.Failure" = "Could not delete";
 
 /* PatchesViewController */
 "Patches.Title" = "Patches";
@@ -56,6 +63,11 @@
 "Patch.Shape.Square" = "Square";
 "Patch.Shape.RectPortrait" = "Portrait";
 "Patch.Shape.RectLandscape" = "Landscape";
+
+"Patch.Save.Success" = "Successfully saved";
+"Patch.Save.Failure" = "Could not save";
+"Patch.Delete.Success" = "Successfully deleted";
+"Patch.Delete.Failure" = "Could not delete";
 
 /* SettingsViewController */
 "Settings.Title" = "Settings";

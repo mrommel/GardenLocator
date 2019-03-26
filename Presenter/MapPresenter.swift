@@ -12,7 +12,7 @@ import Foundation
 protocol MapViewInputProtocol {
     
     func present(viewModel: MapViewModel?)
-    func presentNoItemsHint()
+    func presentNoItemsOrPatchesHint()
 }
 
 class MapPresenter {
@@ -31,7 +31,7 @@ extension MapPresenter: MapPresenterInputProtocol {
     func show(items: [ItemViewModel], patches: [PatchViewModel]) {
         
         if items.count == 0 && patches.count == 0 {
-            self.viewInput?.presentNoItemsHint()
+            self.viewInput?.presentNoItemsOrPatchesHint()
         } else {
             self.viewInput?.present(viewModel: MapViewModel(items: items, patches: patches))
         }

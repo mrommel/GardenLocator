@@ -6,10 +6,11 @@
 //  Copyright © 2019 Michael Rommel. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct SettingItem {
     
+    let icon: UIImage?
     let title: String
     let selectionHandler: (()->Void)?
     
