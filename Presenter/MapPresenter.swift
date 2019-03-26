@@ -30,7 +30,7 @@ extension MapPresenter: MapPresenterInputProtocol {
     
     func show(items: [ItemViewModel], patches: [PatchViewModel]) {
         
-        if items.count == 0 {
+        if items.count == 0 && patches.count == 0 {
             self.viewInput?.presentNoItemsHint()
         } else {
             self.viewInput?.present(viewModel: MapViewModel(items: items, patches: patches))

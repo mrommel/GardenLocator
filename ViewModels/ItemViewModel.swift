@@ -41,6 +41,6 @@ class ItemViewModel {
     }
     
     func isValid() -> Bool {
-        return !self.name.isEmpty && self.patchName != ""
+        return !self.name.isEmpty /* && self.patchName != ""*/
     }
 }

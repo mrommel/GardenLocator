@@ -27,7 +27,7 @@
 
 /* ItemViewController */
 "Item.Invalid.Title" = "Invalid";
-"Item.Invalid.Message" = "Name and patch must not be empty";
+"Item.Invalid.Message" = "Name must not be empty";
 "Item.Delete.Question.Title" = "Are you Sure?";
 "Item.Delete.Question.Message" = "Do you really want to delete item '%@'?";
 "Item.Name.Title" = "Name";

@@ -55,7 +55,7 @@ extension UIColor {
 }
 
 public extension UIColor {
-    public var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -64,7 +64,7 @@ public extension UIColor {
         return (r, g, b, a)
     }
     
-    public var hsba: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
+    var hsba: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
         var h: CGFloat = 0
         var s: CGFloat = 0
         var b: CGFloat = 0
@@ -76,7 +76,7 @@ public extension UIColor {
 
 public extension UIColor {
     
-    public convenience init(hex: Int, alpha: CGFloat = 1.0) {
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
         let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
         let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
         let blue = CGFloat((hex & 0xFF)) / 255.0
@@ -84,7 +84,7 @@ public extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    public convenience init(hex string: String, alpha: CGFloat = 1.0) {
+    convenience init(hex string: String, alpha: CGFloat = 1.0) {
         var hex = string.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if hex.hasPrefix("#") {

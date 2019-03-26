@@ -91,6 +91,10 @@ class PatchViewController: UIViewController {
         // store back button
         self.backButton = self.navigationItem.backBarButtonItem
         
+        // register for notifications when the keyboard appears:
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         self.setup()
     }
     
@@ -161,6 +165,7 @@ class PatchViewController: UIViewController {
             self.viewModel?.latitude = latitude
             self.viewModel?.longitude = longitude
             self.viewModel?.shape = shapeValue
+            self.viewModel?.color = colorValue
             isNewPatch = false
         }
         
@@ -185,6 +190,18 @@ class PatchViewController: UIViewController {
             
         self.editMode = false
         self.setup()
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        self.tableView.contentOffset.y = 200
+        self.mapView?.isHidden = true
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        self.tableView.contentOffset.y = 0
+        self.mapView?.isHidden = false
     }
 }
 
@@ -474,7 +491,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                         self.shape = self.viewModel?.polygon()
                         self.shape?.map = self.mapView
                     }
-                    self.tableView.reloadRows(at: [self.shapeIndexPath], with: .automatic)
+                    self.tableView.reloadRows(at: [self.colorIndexPath], with: .automatic)
                 })
             }
         }

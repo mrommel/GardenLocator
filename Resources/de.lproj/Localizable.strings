@@ -27,7 +27,7 @@
 
 /* ItemViewController */
 "Item.Invalid.Title" = "Ungültig";
-"Item.Invalid.Message" = "Name und Beet müssen gesetzt sein.";
+"Item.Invalid.Message" = "Name müssen gesetzt sein.";
 "Item.Delete.Question.Title" = "Bist du sicher?";
 "Item.Delete.Question.Message" = "Willst du wirklich den Eintrag '%@' löschen?";
 "Item.Name.Title" = "Name";
