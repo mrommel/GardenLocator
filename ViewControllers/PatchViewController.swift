@@ -26,8 +26,8 @@ class PatchViewController: UIViewController {
     var interactor: PatchInteractorInputProtocol?
     var viewModel: PatchViewModel?
     let locationManager = CLLocationManager()
-    let initialLatitude = 52.520736
-    let initialLongitude = 13.409423
+    let initialLatitude = 52.492310
+    let initialLongitude = 13.532160
     
     // tmp values
     var shapeTmp: PatchShape = .circle

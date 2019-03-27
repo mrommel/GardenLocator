@@ -77,7 +77,7 @@ class MapViewController: UIViewController {
         let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .center
-        nameLabel.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
+        nameLabel.backgroundColor = .clear
         nameLabel.textColor = .white
         nameLabel.font = App.Font.alertTextFont
         nameLabel.text = title

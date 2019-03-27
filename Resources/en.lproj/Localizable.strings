@@ -72,7 +72,7 @@
 /* SettingsViewController */
 "Settings.Title" = "Settings";
 "Settings.Section.App" = "App";
-"Settings.AppVersion" = "App version";
+"Settings.AppVersion" = "App data";
 "Settings.Section.Data" = "Data";
 "Settings.ResetData" = "Reset data";
 "Settings.DeleteData.Question.Title" = "Sure?";
