@@ -8,6 +8,7 @@
 
 import Foundation
 import Rswift
+import GoogleMaps
 
 protocol SettingsPresenterInputProtocol {
 
@@ -68,31 +69,52 @@ class SettingsInteractor {
             })
     }
 
+    func patch(named name: String, at coordinate: CLLocationCoordinate2D, type: Int64, color: Int64) -> Patch? {
+        
+        guard let patchDao = self.patchDao else {
+            fatalError()
+        }
+        
+        let created = patchDao.create(named: name, latitude: coordinate.latitude, longitude: coordinate.longitude, type: type, color: color)
+        
+        if !created {
+            return nil
+        }
+        
+        return patchDao.get(by: name)
+    }
+    
+    func item(named name: String, at coordinate: CLLocationCoordinate2D, patch: Patch, notice: String) -> Bool {
+        
+        guard let itemDao = self.itemDao else {
+            fatalError()
+        }
+        
+        return itemDao.create(named: name, latitude: coordinate.latitude, longitude: coordinate.longitude, patch: patch, notice: notice)
+    }
+    
     func actionGenerateData() {
 
-        self.presenterInput?.viewInput?.askQuestion(title: "Really?",
-            message: "Really create dataset?",
+        self.presenterInput?.viewInput?.askQuestion(title: "Really recreate?",
+            message: "Really recreate dataset?",
             buttonTitle: "Create", handler: { arg in
 
-                guard let patchDao = self.patchDao else {
-                    fatalError()
-                }
-                
-                guard let itemDao = self.itemDao else {
-                    fatalError()
-                }
-                
                 var allCreated = true
-                allCreated = allCreated && patchDao.create(named: "Gemüsebeet", latitude: 12.3, longitude: 28.2, type: 0, color: 1)
-                allCreated = allCreated && patchDao.create(named: "Kartoffelbeet", latitude: 12.4, longitude: 28.2, type: 1, color: 2)
-                allCreated = allCreated && patchDao.create(named: "Blumebeet", latitude: 12.4, longitude: 28.2, type: 1, color: 2)
+                let coord = App.Constants.initialCoordinate
                 
-                let patch0: Patch = patchDao.get(by: "Gemüsebeet")!
-                let patch1: Patch = patchDao.get(by: "Kartoffelbeet")!
-                let patch1: Patch = patchDao.get(by: "Kartoffelbeet")!
+                let patch0 = self.patch(named: "Gemüsebeet", at: coord.shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.0), type: 0, color: 1)
+                let patch1 = self.patch(named: "Kartoffelbeet", at: coord.shiftedByMetersIn(latitudeDir: 2.0, longitudeDir: 1.0), type: 1, color: 6)
+                let patch2 = self.patch(named: "Blumenbeet", at: coord.shiftedByMetersIn(latitudeDir: 4.0, longitudeDir: 6.0), type: 2, color: 4)
                 
-                allCreated = allCreated && itemDao.create(named: "Tomaten", latitude: 12.31, longitude: 28.2, patch: patch0, notice: "abc")
-                allCreated = allCreated && itemDao.create(named: "Kartoffeln", latitude: 12.31, longitude: 28.2, patch: patch1, notice: "dabc")
+                allCreated = allCreated && self.item(named: "Tomaten", at: patch0!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.0), patch: patch0!, notice: "abc")
+                allCreated = allCreated && self.item(named: "Gurken", at: patch0!.coord().shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.5), patch: patch0!, notice: "abc")
+            
+                allCreated = allCreated && self.item(named: "Kartoffeln", at: patch1!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.0), patch: patch1!, notice: "abc")
+                allCreated = allCreated && self.item(named: "Wildkartoffeln", at: patch1!.coord().shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.5), patch: patch1!, notice: "abc")
+                
+                allCreated = allCreated && self.item(named: "Rosen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.0), patch: patch2!, notice: "abc")
+                allCreated = allCreated && self.item(named: "Tulpen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.5), patch: patch2!, notice: "abc")
+                allCreated = allCreated && self.item(named: "Narzissen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.5), patch: patch2!, notice: "abc")
                 
                 if allCreated {
                     self.presenterInput?.viewInput?.showToast(message: "Successfully created")

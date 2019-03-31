@@ -7,8 +7,17 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class App {
+    
+    struct Constants {
+        
+        static var initialLatitude = 52.492310
+        static var initialLongitude = 13.532160
+        
+        static var initialCoordinate = CLLocationCoordinate2D(latitude: initialLatitude, longitude: initialLongitude)
+    }
     
     struct Color {
         static var navigationBarBackgroundColor: UIColor { return UIColor(red: 218, green: 99, blue: 93) } // #DA635D

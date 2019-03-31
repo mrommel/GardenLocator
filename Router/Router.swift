@@ -68,7 +68,7 @@ class Router {
     func showPatchSelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
         
         if let topController = UIApplication.topViewController() {
-            let viewController = PatchSelectionViewController(
+            let viewController = SelectionViewController(
                 title: title,
                 data: data,
                 selectedIndex: selectedIndex,
@@ -81,7 +81,7 @@ class Router {
     func showShapeSelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
         
         if let topController = UIApplication.topViewController() {
-            let viewController = PatchSelectionViewController(
+            let viewController = SelectionViewController(
                 title: title,
                 data: data,
                 selectedIndex: selectedIndex,

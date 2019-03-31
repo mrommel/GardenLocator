@@ -7,12 +7,14 @@
 //
 
 import CoreData
+import GoogleMaps
 
 protocol PatchDaoProtocol {
     
     func fetch() -> [Patch]?
     func get(by objectId: NSManagedObjectID) -> Patch?
     func get(by name: String) -> Patch?
+    func create(named name: String, coordinate: CLLocationCoordinate2D, type: Int64, color: Int64) -> Bool
     func create(named name: String, latitude: Double, longitude: Double, type: Int64, color: Int64) -> Bool
     func save(patch: Patch?) -> Bool
     func delete(patch: Patch?) -> Bool
@@ -69,6 +71,10 @@ extension PatchDao: PatchDaoProtocol {
         } catch {
             return nil
         }
+    }
+    
+    func create(named name: String, coordinate: CLLocationCoordinate2D, type: Int64, color: Int64) -> Bool {
+        return self.create(named: name, latitude: coordinate.latitude, longitude: coordinate.longitude, type: type, color: color)
     }
     
     func create(named name: String, latitude: Double, longitude: Double, type: Int64, color: Int64) -> Bool {

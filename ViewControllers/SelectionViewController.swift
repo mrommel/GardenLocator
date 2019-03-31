@@ -1,5 +1,5 @@
 //
-//  PatchSelectionViewController.swift
+//  SelectionViewController.swift
 //  GardenLocator
 //
 //  Created by Michael Rommel on 19.03.19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatchSelectionViewController: UITableViewController {
+class SelectionViewController: UITableViewController {
     
     let reuseIdentifier: String = "optionCell"
     var data: [String]?

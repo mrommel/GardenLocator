@@ -7,12 +7,14 @@
 //
 
 import CoreData
+import GoogleMaps
 
 protocol ItemDaoProtocol {
     
     func fetch() -> [Item]?
     func get(by objectId: NSManagedObjectID) -> Item?
     func get(by name: String) -> Item?
+    func create(named name: String, coordinate: CLLocationCoordinate2D, patch: Patch, notice: String) -> Bool
     func create(named name: String, latitude: Double, longitude: Double, patch: Patch, notice: String) -> Bool
     func save(item: Item?) -> Bool
     func delete(item: Item?) -> Bool
@@ -69,6 +71,10 @@ extension ItemDao: ItemDaoProtocol {
         } catch {
             return nil
         }
+    }
+    
+    func create(named name: String, coordinate: CLLocationCoordinate2D, patch: Patch, notice: String) -> Bool {
+        return create(named: name, latitude: coordinate.latitude, longitude: coordinate.longitude, patch: patch, notice: notice)
     }
     
     func create(named name: String, latitude: Double, longitude: Double, patch: Patch, notice: String) -> Bool {

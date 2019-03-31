@@ -37,10 +37,6 @@ class ItemPresenter {
     
     var viewInput: ItemViewInputProtocol?
     var interator: ItemInteractorInputProtocol?
-    
-    init() {
-        
-    }
 }
 
 extension ItemPresenter: ItemPresenterInputProtocol {

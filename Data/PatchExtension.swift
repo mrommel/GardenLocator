@@ -159,4 +159,8 @@ extension Patch {
         
         return PatchColor.init(rawValue: self.colorValue)
     }
+    
+    func coord() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+    }
 }

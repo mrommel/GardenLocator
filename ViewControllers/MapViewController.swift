@@ -74,6 +74,7 @@ class MapViewController: UIViewController {
     }
     
     func imageWith(title: String?) -> UIImage? {
+        
         let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .center
@@ -81,12 +82,14 @@ class MapViewController: UIViewController {
         nameLabel.textColor = .white
         nameLabel.font = App.Font.alertTextFont
         nameLabel.text = title
+        
         UIGraphicsBeginImageContext(frame.size)
         if let currentContext = UIGraphicsGetCurrentContext() {
             nameLabel.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
             return nameImage
         }
+        
         return nil
     }
 }

@@ -100,3 +100,16 @@ class PatchViewModel {
         return polygon
     }
 }
+
+extension CLLocationCoordinate2D {
+    
+    func shiftedByMetersIn(latitudeDir: Double, longitudeDir: Double) -> CLLocationCoordinate2D {
+    
+        let delta = 1.0 // in meters
+        
+        let dx = delta * 0.0000089 * latitudeDir
+        let dy = ((delta * 0.0000089) / cos(self.latitude * 0.018)) * longitudeDir
+        
+        return CLLocationCoordinate2D(latitude: self.latitude + dx, longitude: self.longitude + dy)
+    }
+}
