@@ -13,6 +13,7 @@ class ApplicationTabBarController: UITabBarController {
     
     let itemDao = ItemDao()
     let patchDao = PatchDao()
+    let categoryDao = CategoryDao()
     let router = Router()
     
     override func viewDidLoad() {
@@ -85,6 +86,25 @@ class ApplicationTabBarController: UITabBarController {
         itemsViewController.tabBarItem = itemsBarItem
         
         // Creare Tab four
+        let categoriesViewController = R.storyboard.main.categoriesViewController()!
+        let categoriesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.category_outline(), selectedImage: R.image.category())
+        
+        let categoriesInteractor = CategoriesInteractor()
+        let categoriesPresenter = CategoriesPresenter()
+        
+        categoriesViewController.interactor = categoriesInteractor
+        categoriesViewController.presenter = categoriesPresenter
+        
+        categoriesViewController.interactor?.presenterInput = categoriesPresenter
+        categoriesViewController.interactor?.categoryDao = categoryDao
+        categoriesViewController.interactor?.router = router
+        
+        categoriesViewController.presenter?.viewInput = categoriesViewController
+        categoriesViewController.presenter?.interator = categoriesInteractor
+        
+        categoriesViewController.tabBarItem = categoriesBarItem
+        
+        // Creare Tab five
         let settingsViewController = R.storyboard.main.settingsViewController()!
         let settingsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.settings_outline(), selectedImage: R.image.settings())
         
@@ -104,7 +124,7 @@ class ApplicationTabBarController: UITabBarController {
         
         settingsViewController.tabBarItem = settingsBarItem
         
-        let controllers = [mapViewController, patchesViewController, itemsViewController, settingsViewController]
+        let controllers = [mapViewController, patchesViewController, itemsViewController, categoriesViewController, settingsViewController]
 
         self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
     }

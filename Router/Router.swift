@@ -91,6 +91,31 @@ class Router {
         }
     }
     
+    func show(category viewModel: CategoryViewModel?) {
+        
+        if let topController = UIApplication.topViewController() {
+            if let categoryViewController = R.storyboard.main.categoryViewController() {
+                
+                let categoryInteractor = CategoryInteractor()
+                let categoryPresenter = CategoryPresenter()
+                let categoryDao = CategoryDao() // TODO: extract dao references
+                
+                categoryPresenter.interator = categoryInteractor
+                categoryPresenter.viewInput = categoryViewController
+                
+                categoryInteractor.router = self
+                categoryInteractor.presenterInput = categoryPresenter
+                categoryInteractor.categoryDao = categoryDao
+                
+                categoryViewController.interactor = categoryInteractor
+                categoryViewController.presenter = categoryPresenter
+                categoryViewController.viewModel = viewModel
+                
+                topController.navigationController?.pushViewController(categoryViewController, animated: true)
+            }
+        }
+    }
+    
     func popViewController() {
         
         if let topController = UIApplication.topViewController() {

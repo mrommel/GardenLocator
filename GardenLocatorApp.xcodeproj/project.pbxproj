@@ -56,6 +56,17 @@
 		C91048C0223DAA9B00EE8FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91048A7223DA6EE00EE8FDB /* Main.storyboard */; };
 		C91048C1223DAA9E00EE8FDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91048A5223DA6EE00EE8FDB /* LaunchScreen.storyboard */; };
 		C913D1C9224C034B0041BDAC /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1C8224C034B0041BDAC /* DoubleExtension.swift */; };
+		C913D1CB225106EA0041BDAC /* PatchColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1CA225106EA0041BDAC /* PatchColor.swift */; };
+		C913D1CD2251070B0041BDAC /* PatchShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1CC2251070B0041BDAC /* PatchShape.swift */; };
+		C913D1CF22510AD30041BDAC /* CategoryDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1CE22510AD30041BDAC /* CategoryDao.swift */; };
+		C913D1D122510E4F0041BDAC /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1D022510E4F0041BDAC /* CategoriesViewController.swift */; };
+		C913D1D3225148A60041BDAC /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1D2225148A60041BDAC /* CategoriesViewModel.swift */; };
+		C913D1D5225148D70041BDAC /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1D4225148D70041BDAC /* CategoryViewModel.swift */; };
+		C913D1D7225149380041BDAC /* CategoriesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1D6225149380041BDAC /* CategoriesPresenter.swift */; };
+		C913D1D9225149A30041BDAC /* CategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1D8225149A30041BDAC /* CategoriesInteractor.swift */; };
+		C913D1DB22514D340041BDAC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DA22514D340041BDAC /* CategoryViewController.swift */; };
+		C913D1DD225151180041BDAC /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DC225151180041BDAC /* CategoryPresenter.swift */; };
+		C913D1DF225151A80041BDAC /* CategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DE225151A80041BDAC /* CategoryInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +124,17 @@
 		C91048B4223DA72D00EE8FDB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C91048B5223DA72D00EE8FDB /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C913D1C8224C034B0041BDAC /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		C913D1CA225106EA0041BDAC /* PatchColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchColor.swift; sourceTree = "<group>"; };
+		C913D1CC2251070B0041BDAC /* PatchShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchShape.swift; sourceTree = "<group>"; };
+		C913D1CE22510AD30041BDAC /* CategoryDao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDao.swift; sourceTree = "<group>"; };
+		C913D1D022510E4F0041BDAC /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		C913D1D2225148A60041BDAC /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		C913D1D4225148D70041BDAC /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		C913D1D6225149380041BDAC /* CategoriesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesPresenter.swift; sourceTree = "<group>"; };
+		C913D1D8225149A30041BDAC /* CategoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesInteractor.swift; sourceTree = "<group>"; };
+		C913D1DA22514D340041BDAC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		C913D1DC225151180041BDAC /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
+		C913D1DE225151A80041BDAC /* CategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +165,8 @@
 				C90160A222403989007309BC /* ItemViewModel.swift */,
 				C9016082223EE26F007309BC /* PatchesViewModel.swift */,
 				C9016080223EDEC0007309BC /* PatchViewModel.swift */,
+				C913D1D2225148A60041BDAC /* CategoriesViewModel.swift */,
+				C913D1D4225148D70041BDAC /* CategoryViewModel.swift */,
 				C90160C02243F108007309BC /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
@@ -154,6 +178,7 @@
 				C90160C62244F2DD007309BC /* BaseDao.swift */,
 				C9016079223ED556007309BC /* PatchDao.swift */,
 				C901609E224037D3007309BC /* ItemDao.swift */,
+				C913D1CE22510AD30041BDAC /* CategoryDao.swift */,
 			);
 			path = Daos;
 			sourceTree = "<group>";
@@ -166,6 +191,8 @@
 				C9016094223FF6F1007309BC /* PatchPresenter.swift */,
 				C90160A622403A48007309BC /* ItemsPresenter.swift */,
 				C90160AA22403E0E007309BC /* ItemPresenter.swift */,
+				C913D1D6225149380041BDAC /* CategoriesPresenter.swift */,
+				C913D1DC225151180041BDAC /* CategoryPresenter.swift */,
 				C90160C22243F197007309BC /* SettingsPresenter.swift */,
 			);
 			path = Presenter;
@@ -196,6 +223,8 @@
 				C9016096223FF7DA007309BC /* PatchInteractor.swift */,
 				C90160A022403880007309BC /* ItemsInteractor.swift */,
 				C90160AC22403E42007309BC /* ItemInteractor.swift */,
+				C913D1D8225149A30041BDAC /* CategoriesInteractor.swift */,
+				C913D1DE225151A80041BDAC /* CategoryInteractor.swift */,
 				C90160C42243F210007309BC /* SettingsInteractor.swift */,
 			);
 			path = Interactor;
@@ -205,6 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				C90160C92246B9E8007309BC /* PatchExtension.swift */,
+				C913D1CA225106EA0041BDAC /* PatchColor.swift */,
+				C913D1CC2251070B0041BDAC /* PatchShape.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -283,6 +314,8 @@
 				C90160A822403CFC007309BC /* ItemViewController.swift */,
 				C91048AC223DA70000EE8FDB /* PatchesViewController.swift */,
 				C9016084223EECFA007309BC /* PatchViewController.swift */,
+				C913D1D022510E4F0041BDAC /* CategoriesViewController.swift */,
+				C913D1DA22514D340041BDAC /* CategoryViewController.swift */,
 				C91048AF223DA70000EE8FDB /* SettingsViewController.swift */,
 				C90160AE22414EBF007309BC /* SelectionViewController.swift */,
 			);
@@ -469,9 +502,13 @@
 				C90160A922403CFC007309BC /* ItemViewController.swift in Sources */,
 				C91048BB223DA78A00EE8FDB /* ItemsViewController.swift in Sources */,
 				C901608A223EEFBB007309BC /* R.generated.swift in Sources */,
+				C913D1D122510E4F0041BDAC /* CategoriesViewController.swift in Sources */,
 				C901609D22402E11007309BC /* ViewControllerExtension.swift in Sources */,
+				C913D1D3225148A60041BDAC /* CategoriesViewModel.swift in Sources */,
 				C9016099224000F4007309BC /* ApplicationExtension.swift in Sources */,
 				C9016093223FA254007309BC /* PatchesInteractor.swift in Sources */,
+				C913D1CB225106EA0041BDAC /* PatchColor.swift in Sources */,
+				C913D1CD2251070B0041BDAC /* PatchShape.swift in Sources */,
 				C901609B224027F5007309BC /* TableViewExtension.swift in Sources */,
 				C91048BC223DA78D00EE8FDB /* SettingsViewController.swift in Sources */,
 				C9016078223ED038007309BC /* ApplicationTabBarController.swift in Sources */,
@@ -483,15 +520,18 @@
 				C90160AB22403E0E007309BC /* ItemPresenter.swift in Sources */,
 				C901609F224037D3007309BC /* ItemDao.swift in Sources */,
 				C90160A322403989007309BC /* ItemViewModel.swift in Sources */,
+				C913D1DF225151A80041BDAC /* CategoryInteractor.swift in Sources */,
 				C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */,
 				C90160CC2246CE98007309BC /* GMSPolygonExtension.swift in Sources */,
 				C901607A223ED556007309BC /* PatchDao.swift in Sources */,
 				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
+				C913D1D9225149A30041BDAC /* CategoriesInteractor.swift in Sources */,
 				C901608D223EF253007309BC /* Router.swift in Sources */,
 				C9016083223EE26F007309BC /* PatchesViewModel.swift in Sources */,
 				C90160CE22493725007309BC /* MultilineTextFieldTableViewCell.swift in Sources */,
 				C9016081223EDEC0007309BC /* PatchViewModel.swift in Sources */,
 				C91048B7223DA72D00EE8FDB /* App.swift in Sources */,
+				C913D1CF22510AD30041BDAC /* CategoryDao.swift in Sources */,
 				C90160AD22403E42007309BC /* ItemInteractor.swift in Sources */,
 				C90160B32242D0DA007309BC /* MapPresenter.swift in Sources */,
 				C90160C72244F2DD007309BC /* BaseDao.swift in Sources */,
@@ -499,12 +539,16 @@
 				C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */,
 				C90160C52243F210007309BC /* SettingsInteractor.swift in Sources */,
 				C90160A722403A48007309BC /* ItemsPresenter.swift in Sources */,
+				C913D1DD225151180041BDAC /* CategoryPresenter.swift in Sources */,
 				C9016097223FF7DA007309BC /* PatchInteractor.swift in Sources */,
 				C90160AF22414EBF007309BC /* SelectionViewController.swift in Sources */,
 				C913D1C9224C034B0041BDAC /* DoubleExtension.swift in Sources */,
+				C913D1D5225148D70041BDAC /* CategoryViewModel.swift in Sources */,
 				C91048BA223DA78700EE8FDB /* MapViewController.swift in Sources */,
 				C9016085223EECFA007309BC /* PatchViewController.swift in Sources */,
+				C913D1D7225149380041BDAC /* CategoriesPresenter.swift in Sources */,
 				C91048B9223DA78400EE8FDB /* PatchesViewController.swift in Sources */,
+				C913D1DB22514D340041BDAC /* CategoryViewController.swift in Sources */,
 				C91048BD223DA79000EE8FDB /* GardenLocator.xcdatamodeld in Sources */,
 				C90160B52242D25A007309BC /* MapInteractor.swift in Sources */,
 				C90160A522403A0C007309BC /* ItemsViewModel.swift in Sources */,
