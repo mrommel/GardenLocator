@@ -91,7 +91,7 @@ class Router {
         }
     }
     
-    func show(category viewModel: CategoryViewModel?) {
+    func show(category viewModel: CategoryViewModel?, parent parentViewModel: CategoryViewModel?) {
         
         if let topController = UIApplication.topViewController() {
             if let categoryViewController = R.storyboard.main.categoryViewController() {
@@ -110,6 +110,7 @@ class Router {
                 categoryViewController.interactor = categoryInteractor
                 categoryViewController.presenter = categoryPresenter
                 categoryViewController.viewModel = viewModel
+                categoryViewController.parentViewModel = parentViewModel
                 
                 topController.navigationController?.pushViewController(categoryViewController, animated: true)
             }

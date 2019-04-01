@@ -52,6 +52,6 @@ extension CategoriesInteractor: CategoriesInteractorInputProtocol {
     
     func show(category: CategoryViewModel?) {
         
-        self.router?.show(category: category)
+        self.router?.show(category: category, parent: nil)
     }
 }

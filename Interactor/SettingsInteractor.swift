@@ -24,6 +24,7 @@ protocol SettingsInteractorInputProtocol {
     var router: Router? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var itemDao: ItemDaoProtocol? { get set }
+    var categoryDao: CategoryDaoProtocol? { get set }
     var presenterInput: SettingsPresenterInputProtocol? { get set }
 
     func fetchSettings()
@@ -34,6 +35,7 @@ class SettingsInteractor {
     var router: Router?
     var patchDao: PatchDaoProtocol?
     var itemDao: ItemDaoProtocol?
+    var categoryDao: CategoryDaoProtocol?
     var presenterInput: SettingsPresenterInputProtocol?
 
     func version() -> String {
@@ -60,8 +62,9 @@ class SettingsInteractor {
 
                 let itemsDeleted = self.itemDao?.deleteAll() ?? false
                 let patchesDeleted = self.patchDao?.deleteAll() ?? false
+                let categoriesDeleted = self.categoryDao?.deleteAll() ?? false
 
-                if itemsDeleted && patchesDeleted {
+                if itemsDeleted && patchesDeleted && categoriesDeleted {
                     self.presenterInput?.viewInput?.showToast(message: R.string.localizable.settingsDeleteDataSuccess())
                 } else {
                     self.presenterInput?.viewInput?.showToast(message: R.string.localizable.settingsDeleteDataFailure())
@@ -102,10 +105,12 @@ class SettingsInteractor {
                 var allCreated = true
                 let coord = App.Constants.initialCoordinate
                 
+                // patches
                 let patch0 = self.patch(named: "Gemüsebeet", at: coord.shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.0), type: 0, color: 1)
                 let patch1 = self.patch(named: "Kartoffelbeet", at: coord.shiftedByMetersIn(latitudeDir: 2.0, longitudeDir: 1.0), type: 1, color: 6)
                 let patch2 = self.patch(named: "Blumenbeet", at: coord.shiftedByMetersIn(latitudeDir: 4.0, longitudeDir: 6.0), type: 2, color: 4)
                 
+                // items
                 allCreated = allCreated && self.item(named: "Tomaten", at: patch0!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.0), patch: patch0!, notice: "abc")
                 allCreated = allCreated && self.item(named: "Gurken", at: patch0!.coord().shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.5), patch: patch0!, notice: "abc")
             
@@ -115,6 +120,24 @@ class SettingsInteractor {
                 allCreated = allCreated && self.item(named: "Rosen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.0), patch: patch2!, notice: "abc")
                 allCreated = allCreated && self.item(named: "Tulpen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 0.0, longitudeDir: 0.5), patch: patch2!, notice: "abc")
                 allCreated = allCreated && self.item(named: "Narzissen", at: patch2!.coord().shiftedByMetersIn(latitudeDir: 1.0, longitudeDir: 0.5), patch: patch2!, notice: "abc")
+                
+                // categories
+                let _ = self.categoryDao?.create(named: "Blumen", parent: nil)
+                let category0 = self.categoryDao?.get(by: "Blumen")
+                
+                let _ = self.categoryDao?.create(named: "Sommerblumen", parent: nil)
+                let category0_0: Category = (self.categoryDao?.get(by: "Sommerblumen"))!
+                category0?.addToChildren(category0_0)
+                
+                let _ = self.categoryDao?.create(named: "Winterblumen", parent: nil)
+                let category0_1: Category = (self.categoryDao?.get(by: "Winterblumen"))!
+                category0?.addToChildren(category0_1)
+                
+                let _ = self.categoryDao?.create(named: "Gemüse", parent: nil)
+                let category1 = self.categoryDao?.get(by: "Gemüse")
+                
+                let _ = self.categoryDao?.create(named: "Obst", parent: nil)
+                let category2 = self.categoryDao?.get(by: "Obst")
                 
                 if allCreated {
                     self.presenterInput?.viewInput?.showToast(message: "Successfully created")

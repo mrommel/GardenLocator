@@ -513,8 +513,9 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if indexPath.section == 1 {
-            let itemName = self.viewModel?.itemName(at: indexPath.row)
-            self.interactor?.showItem(named: itemName ?? "--")
+            if let itemName = self.viewModel?.itemName(at: indexPath.row) {
+                self.interactor?.showItem(named: itemName)
+            }
         }
         
         self.tableView.deselectRow(at: indexPath, animated: true)

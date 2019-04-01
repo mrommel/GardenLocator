@@ -14,8 +14,8 @@ protocol CategoryDaoProtocol {
     func fetch() -> [Category]?
     func get(by objectId: NSManagedObjectID) -> Category?
     func get(by name: String) -> Category?
-    func create(named name: String) -> Bool
-    func save(category: Category?) -> Bool
+    func create(named name: String, parent: Category?) -> Bool
+    func save(category: Category?, parent: Category?) -> Bool
     func delete(category: Category?) -> Bool
     func deleteAll() -> Bool
 }
@@ -70,7 +70,7 @@ extension CategoryDao: CategoryDaoProtocol {
         }
     }
     
-    func create(named name: String) -> Bool {
+    func create(named name: String, parent: Category?) -> Bool {
         
         guard let context = self.context else {
             fatalError("Can't get context for creating category")
@@ -78,6 +78,7 @@ extension CategoryDao: CategoryDaoProtocol {
         
         let newCategory = Category(context: context)
         newCategory.name = name
+        newCategory.parent = parent
         
         do {
             try context.save()
@@ -87,7 +88,7 @@ extension CategoryDao: CategoryDaoProtocol {
         }
     }
     
-    func save(category: Category?) -> Bool {
+    func save(category: Category?, parent: Category?) -> Bool {
         
         guard let context = self.context else {
             fatalError("Can't get context for category deletion")
@@ -95,6 +96,10 @@ extension CategoryDao: CategoryDaoProtocol {
         
         guard let _ = category else {
             fatalError("Can't save nil category")
+        }
+        
+        if parent != nil {
+            category?.parent = parent
         }
         
         do {

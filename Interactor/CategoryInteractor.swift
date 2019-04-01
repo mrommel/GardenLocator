@@ -15,11 +15,13 @@ protocol CategoryInteractorInputProtocol {
     var categoryDao: CategoryDaoProtocol? { get set }
     var presenterInput: CategoryPresenterInputProtocol? { get set }
     
-    func create(category: CategoryViewModel?)
-    func save(category: CategoryViewModel?)
+    func create(category: CategoryViewModel?, parent: CategoryViewModel?)
+    func save(category: CategoryViewModel?, parent: CategoryViewModel?)
     func delete(category: CategoryViewModel?)
     
     func showCategories()
+    func showCategory(named name: String)
+    func showCategoryWith(parent: CategoryViewModel?)
 }
 
 class CategoryInteractor {
@@ -31,16 +33,21 @@ class CategoryInteractor {
 
 extension CategoryInteractor: CategoryInteractorInputProtocol {
     
-    func create(category: CategoryViewModel?) {
+    func create(category: CategoryViewModel?, parent: CategoryViewModel?) {
         
-        if let name = category?.name {
+        if let name = category?.name, let parentIdentifier = parent?.identifier {
             
-            if let saved = self.categoryDao?.create(named: name) {
+            let parentObject = self.categoryDao?.get(by: parentIdentifier)
+            
+            if let saved = self.categoryDao?.create(named: name, parent: parentObject) {
                 if saved {
                     
                     // put identifier into model
-                    if let storedItem = self.categoryDao?.get(by: name) {
-                        self.presenterInput?.saveSuccess(identifier: storedItem.objectID)
+                    if let storedCategory = self.categoryDao?.get(by: name) {
+                        let categoryViewModel = CategoryViewModel(category: storedCategory)
+                        self.presenterInput?.reloaded(with: categoryViewModel)
+                        
+                        self.presenterInput?.saveSuccess(identifier: storedCategory.objectID)
                     }
                     return
                 }
@@ -50,16 +57,22 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
         self.presenterInput?.saveFailure(failure: .generic)
     }
     
-    func save(category: CategoryViewModel?) {
+    func save(category: CategoryViewModel?, parent: CategoryViewModel?) {
         
-        if let identifier = category?.identifier {
+        if let identifier = category?.identifier, let parentIdentifier = parent?.identifier {
 
-            let categoryObject = self.categoryDao?.get(by: identifier)
+            let parentObject = self.categoryDao?.get(by: parentIdentifier)
+            guard let categoryObject = self.categoryDao?.get(by: identifier) else {
+                fatalError()
+            }
             
-            categoryObject?.name = category?.name
+            categoryObject.name = category?.name
             
-            if let saved = self.categoryDao?.save(category: categoryObject) {
+            if let saved = self.categoryDao?.save(category: categoryObject, parent: parentObject) {
                 if saved {
+                    let categoryViewModel = CategoryViewModel(category: categoryObject)
+                    self.presenterInput?.reloaded(with: categoryViewModel)
+                    
                     self.presenterInput?.saveSuccess(identifier: identifier)
                     return
                 }
@@ -87,5 +100,18 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
     func showCategories() {
         // we are in the details > go back
         self.router?.popViewController()
+    }
+    
+    func showCategory(named name: String) {
+        
+        if let category = self.categoryDao?.get(by: name) {
+            let categoryViewModel = CategoryViewModel(category: category)
+            self.router?.show(category: categoryViewModel, parent: nil)
+        }
+    }
+    
+    func showCategoryWith(parent: CategoryViewModel?) {
+        
+        self.router?.show(category: nil, parent: parent)
     }
 }

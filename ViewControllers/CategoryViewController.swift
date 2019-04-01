@@ -20,14 +20,17 @@ class CategoryViewController: UIViewController {
     var presenter: CategoryPresenterInputProtocol?
     var interactor: CategoryInteractorInputProtocol?
     var viewModel: CategoryViewModel?
+    var parentViewModel: CategoryViewModel?
     
     let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
     let reuseButtonIdentifier: String = "reuseButtonIdentifier"
+    let reuseCategoryLabelIdentifier: String = "reuseCategoryLabelIdentifier"
     
     let nameIndexPath = IndexPath(row: 0, section: 0)
     
     let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
+    let addButtonIndexPath = IndexPath(row: 0, section: 2)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,11 +57,26 @@ class CategoryViewController: UIViewController {
         self.setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // TODO: move to somewhere !!!
+        let categoryDao = CategoryDao()
+        if let identifier = self.viewModel?.identifier {
+            if let category = categoryDao.get(by: identifier) {
+                let categoryViewModel = CategoryViewModel(category: category)
+                self.viewModel = categoryViewModel
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
     func setup() {
         
         if self.editMode {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEditMode))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePatch))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveCategory))
         } else {
             self.navigationItem.leftBarButtonItem = self.backButton
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(enableEditMode))
@@ -79,7 +97,7 @@ class CategoryViewController: UIViewController {
         self.setup()
     }
     
-    @IBAction func savePatch(sender: UIView?) {
+    @IBAction func saveCategory(sender: UIView?) {
         
         guard let cell = self.tableView.cellForRow(at: nameIndexPath) as? TextInputTableViewCell else {
             return
@@ -90,7 +108,7 @@ class CategoryViewController: UIViewController {
         
         if self.viewModel == nil {
             // create new category
-            self.viewModel = CategoryViewModel(name: name)
+            self.viewModel = CategoryViewModel(name: name, childCategoryNames: [])
             isNewCategory = true
         } else {
             // update current category
@@ -101,16 +119,15 @@ class CategoryViewController: UIViewController {
         // is valid?
         if !(self.viewModel?.isValid() ?? false) {
             
-            self.showError(title: "Alles falsch",
-                           message: "Geht nicht")
+            self.showError(title: "Alles falsch", message: "Geht nicht")
             return
         }
         
         // save patch or new patch
         if isNewCategory {
-            self.interactor?.create(category: self.viewModel)
+            self.interactor?.create(category: self.viewModel, parent: self.parentViewModel)
         } else {
-            self.interactor?.save(category: self.viewModel)
+            self.interactor?.save(category: self.viewModel, parent: self.parentViewModel)
         }
         
         self.editMode = false
@@ -140,10 +157,16 @@ extension CategoryViewController: CategoryViewInputProtocol {
         self.showToast(message: message)
     }
 
-    
     func toggleDetail() {
         
         self.editMode = false
+        self.setup()
+    }
+    
+    func reloadDetail(with categoryViewModel: CategoryViewModel?) {
+        
+        self.viewModel = categoryViewModel
+        
         self.setup()
     }
 }
@@ -157,11 +180,15 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     public func numberOfSections(in tableView: UITableView) -> Int {
         
-        if self.viewModel == nil { // when we create a new category - we don't have items
+        if self.viewModel == nil { // when we create a new category - we don't have items and we can't add children
             return 1
         }
         
-        return 2
+        if self.editMode { // properties + delete button
+            return 2
+        }
+        
+        return 3 // properties + children + add button
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -174,7 +201,13 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 return 1 // delete button
             } else {
-                return 0 // self.viewModel?.itemNames.count ?? 0
+                return self.viewModel?.childCategoryNames.count ?? 0
+            }
+        }
+        
+        if section == 2 {
+            if !self.editMode {
+                return 1 // add button
             }
         }
         
@@ -188,6 +221,15 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNameLabelIdentifier)
+    }
+    
+    func getCategoryCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseCategoryLabelIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseCategoryLabelIdentifier)
     }
     
     func getButtonCell() -> UITableViewCell {
@@ -218,7 +260,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        // delete button is only display in edit mode
+        // delete button is only displayed in edit mode
         if indexPath == self.deleteButtonIndexPath {
             if self.editMode {
                 let cell = self.getButtonCell()
@@ -229,16 +271,27 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        /*if indexPath.section == 1 {
+        // add button is only displayed in view mode
+        if indexPath == self.addButtonIndexPath {
             if !self.editMode {
-                let cell = getItemCell()
-                cell.imageView?.image = R.image.pin()
-                cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
+                let cell = self.getButtonCell()
+                cell.textLabel?.textAlignment = .center
+                cell.textLabel?.text = "Add new Child Category"
+                cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
+                return cell
+            }
+        }
+        
+        if indexPath.section == 1 {
+            if !self.editMode {
+                let cell = getCategoryCell()
+                cell.imageView?.image = R.image.category()
+                cell.textLabel?.text = self.viewModel?.childCategoryName(at: indexPath.row)
                 cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .disclosureIndicator
                 return cell
             }
-        }*/
+        }
         
         fatalError("unknown view cell requested for \(indexPath)")
     }
@@ -261,9 +314,18 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
+        if indexPath == self.addButtonIndexPath {
+            
+            if !self.editMode {
+                
+                self.interactor?.showCategoryWith(parent: self.viewModel)
+            }
+        }
+        
         if indexPath.section == 1 {
-            //let itemName = self.viewModel?.itemName(at: indexPath.row)
-            //self.interactor?.showItem(named: itemName ?? "--")
+            if let categoryName = self.viewModel?.childCategoryName(at: indexPath.row) {
+                self.interactor?.showCategory(named: categoryName)
+            }
         }
         
         self.tableView.deselectRow(at: indexPath, animated: true)

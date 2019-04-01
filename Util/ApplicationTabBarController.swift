@@ -117,6 +117,7 @@ class ApplicationTabBarController: UITabBarController {
         settingsViewController.interactor?.presenterInput = settingsPresenter
         settingsViewController.interactor?.itemDao = itemDao
         settingsViewController.interactor?.patchDao = patchDao
+        settingsViewController.interactor?.categoryDao = categoryDao
         settingsViewController.interactor?.router = router
         
         settingsViewController.presenter?.viewInput = settingsViewController

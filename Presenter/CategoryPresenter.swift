@@ -15,6 +15,7 @@ protocol CategoryViewInputProtocol {
     func presentUserFeedback(message: String)
     func updateViewModel(identifier: NSManagedObjectID?)
     func toggleDetail()
+    func reloadDetail(with categoryViewModel: CategoryViewModel?)
 }
 
 enum CategoryFailure {
@@ -24,6 +25,8 @@ enum CategoryFailure {
 }
 
 protocol CategoryPresenterInputProtocol {
+    
+    func reloaded(with categoryViewModel: CategoryViewModel?)
     
     func saveSuccess(identifier: NSManagedObjectID?)
     func saveFailure(failure: CategoryFailure)
@@ -39,6 +42,11 @@ class CategoryPresenter {
 }
 
 extension CategoryPresenter: CategoryPresenterInputProtocol {
+    
+    func reloaded(with categoryViewModel: CategoryViewModel?) {
+
+        self.viewInput?.reloadDetail(with: categoryViewModel)
+    }
     
     func saveSuccess(identifier: NSManagedObjectID?) {
         
