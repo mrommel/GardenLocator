@@ -15,6 +15,8 @@ protocol CategoryInteractorInputProtocol {
     var categoryDao: CategoryDaoProtocol? { get set }
     var presenterInput: CategoryPresenterInputProtocol? { get set }
     
+    func refreshData(for identifier: NSManagedObjectID?)
+    
     func create(category: CategoryViewModel?, parent: CategoryViewModel?)
     func save(category: CategoryViewModel?, parent: CategoryViewModel?)
     func delete(category: CategoryViewModel?)
@@ -33,6 +35,14 @@ class CategoryInteractor {
 
 extension CategoryInteractor: CategoryInteractorInputProtocol {
     
+    func refreshData(for identifier: NSManagedObjectID?) {
+
+        if let identifier = identifier, let category = self.categoryDao?.get(by: identifier) {
+            let categoryViewModel = CategoryViewModel(category: category)
+            presenterInput?.reloaded(with: categoryViewModel)
+        }
+    }
+    
     func create(category: CategoryViewModel?, parent: CategoryViewModel?) {
         
         if let name = category?.name, let parentIdentifier = parent?.identifier {
@@ -41,12 +51,11 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
             
             if let saved = self.categoryDao?.create(named: name, parent: parentObject) {
                 if saved {
-                    
                     // put identifier into model
                     if let storedCategory = self.categoryDao?.get(by: name) {
                         let categoryViewModel = CategoryViewModel(category: storedCategory)
                         self.presenterInput?.reloaded(with: categoryViewModel)
-                        
+    
                         self.presenterInput?.saveSuccess(identifier: storedCategory.objectID)
                     }
                     return

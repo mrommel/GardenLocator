@@ -11,9 +11,6 @@ import Rswift
 
 class ApplicationTabBarController: UITabBarController {
     
-    let itemDao = ItemDao()
-    let patchDao = PatchDao()
-    let categoryDao = CategoryDao()
     let router = Router()
     
     override func viewDidLoad() {
@@ -29,101 +26,20 @@ class ApplicationTabBarController: UITabBarController {
         super.viewWillAppear(animated)
         
         // Create Tab one
-        let mapViewController = R.storyboard.main.mapViewController()!
-        let mapBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonMapTitle(), image: R.image.map_outline(), selectedImage: R.image.map())
-        
-        let mapInteractor = MapInteractor()
-        let mapPresenter = MapPresenter()
-        
-        mapViewController.interactor = mapInteractor
-        mapViewController.presenter = mapPresenter
-        
-        mapViewController.interactor?.presenterInput = mapPresenter
-        mapViewController.interactor?.itemDao = itemDao
-        mapViewController.interactor?.patchDao = patchDao
-        
-        mapViewController.presenter?.viewInput = mapViewController
-        mapViewController.presenter?.interator = mapInteractor
-        
-        mapViewController.tabBarItem = mapBarItem
+        let mapViewController = self.router.getMapViewController()
         
         // Create Tab two
-        let patchesViewController = R.storyboard.main.patchesViewController()!
-        let patchesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonPatchesTitle(), image: R.image.field_outline(), selectedImage: R.image.field())
-        
-        let patchesInteractor = PatchesInteractor()
-        let patchesPresenter = PatchesPresenter()
-        
-        patchesViewController.interactor = patchesInteractor
-        patchesViewController.presenter = patchesPresenter
-        
-        patchesViewController.interactor?.presenterInput = patchesPresenter
-        patchesViewController.interactor?.patchDao = self.patchDao
-        patchesViewController.interactor?.router = self.router
-        
-        patchesViewController.presenter?.viewInput = patchesViewController
-        patchesViewController.presenter?.interator = patchesInteractor
-        
-        patchesViewController.tabBarItem = patchesBarItem
+        let patchesViewController = self.router.getPatchesViewController()
         
         // Create Tab three
-        let itemsViewController = R.storyboard.main.itemsViewController()!
-        let itemsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonItemsTitle(), image: R.image.pin_outline(), selectedImage: R.image.pin())
+        let itemsViewController = self.router.getItemsViewController()
         
-        let itemsInteractor = ItemsInteractor()
-        let itemsPresenter = ItemsPresenter()
-        
-        itemsViewController.interactor = itemsInteractor
-        itemsViewController.presenter = itemsPresenter
-        
-        itemsViewController.interactor?.presenterInput = itemsPresenter
-        itemsViewController.interactor?.itemDao = itemDao
-        itemsViewController.interactor?.router = router
-        
-        itemsViewController.presenter?.viewInput = itemsViewController
-        itemsViewController.presenter?.interator = itemsInteractor
-        
-        itemsViewController.tabBarItem = itemsBarItem
         
         // Creare Tab four
-        let categoriesViewController = R.storyboard.main.categoriesViewController()!
-        let categoriesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.category_outline(), selectedImage: R.image.category())
-        
-        let categoriesInteractor = CategoriesInteractor()
-        let categoriesPresenter = CategoriesPresenter()
-        
-        categoriesViewController.interactor = categoriesInteractor
-        categoriesViewController.presenter = categoriesPresenter
-        
-        categoriesViewController.interactor?.presenterInput = categoriesPresenter
-        categoriesViewController.interactor?.categoryDao = categoryDao
-        categoriesViewController.interactor?.router = router
-        
-        categoriesViewController.presenter?.viewInput = categoriesViewController
-        categoriesViewController.presenter?.interator = categoriesInteractor
-        
-        categoriesViewController.tabBarItem = categoriesBarItem
+        let categoriesViewController = self.router.getCategoriesViewController()
         
         // Creare Tab five
-        let settingsViewController = R.storyboard.main.settingsViewController()!
-        let settingsBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.settings_outline(), selectedImage: R.image.settings())
-        
-        let settingsInteractor = SettingsInteractor()
-        let settingsPresenter = SettingsPresenter()
-        
-        settingsViewController.interactor = settingsInteractor
-        settingsViewController.presenter = settingsPresenter
-        
-        settingsViewController.interactor?.presenterInput = settingsPresenter
-        settingsViewController.interactor?.itemDao = itemDao
-        settingsViewController.interactor?.patchDao = patchDao
-        settingsViewController.interactor?.categoryDao = categoryDao
-        settingsViewController.interactor?.router = router
-        
-        settingsViewController.presenter?.viewInput = settingsViewController
-        settingsViewController.presenter?.interator = settingsInteractor
-        
-        settingsViewController.tabBarItem = settingsBarItem
+        let settingsViewController = self.router.getSettingsViewController()
         
         let controllers = [mapViewController, patchesViewController, itemsViewController, categoriesViewController, settingsViewController]
 

@@ -60,16 +60,9 @@ class CategoryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // TODO: move to somewhere !!!
-        let categoryDao = CategoryDao()
         if let identifier = self.viewModel?.identifier {
-            if let category = categoryDao.get(by: identifier) {
-                let categoryViewModel = CategoryViewModel(category: category)
-                self.viewModel = categoryViewModel
-            }
+            self.interactor?.refreshData(for: identifier)
         }
-        
-        self.tableView.reloadData()
     }
     
     func setup() {
@@ -167,7 +160,7 @@ extension CategoryViewController: CategoryViewInputProtocol {
         
         self.viewModel = categoryViewModel
         
-        self.setup()
+        self.tableView.reloadData()
     }
 }
 
