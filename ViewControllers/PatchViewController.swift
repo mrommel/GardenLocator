@@ -362,7 +362,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getShapeCell()
                 
-                cell.textLabel?.text = "Shape" // TODO
+                cell.textLabel?.text = R.string.localizable.itemShapeTitle()
                 if let viewModel = self.viewModel {
                     cell.detailTextLabel?.text = viewModel.shape.title
                 } else {
@@ -375,7 +375,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 let cell = self.getShapeCell()
                 
-                cell.textLabel?.text = "Shape" // TODO
+                cell.textLabel?.text = R.string.localizable.itemShapeTitle()
                 cell.detailTextLabel?.text = self.viewModel?.shape.title
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .none
@@ -389,7 +389,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             if self.editMode {
                 let cell = self.getColorCell()
                 
-                cell.textLabel?.text = "Color" // TODO
+                cell.textLabel?.text = R.string.localizable.itemColorTitle()
                 if let viewModel = self.viewModel {
                     cell.detailTextLabel?.text = viewModel.color.title
                 } else {
@@ -402,7 +402,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 let cell = self.getColorCell()
                 
-                cell.textLabel?.text = "Color" // TODO
+                cell.textLabel?.text = R.string.localizable.itemColorTitle()
                 cell.detailTextLabel?.text = self.viewModel?.color.title
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 cell.accessoryType = .none
@@ -449,7 +449,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                     selectedIndex = 0
                 }
                 
-                self.interactor?.showPatchShapes(title: "Shape", data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
+                self.interactor?.showPatchShapes(title: R.string.localizable.itemShapeTitle(), data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
                     
                     if let newShape = PatchShape.allCases.first(where: { $0.title == newSelection }) {
                     
@@ -478,7 +478,7 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
                     selectedIndex = 0
                 }
                 
-                self.interactor?.showPatchShapes(title: "Color", data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
+                self.interactor?.showPatchShapes(title: R.string.localizable.itemColorTitle(), data: data, selectedIndex: selectedIndex, onSelect: { newSelection in
                     
                     if let newColor = PatchColor.allCases.first(where: { $0.title == newSelection }) {
                         

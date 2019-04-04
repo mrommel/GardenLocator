@@ -55,9 +55,4 @@ public class TextInputTableViewCell: UITableViewCell {
         
         return self.textField.text ?? ""
     }
-    
-    /// UIView internal handler
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.textField.becomeFirstResponder()
-    }
 }

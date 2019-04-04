@@ -13,12 +13,10 @@ import Rswift
 extension Patch {
  
     func shape() -> PatchShape? {
-        
         return PatchShape.init(rawValue: self.type)
     }
     
     func color() -> PatchColor? {
-        
         return PatchColor.init(rawValue: self.colorValue)
     }
     

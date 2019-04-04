@@ -11,6 +11,29 @@
 "Button.Cancel" = "Cancel";
 "Button.Delete" = "Delete";
 
+/* Colors */
+"Color.Maroon" = "Maroon";
+"Color.Brown" = "Brown";
+"Color.Olive" = "Olive";
+"Color.Teal" = "Teal";
+"Color.Navy" = "Navy";
+
+"Color.Red" = "Red";
+"Color.Orange" = "Orange";
+"Color.Yellow" = "Yellow";
+"Color.Lime" = "Lime";
+"Color.Green" = "Green";
+"Color.Cyan" = "Cyan";
+"Color.Blue" = "Blue";
+"Color.Purple" = "Purple";
+"Color.Magenta" = "Magenta";
+
+"Color.Pink" = "Pink";
+"Color.Apricot" = "Apricot";
+"Color.Beige" = "Beige";
+"Color.Mint" = "Mint";
+"Color.Lavendar" = "Lavendar";
+
 /* ApplicationTabBarController */
 "TabBarButton.Map.Title" = "Map";
 "TabBarButton.Patches.Title" = "Patches";
@@ -37,6 +60,8 @@
 "Item.Latitude.Title" = "Latitude";
 "Item.Latitude.Placeholder" = "Enter some latitude!";
 "Item.Patch" = "Patch";
+"Item.Shape.Title" = "Shape";
+"Item.Color.Title" = "Color";
 "Item.Notice.Title" = "Notice";
 "Item.Notice.Placeholder" = "Please add Notices";
 

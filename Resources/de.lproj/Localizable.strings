@@ -11,6 +11,29 @@
 "Button.Cancel" = "Abbrechen";
 "Button.Delete" = "Löschen";
 
+/* Colors */
+"Color.Maroon" = "Kastanienbraun";
+"Color.Brown" = "Braun";
+"Color.Olive" = "Olive";
+"Color.Teal" = "Teal";
+"Color.Navy" = "Marine";
+
+"Color.Red" = "Rot";
+"Color.Orange" = "Orange";
+"Color.Yellow" = "Gelb";
+"Color.Lime" = "Limette";
+"Color.Green" = "Grün";
+"Color.Cyan" = "Cyan";
+"Color.Blue" = "Blau";
+"Color.Purple" = "Lila";
+"Color.Magenta" = "Magenta";
+
+"Color.Pink" = "Rosa";
+"Color.Apricot" = "Aprikose";
+"Color.Beige" = "Beige";
+"Color.Mint" = "Minze";
+"Color.Lavendar" = "Lavendel";
+
 /* ApplicationTabBarController */
 "TabBarButton.Map.Title" = "Karte";
 "TabBarButton.Patches.Title" = "Beete";
@@ -37,6 +60,8 @@
 "Item.Latitude.Title" = "Breitengrad";
 "Item.Latitude.Placeholder" = "Hier Breitengrad einfügen!";
 "Item.Patch" = "Beet";
+"Item.Shape.Title" = "Form";
+"Item.Color.Title" = "Farbe";
 "Item.Notice.Title" = "Notizen";
 "Item.Notice.Placeholder" = "Bitte fügen sie hier Notizen ein";
 

@@ -36,45 +36,45 @@ enum PatchColor: Int64, CaseIterable {
     var title: String {
         switch self {
         case .maroon:
-            return "Maroon"
+            return R.string.localizable.colorMaroon()
         case .brown:
-            return "Brown"
+            return R.string.localizable.colorBrown()
         case .olive:
-            return "Olive"
+            return R.string.localizable.colorOlive()
         case .teal:
-            return "Teal"
+            return R.string.localizable.colorTeal()
         case .navy:
-            return "Navy"
+            return R.string.localizable.colorNavy()
             
         case .red:
-            return "Red"
+            return R.string.localizable.colorRed()
         case .orange:
-            return "Orange"
+            return R.string.localizable.colorOrange()
         case .yellow:
-            return "Yellow"
+            return R.string.localizable.colorYellow()
         case .lime:
-            return "Lime"
+            return R.string.localizable.colorLime()
         case .green:
-            return "Green"
+            return R.string.localizable.colorGreen()
         case .cyan:
-            return "Cyan"
+            return R.string.localizable.colorCyan()
         case .blue:
-            return "Blue"
+            return R.string.localizable.colorBlue()
         case .purple:
-            return "Purple"
+            return R.string.localizable.colorPurple()
         case .magenta:
-            return "Magenta"
+            return R.string.localizable.colorMagenta()
             
         case .pink:
-            return "Pink"
+            return R.string.localizable.colorPink()
         case .apricot:
-            return "Apricot"
+            return R.string.localizable.colorApricot()
         case .beige:
-            return "Beige"
+            return R.string.localizable.colorBeige()
         case .mint:
-            return "Mint"
+            return R.string.localizable.colorMint()
         case .lavendar:
-            return "Lavendar"
+            return R.string.localizable.colorLavendar()
         }
     }
     
