@@ -22,6 +22,8 @@ class SettingsPresenter {
     
     var viewInput: SettingsViewInputProtocol?
     var interator: SettingsInteractorInputProtocol?
+    
+    let reuseIdentifier: String = "settingCell"
 }
 
 extension SettingsPresenter: SettingsPresenterInputProtocol {
@@ -34,5 +36,23 @@ extension SettingsPresenter: SettingsPresenterInputProtocol {
     func show(sections: [SettingSection]) {
         
         self.viewInput?.present(viewModel: SettingsViewModel(sections: sections))
+    }
+    
+    private func getSettingCell(for tableView: UITableView) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+    
+    func getSettingCell(for settingItem: SettingItem?, in tableView: UITableView) -> UITableViewCell {
+        let cell = self.getSettingCell(for: tableView)
+        
+        cell.textLabel?.text = settingItem?.title
+        cell.imageView?.image = settingItem?.icon
+        
+        return cell
     }
 }

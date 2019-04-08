@@ -302,6 +302,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath == self.nameIndexPath {
 
             if self.editMode {
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
                 cell.configure(title: R.string.localizable.itemNameTitle(),
                     textFieldValue: self.viewModel?.name ?? "",

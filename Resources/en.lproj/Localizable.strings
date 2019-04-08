@@ -94,6 +94,19 @@
 "Patch.Delete.Success" = "Successfully deleted";
 "Patch.Delete.Failure" = "Could not delete";
 
+/* CategoriesViewController */
+"Categories.Title" = "Categories";
+"Categories.NoCategories.Title" = "No categories.";
+"Categories.NoCategories.Message" = "Your categories will be in here. Simply add a category via the +.";
+
+/* CategoryViewController */
+"Category.Name.Title" = "Name";
+"Category.Name.Placeholder" = "Enter some text!";
+"Category.Subcategories.Title" = "Child categories";
+"Category.Add.Category" = "Add new child category";
+"Category.Delete.Question.Title" = "Are you Sure?";
+"Category.Delete.Question.Message" = "Do you really want to delete category '%@'?";
+
 /* SettingsViewController */
 "Settings.Title" = "Settings";
 "Settings.Section.App" = "App";

@@ -171,6 +171,16 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         return 30.0
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if !self.editMode {
+            if section == 1 {
+                return R.string.localizable.categorySubcategoriesTitle()
+            }
+        }
+        return nil
+    }
+    
     public func numberOfSections(in tableView: UITableView) -> Int {
         
         if self.viewModel == nil { // when we create a new category - we don't have items and we can't add children
@@ -240,12 +250,12 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             
             if self.editMode {
                 let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: R.string.localizable.patchNameTitle(), textFieldValue: self.viewModel?.name ?? "", placeHolder: R.string.localizable.patchNamePlaceholder())
+                cell.configure(title: R.string.localizable.categoryNameTitle(), textFieldValue: self.viewModel?.name ?? "", placeHolder: R.string.localizable.categoryNamePlaceholder())
                 return cell
             } else {
                 let cell = self.getNameCell()
                 
-                cell.textLabel?.text = R.string.localizable.patchNameTitle()
+                cell.textLabel?.text = R.string.localizable.categoryNameTitle()
                 cell.detailTextLabel?.text = self.viewModel?.name ?? ""
                 cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
                 
@@ -269,7 +279,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             if !self.editMode {
                 let cell = self.getButtonCell()
                 cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = "Add new Child Category"
+                cell.textLabel?.text = R.string.localizable.categoryAddCategory()
                 cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
                 return cell
             }
@@ -297,8 +307,8 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let categoryViewModel = self.viewModel {
                     
-                    self.askQuestion(title: "Löschen?",
-                                     message: "Wirklich \(categoryViewModel.name) lscöhen?",
+                    self.askQuestion(title: R.string.localizable.categoryDeleteQuestionTitle(),
+                                     message: R.string.localizable.categoryDeleteQuestionMessage(categoryViewModel.name),
                                      buttonTitle: R.string.localizable.buttonDelete()) { (action) in
                                         self.interactor?.delete(category: categoryViewModel)
                     }

@@ -17,6 +17,8 @@ protocol SettingsPresenterInputProtocol {
 
     func fetch()
     func show(sections: [SettingSection])
+    
+    func getSettingCell(for settingItem: SettingItem?, in tableView: UITableView) -> UITableViewCell
 }
 
 protocol SettingsInteractorInputProtocol {

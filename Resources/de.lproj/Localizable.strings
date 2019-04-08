@@ -94,6 +94,19 @@
 "Patch.Delete.Success" = "Erfolgreich gelöscht";
 "Patch.Delete.Failure" = "Löschen fehlgeschlagen";
 
+/* CategoriesViewController */
+"Categories.Title" = "Kategorien";
+"Categories.NoCategories.Title" = "Keine Kategorien.";
+"Categories.NoCategories.Message" = "Deine Kategorien werden hier angezeigt. Einfach ein Kategorie über das + anlegen.";
+
+/* CategoryViewController */
+"Category.Name.Title" = "Name";
+"Category.Name.Placeholder" = "Hier Text einfügen!";
+"Category.Subcategories.Title" = "Unterkategorien";
+"Category.Add.Category" = "Neue Unterkategorie hinzufügen";
+"Category.Delete.Question.Title" = "Bist du sicher?";
+"Category.Delete.Question.Message" = "Willst du wirklich die Kategorie '%@' löschen?";
+
 /* SettingsViewController */
 "Settings.Title" = "Einstellungen";
 "Settings.Section.App" = "App";

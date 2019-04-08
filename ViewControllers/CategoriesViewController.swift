@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Rswift
 
 class CategoriesViewController: UIViewController {
     
@@ -23,7 +24,7 @@ class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Categories"
+        self.title = R.string.localizable.categoriesTitle()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -68,8 +69,8 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
             return patchCount
         }
         else {
-            self.tableView.setEmptyView(title: "No Categories",
-                                        message: "Create some")
+            self.tableView.setEmptyView(title: R.string.localizable.categoriesNoCategoriesTitle(),
+                                        message: R.string.localizable.categoriesNoCategoriesMessage())
             return 0
         }
     }
@@ -81,7 +82,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return "Categories"
+        return R.string.localizable.categoriesTitle()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

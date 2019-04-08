@@ -19,8 +19,6 @@ class SettingsViewController: UIViewController {
     var interactor: SettingsInteractorInputProtocol?
     var viewModel: SettingsViewModel?
     
-    let reuseIdentifier: String = "settingCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,30 +71,19 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return self.viewModel?.sections[section].title
     }
     
-    func getSettingCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifier)
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let settingItem = self.viewModel?.sections[indexPath.section].items[indexPath.row]
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
+        }
         
-        let cell = self.getSettingCell()
-        
-        cell.textLabel?.text = settingItem?.title
-        cell.imageView?.image = settingItem?.icon
-        
-        return cell
+        let settingItem = self.viewModel?.getSettingItem(at: indexPath)
+        return presenter.getSettingCell(for: settingItem, in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let setting = self.viewModel?.sections[indexPath.section].items[indexPath.row] {
+        if let setting = self.viewModel?.getSettingItem(at: indexPath) {
             setting.execute()
         }
         

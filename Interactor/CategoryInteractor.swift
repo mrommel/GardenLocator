@@ -45,9 +45,14 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
     
     func create(category: CategoryViewModel?, parent: CategoryViewModel?) {
         
-        if let name = category?.name, let parentIdentifier = parent?.identifier {
+        
+        
+        if let name = category?.name {
             
-            let parentObject = self.categoryDao?.get(by: parentIdentifier)
+            var parentObject: Category? = nil
+            if let parentIdentifier = parent?.identifier {
+                parentObject = self.categoryDao?.get(by: parentIdentifier)
+            }
             
             if let saved = self.categoryDao?.create(named: name, parent: parentObject) {
                 if saved {

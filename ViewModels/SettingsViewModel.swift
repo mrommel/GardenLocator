@@ -35,4 +35,11 @@ class SettingsViewModel {
         
         self.sections = sections
     }
+    
+    func getSettingItem(at indexPath: IndexPath) -> SettingItem {
+        
+        let section = self.sections[indexPath.section]
+        
+        return section.items[indexPath.row]
+    }
 }
