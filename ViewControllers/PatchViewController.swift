@@ -35,13 +35,6 @@ class PatchViewController: UIViewController {
     var latitudeTmp: Double = 0.0
     var colorTmp: PatchColor = .maroon
     
-    let reuseButtonIdentifier: String = "reuseButtonIdentifier"
-    let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
-    let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
-    let reuseItemLabelIdentifier: String = "reuseItemLabelIdentifier"
-    let reuseShapeSelectionIdentifier: String = "reuseShapeSelectionIdentifier"
-    let reuseColorSelectionIdentifier: String = "reuseColorSelectionIdentifier"
-    
     let nameIndexPath = IndexPath(row: 0, section: 0)
     let latitudeIndexPath = IndexPath(row: 1, section: 0)
     let longitudeIndexPath = IndexPath(row: 2, section: 0)
@@ -63,7 +56,7 @@ class PatchViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
         
-        self.tableView.register(TextInputTableViewCell.self , forCellReuseIdentifier: reuseNameTextfieldIdentifier)
+        self.tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: self.presenter?.reuseNameTextfieldIdentifier ?? "")
         
         if let model = self.viewModel {
             self.camera = GMSCameraPosition.camera(withLatitude: model.latitude, longitude: model.longitude, zoom: 20)
@@ -251,185 +244,85 @@ extension PatchViewController: UITableViewDataSource, UITableViewDelegate {
         return 0
     }
     
-    func getNameCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseNameLabelIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNameLabelIdentifier)
-    }
-    
-    func getItemCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseItemLabelIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseItemLabelIdentifier)
-    }
-    
-    func getShapeCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseShapeSelectionIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseShapeSelectionIdentifier)
-    }
-    
-    func getColorCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseColorSelectionIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseColorSelectionIdentifier)
-    }
-    
-    func getButtonCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseButtonIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .default, reuseIdentifier: self.reuseButtonIdentifier)
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
+        }
         
         if indexPath == self.nameIndexPath {
             
             if self.editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: R.string.localizable.patchNameTitle(), textFieldValue: self.viewModel?.name ?? "", placeHolder: R.string.localizable.patchNamePlaceholder())
-                return cell
+                return presenter.getTextFieldCell(titled: R.string.localizable.patchNameTitle(),
+                                                  value: self.viewModel?.name ?? "",
+                                                  placeholder: R.string.localizable.patchNamePlaceholder(),
+                                                  tag: 0,
+                                                  in: tableView)
             } else {
-                let cell = self.getNameCell()
-                
-                cell.textLabel?.text = R.string.localizable.patchNameTitle()
-                cell.detailTextLabel?.text = self.viewModel?.name ?? ""
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                    
-                return cell
+                return presenter.getNameValueCell(for: R.string.localizable.patchNameTitle(),
+                                                  and: self.viewModel?.name ?? "",
+                                                  in: self.tableView)
             }
         }
         
         if indexPath == self.latitudeIndexPath {
             
             if self.editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: R.string.localizable.itemLatitudeTitle(),
-                               textFieldValue: "\(self.viewModel?.latitude ?? self.latitudeTmp)",
-                    placeHolder: R.string.localizable.itemLatitudePlaceholder())
-                cell.textField.tag = 1
-                cell.textField.delegate = self
-                return cell
+                return presenter.getTextFieldCell(titled: R.string.localizable.itemLatitudeTitle(),
+                                                 value: "\(self.viewModel?.latitude ?? self.latitudeTmp)",
+                                                 placeholder: R.string.localizable.itemLatitudePlaceholder(),
+                                                 tag: 1,
+                                                 in: tableView)
             } else {
-                let cell = self.getNameCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemLatitudeTitle()
-                cell.detailTextLabel?.text = "\(self.viewModel?.latitude ?? self.latitudeTmp)"
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                
-                return cell
+                return presenter.getNameValueCell(for: R.string.localizable.itemLatitudeTitle(),
+                                                  and: "\(self.viewModel?.latitude ?? self.latitudeTmp)",
+                                                  in: self.tableView)
             }
         }
         
         if indexPath == self.longitudeIndexPath {
             
             if self.editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: R.string.localizable.itemLongitudeTitle(),
-                               textFieldValue: "\(self.viewModel?.longitude ?? self.longitudeTmp)",
-                    placeHolder: R.string.localizable.itemLongitudePlaceholder())
-                cell.textField.tag = 2
-                cell.textField.delegate = self
-                return cell
+                return presenter.getTextFieldCell(titled: R.string.localizable.itemLongitudeTitle(),
+                                                  value: "\(self.viewModel?.longitude ?? self.longitudeTmp)",
+                    placeholder: R.string.localizable.itemLongitudePlaceholder(),
+                    tag: 2,
+                    in: tableView)
             } else {
-                let cell = self.getNameCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemLongitudeTitle()
-                cell.detailTextLabel?.text = "\(self.viewModel?.longitude ?? self.longitudeTmp)"
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                
-                return cell
+                return presenter.getNameValueCell(for: R.string.localizable.itemLongitudeTitle(),
+                                                  and: "\(self.viewModel?.longitude ?? self.longitudeTmp)",
+                                                  in: self.tableView)
             }
         }
         
         if indexPath == self.shapeIndexPath {
             
             if self.editMode {
-                let cell = self.getShapeCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemShapeTitle()
-                if let viewModel = self.viewModel {
-                    cell.detailTextLabel?.text = viewModel.shape.title
-                } else {
-                    cell.detailTextLabel?.text = self.shapeTmp.title
-                }
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .none
-                
-                return cell
+                return presenter.getShapeCell(for: self.viewModel?.shape.title ?? self.shapeTmp.title, in: self.tableView)
             } else {
-                let cell = self.getShapeCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemShapeTitle()
-                cell.detailTextLabel?.text = self.viewModel?.shape.title
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .none
-                
-                return cell
+                return presenter.getShapeCell(for: self.viewModel?.shape.title ?? "", in: self.tableView)
             }
         }
         
         if indexPath == self.colorIndexPath {
             
             if self.editMode {
-                let cell = self.getColorCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemColorTitle()
-                if let viewModel = self.viewModel {
-                    cell.detailTextLabel?.text = viewModel.color.title
-                } else {
-                    cell.detailTextLabel?.text = self.colorTmp.title
-                }
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .none
-                
-                return cell
+                return presenter.getColorCell(for: self.viewModel?.color.title ?? self.colorTmp.title, in: self.tableView)
             } else {
-                let cell = self.getColorCell()
-                
-                cell.textLabel?.text = R.string.localizable.itemColorTitle()
-                cell.detailTextLabel?.text = self.viewModel?.color.title
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .none
-                
-                return cell
+                return presenter.getColorCell(for: self.viewModel?.color.title ?? "", in: self.tableView)
             }
         }
         
         // delete button is only display in edit mode
         if indexPath == self.deleteButtonIndexPath {
             if self.editMode {
-                let cell = self.getButtonCell()
-                cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = R.string.localizable.buttonDelete()
-                cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
-                return cell
+                return presenter.getButtonCell(in: self.tableView)
             }
         }
         
         if indexPath.section == 1 {
             if !self.editMode {
-                let cell = getItemCell()
-                cell.imageView?.image = R.image.pin()
-                cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
-                cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .disclosureIndicator
-                return cell
+                return presenter.getItemCell(for: self.viewModel?.itemName(at: indexPath.row) ?? "", in: self.tableView)
             }
         }
         
@@ -577,17 +470,4 @@ extension PatchViewController: PatchViewInputProtocol {
     }
 }
 
-extension PatchViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let nextTag = textField.tag + 1
-        
-        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
-            nextResponder.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
-        
-        return true
-    }
-}
+
