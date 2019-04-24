@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     var markers: [GMSOverlay] = []
     
     private let locationManager = CLLocationManager()
+    private let networkManager = NetworkManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class MapViewController: UIViewController {
         
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
+
+        self.networkManager.reachability?.whenUnreachable = { _ in
+            self.interactor?.showOfflinePage()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

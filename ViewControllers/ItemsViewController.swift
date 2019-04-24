@@ -20,7 +20,7 @@ class ItemsViewController: UIViewController {
     var viewModel: ItemsViewModel?
     
     let reuseIdentifier: String = "itemCell"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

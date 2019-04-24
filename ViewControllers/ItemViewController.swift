@@ -48,6 +48,8 @@ class ItemViewController: UIViewController {
     let patchIndexPath = IndexPath(row: 3, section: 0)
     let noticeIndexPath = IndexPath(row: 4, section: 0)
     let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
+    
+    private let networkManager = NetworkManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +100,10 @@ class ItemViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         self.setup()
+        
+        self.networkManager.reachability?.whenUnreachable = { _ in
+            self.interactor?.showOfflinePage()
+        }
     }
 
     func setup() {

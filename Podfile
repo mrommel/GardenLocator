@@ -7,4 +7,5 @@ target 'GardenLocator' do
   # Pods for GardenLocator
   pod 'R.swift'
   pod 'GoogleMaps'
+  pod 'ReachabilitySwift'
 end

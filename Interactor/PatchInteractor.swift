@@ -22,6 +22,8 @@ protocol PatchInteractorInputProtocol {
     func showPatchShapes(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
     func showPatches()
     func showItem(named itemName: String)
+    
+    func showOfflinePage()
 }
 
 class PatchInteractor {
@@ -33,6 +35,10 @@ class PatchInteractor {
 }
 
 extension PatchInteractor: PatchInteractorInputProtocol {
+    
+    func showOfflinePage() {
+        self.router?.showOfflinePage()
+    }
     
     func create(patch: PatchViewModel?) {
         

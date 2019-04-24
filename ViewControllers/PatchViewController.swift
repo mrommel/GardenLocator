@@ -43,6 +43,8 @@ class PatchViewController: UIViewController {
     
     let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
     
+    private let networkManager = NetworkManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,6 +91,10 @@ class PatchViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.setup()
+        
+        self.networkManager.reachability?.whenUnreachable = { _ in
+            self.interactor?.showOfflinePage()
+        }
     }
     
     func setup() {

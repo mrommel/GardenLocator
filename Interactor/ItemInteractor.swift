@@ -26,6 +26,8 @@ protocol ItemInteractorInputProtocol {
     
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
     func showPatch(named patchName: String)
+    
+    func showOfflinePage()
 }
 
 class ItemInteractor {
@@ -37,6 +39,10 @@ class ItemInteractor {
 }
 
 extension ItemInteractor: ItemInteractorInputProtocol {
+    
+    func showOfflinePage() {
+        self.router?.showOfflinePage()
+    }
     
     func create(item: ItemViewModel?) {
         

@@ -126,20 +126,18 @@ class SettingsInteractor {
                 // categories
                 let _ = self.categoryDao?.create(named: "Blumen", parent: nil)
                 let category0 = self.categoryDao?.get(by: "Blumen")
-                
-                let _ = self.categoryDao?.create(named: "Sommerblumen", parent: nil)
-                let category0_0: Category = (self.categoryDao?.get(by: "Sommerblumen"))!
-                category0?.addToChildren(category0_0)
-                
-                let _ = self.categoryDao?.create(named: "Winterblumen", parent: nil)
-                let category0_1: Category = (self.categoryDao?.get(by: "Winterblumen"))!
-                category0?.addToChildren(category0_1)
-                
+                let _ = self.categoryDao?.create(named: "Sommerblumen", parent: category0)
+                let _ = self.categoryDao?.create(named: "Winterblumen", parent: category0)
+
                 let _ = self.categoryDao?.create(named: "Gemüse", parent: nil)
                 let category1 = self.categoryDao?.get(by: "Gemüse")
+                let _ = self.categoryDao?.create(named: "Grünes Gemüse", parent: category1)
+                let _ = self.categoryDao?.create(named: "Rotes Gemüse", parent: category1)
                 
                 let _ = self.categoryDao?.create(named: "Obst", parent: nil)
                 let category2 = self.categoryDao?.get(by: "Obst")
+                let _ = self.categoryDao?.create(named: "Kernobst", parent: category2)
+                let _ = self.categoryDao?.create(named: "Steinobst", parent: category2)
                 
                 if allCreated {
                     self.presenterInput?.viewInput?.showToast(message: "Successfully created")
@@ -157,7 +155,6 @@ extension SettingsInteractor: SettingsInteractorInputProtocol {
         let item0_1 = SettingItem(icon: R.image.info(),
             title: R.string.localizable.settingsAppVersion(),
             selectionHandler: {
-
 
                 self.presenterInput?.viewInput?.showError(title: R.string.localizable.settingsAppVersion(),
                     message: "\(self.version())\n\(self.appData())")

@@ -1,28 +1,32 @@
 PODS:
-  - GoogleMaps (3.0.3):
-    - GoogleMaps/Maps (= 3.0.3)
-  - GoogleMaps/Base (3.0.3)
-  - GoogleMaps/Maps (3.0.3):
+  - GoogleMaps (3.1.0):
+    - GoogleMaps/Maps (= 3.1.0)
+  - GoogleMaps/Base (3.1.0)
+  - GoogleMaps/Maps (3.1.0):
     - GoogleMaps/Base
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
+  - ReachabilitySwift (4.3.1)
 
 DEPENDENCIES:
   - GoogleMaps
   - R.swift
+  - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - GoogleMaps
     - R.swift
     - R.swift.Library
+    - ReachabilitySwift
 
 SPEC CHECKSUMS:
-  GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
+  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
 
-PODFILE CHECKSUM: 08b8bcd3ee372ddac7da3cf6bd535dadcd622e8e
+PODFILE CHECKSUM: dd798c0d04b7109b502dc5a9d97b9e859e371f55
 
 COCOAPODS: 1.5.3

@@ -67,6 +67,9 @@
 		C913D1DB22514D340041BDAC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DA22514D340041BDAC /* CategoryViewController.swift */; };
 		C913D1DD225151180041BDAC /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DC225151180041BDAC /* CategoryPresenter.swift */; };
 		C913D1DF225151A80041BDAC /* CategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C913D1DE225151A80041BDAC /* CategoryInteractor.swift */; };
+		C98771612270787B00E4534E /* OfflineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98771602270787B00E4534E /* OfflineViewController.swift */; };
+		C9877163227078B600E4534E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9877162227078B600E4534E /* NetworkManager.swift */; };
+		C98771652270B6E600E4534E /* OfflineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98771642270B6E600E4534E /* OfflineInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +138,9 @@
 		C913D1DA22514D340041BDAC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		C913D1DC225151180041BDAC /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		C913D1DE225151A80041BDAC /* CategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInteractor.swift; sourceTree = "<group>"; };
+		C98771602270787B00E4534E /* OfflineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineViewController.swift; sourceTree = "<group>"; };
+		C9877162227078B600E4534E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C98771642270B6E600E4534E /* OfflineInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +224,7 @@
 		C9016091223FA222007309BC /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				C98771642270B6E600E4534E /* OfflineInteractor.swift */,
 				C90160B42242D25A007309BC /* MapInteractor.swift */,
 				C9016092223FA254007309BC /* PatchesInteractor.swift */,
 				C9016096223FF7DA007309BC /* PatchInteractor.swift */,
@@ -302,6 +309,7 @@
 				C90160CB2246CE97007309BC /* GMSPolygonExtension.swift */,
 				C90160CF22496967007309BC /* StringExtension.swift */,
 				C913D1C8224C034B0041BDAC /* DoubleExtension.swift */,
+				C9877162227078B600E4534E /* NetworkManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 		C91048AB223DA70000EE8FDB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C98771602270787B00E4534E /* OfflineViewController.swift */,
 				C91048AD223DA70000EE8FDB /* MapViewController.swift */,
 				C91048AE223DA70000EE8FDB /* ItemsViewController.swift */,
 				C90160A822403CFC007309BC /* ItemViewController.swift */,
@@ -457,12 +466,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GardenLocator/Pods-GardenLocator-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -498,6 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9877163227078B600E4534E /* NetworkManager.swift in Sources */,
 				C91048B8223DA77500EE8FDB /* ColorExtension.swift in Sources */,
 				C90160A922403CFC007309BC /* ItemViewController.swift in Sources */,
 				C91048BB223DA78A00EE8FDB /* ItemsViewController.swift in Sources */,
@@ -506,6 +518,7 @@
 				C901609D22402E11007309BC /* ViewControllerExtension.swift in Sources */,
 				C913D1D3225148A60041BDAC /* CategoriesViewModel.swift in Sources */,
 				C9016099224000F4007309BC /* ApplicationExtension.swift in Sources */,
+				C98771612270787B00E4534E /* OfflineViewController.swift in Sources */,
 				C9016093223FA254007309BC /* PatchesInteractor.swift in Sources */,
 				C913D1CB225106EA0041BDAC /* PatchColor.swift in Sources */,
 				C913D1CD2251070B0041BDAC /* PatchShape.swift in Sources */,
@@ -524,6 +537,7 @@
 				C90160C32243F197007309BC /* SettingsPresenter.swift in Sources */,
 				C90160CC2246CE98007309BC /* GMSPolygonExtension.swift in Sources */,
 				C901607A223ED556007309BC /* PatchDao.swift in Sources */,
+				C98771652270B6E600E4534E /* OfflineInteractor.swift in Sources */,
 				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
 				C913D1D9225149A30041BDAC /* CategoriesInteractor.swift in Sources */,
 				C901608D223EF253007309BC /* Router.swift in Sources */,

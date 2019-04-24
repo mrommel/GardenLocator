@@ -14,7 +14,7 @@ class Router {
     let itemDao = ItemDao()
     let patchDao = PatchDao()
     let categoryDao = CategoryDao()
-    
+
     func getMapViewController() -> UIViewController {
         
         let mapViewController = R.storyboard.main.mapViewController()!
@@ -26,6 +26,7 @@ class Router {
         mapViewController.interactor = mapInteractor
         mapViewController.presenter = mapPresenter
         
+        mapViewController.interactor?.router = self
         mapViewController.interactor?.presenterInput = mapPresenter
         mapViewController.interactor?.itemDao = self.itemDao
         mapViewController.interactor?.patchDao = self.patchDao
@@ -130,6 +131,22 @@ class Router {
         settingsViewController.tabBarItem = settingsBarItem
         
         return settingsViewController
+    }
+    
+    func showOfflinePage() {
+        
+        if let topController = UIApplication.topViewController() {
+            if let offlineViewController = R.storyboard.main.offlineViewController() {
+                
+                let offlineInteractor = OfflineInteractor()
+                
+                offlineInteractor.router = self
+                
+                offlineViewController.interactor = offlineInteractor
+                
+                topController.navigationController?.pushViewController(offlineViewController, animated: true)
+            }
+        }
     }
     
     func show(patch viewModel: PatchViewModel?) {

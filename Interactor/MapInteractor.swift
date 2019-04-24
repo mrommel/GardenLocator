@@ -19,21 +19,28 @@ protocol MapPresenterInputProtocol {
 
 protocol MapInteractorInputProtocol {
     
+    var router: Router? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var presenterInput: MapPresenterInputProtocol? { get set }
     
     func fetchItems()
+    func showOfflinePage()
 }
 
 class MapInteractor {
     
+    var router: Router?
     var itemDao: ItemDaoProtocol?
     var patchDao: PatchDaoProtocol?
     var presenterInput: MapPresenterInputProtocol?
 }
 
 extension MapInteractor: MapInteractorInputProtocol {
+    
+    func showOfflinePage() {
+        self.router?.showOfflinePage()
+    }
     
     func fetchItems() {
         

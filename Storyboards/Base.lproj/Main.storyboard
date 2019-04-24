@@ -274,11 +274,43 @@
                         <segue destination="VBg-Bs-pm4" kind="show" identifier="b" id="Wns-gP-e1E"/>
                         <segue destination="ArR-jj-8kI" kind="show" identifier="a" id="hON-kc-mNE"/>
                         <segue destination="v9g-eb-r7R" kind="show" identifier="f" id="4Ot-Sa-sJ9"/>
+                        <segue destination="9La-wd-PFX" kind="show" identifier="adef" id="eVZ-pa-SoO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xq7-06-6fa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="343" y="193"/>
+        </scene>
+        <!--Offline View Controller-->
+        <scene sceneID="6fk-8h-qOT">
+            <objects>
+                <viewController storyboardIdentifier="OfflineViewController" id="9La-wd-PFX" customClass="OfflineViewController" customModule="GardenLocator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="in8-Mh-118">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="offline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWL-3Y-FxZ">
+                                <rect key="frame" x="73" y="333" width="222" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Nz3-qd-jN4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="222" id="kEB-BJ-8To"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bWL-3Y-FxZ" firstAttribute="centerX" secondItem="JeR-lv-3WD" secondAttribute="centerX" constant="-3.5" id="0VS-iG-YCr"/>
+                            <constraint firstItem="bWL-3Y-FxZ" firstAttribute="centerY" secondItem="JeR-lv-3WD" secondAttribute="centerY" id="t3Q-aW-MFb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JeR-lv-3WD"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zBM-TH-LwQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1837.5999999999999" y="-1604.3478260869567"/>
         </scene>
         <!--Karte-->
         <scene sceneID="WdZ-vx-lx9">
