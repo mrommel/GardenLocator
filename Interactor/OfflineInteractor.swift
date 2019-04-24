@@ -9,19 +9,19 @@
 import Foundation
 
 protocol OfflineInteractorInputProtocol {
-    
+
     var router: Router? { get set }
 
     func showContentPage()
 }
 
 class OfflineInteractor {
-    
+
     var router: Router?
 }
 
 extension OfflineInteractor: OfflineInteractorInputProtocol {
-    
+
     func showContentPage() {
         self.router?.popViewController()
     }

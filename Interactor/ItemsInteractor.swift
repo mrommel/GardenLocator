@@ -36,22 +36,22 @@ class ItemsInteractor {
 }
 
 extension ItemsInteractor: ItemsInteractorInputProtocol {
-    
+
     func fetchItems() {
-        
+
         var itemViewModels: [ItemViewModel] = []
-        
+
         if let items = self.itemDao?.fetch() {
             for item in items {
                 itemViewModels.append(ItemViewModel(item: item))
             }
         }
-        
+
         self.presenterInput?.show(items: itemViewModels)
     }
-    
+
     func show(item: ItemViewModel?) {
-        
+
         self.router?.show(item: item)
     }
 }

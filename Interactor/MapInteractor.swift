@@ -29,7 +29,7 @@ protocol MapInteractorInputProtocol {
 }
 
 class MapInteractor {
-    
+
     var router: Router?
     var itemDao: ItemDaoProtocol?
     var patchDao: PatchDaoProtocol?
@@ -37,7 +37,7 @@ class MapInteractor {
 }
 
 extension MapInteractor: MapInteractorInputProtocol {
-    
+
     func showOfflinePage() {
         self.router?.showOfflinePage()
     }
