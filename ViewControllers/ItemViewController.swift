@@ -40,6 +40,9 @@ class ItemViewController: UIViewController {
     let reusePatchSelectionIdentifier: String = "reusePatchSelectionIdentifier"
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
     let reuseNoticeLabelIdentifier: String = "reuseNoticeLabelIdentifier"
+    let reuseCategoryHeaderIdentifier: String = "reuseCategoryHeaderIdentifier"
+    let reuseCategoryIdentifier: String = "reuseCategoryIdentifier"
+    let reuseAddCategoryIdentifier: String = "reuseAddCategoryIdentifier"
     let reuseNoticeTextfieldIdentifier: String = "reuseNoticeTextfieldIdentifier"
 
     let nameIndexPath = IndexPath(row: 0, section: 0)
@@ -47,7 +50,7 @@ class ItemViewController: UIViewController {
     let longitudeIndexPath = IndexPath(row: 2, section: 0)
     let patchIndexPath = IndexPath(row: 3, section: 0)
     let noticeIndexPath = IndexPath(row: 4, section: 0)
-    let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
+    let deleteButtonIndexPath = IndexPath(row: 0, section: 2)
     
     private let networkManager = NetworkManager()
 
@@ -64,6 +67,7 @@ class ItemViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
 
+        self.tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseCategoryHeaderIdentifier)
         self.tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: reuseNameTextfieldIdentifier)
         self.tableView.register(MultilineTextFieldTableViewCell.self, forCellReuseIdentifier: reuseNoticeTextfieldIdentifier)
 
@@ -169,7 +173,8 @@ class ItemViewController: UIViewController {
                 longitude: longitude,
                 name: name,
                 patchName: patchName,
-                notice: notice)
+                notice: notice,
+                categoryNames: [])
             isNewPatch = true
         } else {
             // update current patch
@@ -225,6 +230,10 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
 
         if section == 0 {
             return self.mapView
+        } else if section == 1 {
+            let sectionHeaderView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseCategoryHeaderIdentifier)
+            sectionHeaderView?.textLabel?.text = "Categories"
+            return sectionHeaderView
         } else {
             return nil
         }
@@ -233,10 +242,28 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
     public func numberOfSections(in tableView: UITableView) -> Int {
 
         if self.editMode && self.viewModel != nil {
-            return 2
+            return 3
         } else {
-            return 1
+            return 2
         }
+    }
+    
+    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    
+        // only show when in edit mode
+        if !self.editMode {
+            return nil
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            
+            if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
+                self.viewModel?.removeCategory(named: categoryName)
+                self.tableView.reloadData()
+            }
+        }
+
+        return [deleteAction]
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -244,11 +271,17 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         if self.editMode && self.viewModel != nil {
             if section == 0 {
                 return 5 // name, lat, lon, patch, notice
+            } else if section == 1 {
+                return (self.viewModel?.categoryNames.count ?? 0) + 1 // number of categories + add button
             } else {
                 return 1
             }
         } else {
-            return 5 // name, lat, lon, patch, notice
+            if section == 0 {
+                return 5 // name, lat, lon, patch, notice
+            } else {
+                return self.viewModel?.categoryNames.count ?? 0 // number of categories
+            }
         }
     }
 
@@ -277,6 +310,24 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNoticeLabelIdentifier)
+    }
+    
+    func getCategoryCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseCategoryIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .default, reuseIdentifier: self.reuseCategoryIdentifier)
+    }
+    
+    func getAddCategoryCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseAddCategoryIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .default, reuseIdentifier: self.reuseAddCategoryIdentifier)
     }
 
     func getButtonCell() -> UITableViewCell {
@@ -416,6 +467,29 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         }
+        
+        // categories
+        if indexPath.section == 1 {
+            if self.editMode {
+                if indexPath.row < self.viewModel?.categoryNames.count ?? 0 {
+                    let cell = self.getCategoryCell()
+                    cell.textLabel?.text = self.viewModel?.categoryName(at: indexPath.row)
+                    cell.accessoryType = .none
+                    return cell
+                } else {
+                    let cell = self.getAddCategoryCell()
+                    cell.textLabel?.textAlignment = .center
+                    cell.textLabel?.text = "Add Category"
+                    cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
+                    return cell
+                }
+            } else {
+               let cell = self.getCategoryCell()
+                cell.textLabel?.text = self.viewModel?.categoryName(at: indexPath.row)
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            }
+        }
 
         if indexPath == self.deleteButtonIndexPath {
             if self.editMode {
@@ -455,6 +529,35 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                     })
             } else {
                 self.interactor?.showPatch(named: self.viewModel?.patchName ?? "--")
+            }
+        }
+        
+        if indexPath.section == 1 { // categories
+            
+            if self.editMode && indexPath.row == self.viewModel?.categoryNames.count ?? 0 {
+                // add category
+                guard let data = self.interactor?.getAllCategoryNames() else {
+                    fatalError("Can't get all categories names")
+                }
+                
+                self.interactor?.showCategoryName(title: "New Category", data: data, selectedIndex: 0, onSelect: { newSelection in
+                    
+                    // store
+                    self.viewModel?.addCategory(named: newSelection)
+                    
+                    // update
+                    /*var indicesToUpdate: [IndexPath] = []
+                    for i in 0..<(self.viewModel?.categoryNames.count ?? 0) {
+                        indicesToUpdate.append(IndexPath(row: i, section: 1))
+                    }
+                    self.tableView.reloadRows(at: indicesToUpdate, with: .automatic)*/
+                    self.tableView.reloadData()
+                })
+            }
+            
+            if !self.editMode {
+                // goto selcted category
+                
             }
         }
 

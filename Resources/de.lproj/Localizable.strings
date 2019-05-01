@@ -38,6 +38,7 @@
 "TabBarButton.Map.Title" = "Karte";
 "TabBarButton.Patches.Title" = "Beete";
 "TabBarButton.Items.Title" = "Einträge";
+"TabBarButton.Categories.Title" = "Kategorien";
 "TabBarButton.Settings.Title" = "Einstellungen";
 
 /* MapViewController */

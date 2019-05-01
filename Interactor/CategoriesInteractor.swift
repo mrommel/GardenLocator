@@ -41,7 +41,7 @@ extension CategoriesInteractor: CategoriesInteractorInputProtocol {
         
         var categoryViewModels: [CategoryViewModel] = []
         
-        if let categories = self.categoryDao?.fetch() {
+        if let categories = self.categoryDao?.fetchRoot() {
             for category in categories {
                 categoryViewModels.append(CategoryViewModel(category: category))
             }

@@ -16,14 +16,16 @@ class ItemViewModel {
     var longitude: Double
     var patchName: String
     var notice: String
+    var categoryNames: [String]
     
-    init(latitude: Double, longitude: Double, name: String, patchName: String, notice: String) {
+    init(latitude: Double, longitude: Double, name: String, patchName: String, notice: String, categoryNames: [String]) {
         self.identifier = nil
         self.latitude = latitude
         self.longitude = longitude
         self.name = name
         self.patchName = patchName
         self.notice = notice
+        self.categoryNames = categoryNames
     }
     
     init(item: Item) {
@@ -38,6 +40,28 @@ class ItemViewModel {
         } else {
             self.patchName = "---"
         }
+        
+        self.categoryNames = []
+        if let categories = item.categories?.allObjects as? [Category] {
+            for category in categories {
+                self.categoryNames.append(category.name ?? "--")
+            }
+        }
+    }
+    
+    func addCategory(named categoryName: String) {
+        
+        self.categoryNames.append(categoryName)
+    }
+    
+    func removeCategory(named categoryName: String) {
+        
+        self.categoryNames.removeFirst(object: categoryName)
+    }
+    
+    func categoryName(at index: Int) -> String {
+        
+        return self.categoryNames[index]
     }
     
     func isValid() -> Bool {

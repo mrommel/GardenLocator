@@ -14,6 +14,7 @@ protocol ItemInteractorInputProtocol {
     var router: Router? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var patchDao: PatchDaoProtocol? { get set }
+    var categoryDao: CategoryDaoProtocol? { get set }
     var presenterInput: ItemPresenterInputProtocol? { get set }
 
     func create(item: ItemViewModel?)
@@ -21,12 +22,15 @@ protocol ItemInteractorInputProtocol {
     func delete(item: ItemViewModel?)
 
     func getAllPatchNames() -> [String]
+    func getAllCategoryNames() -> [String]
 
     func showItems()
 
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
     func showPatch(named patchName: String)
 
+    func showCategoryName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ())
+    
     func showOfflinePage()
 }
 
@@ -35,6 +39,7 @@ class ItemInteractor {
     var router: Router?
     var itemDao: ItemDaoProtocol?
     var patchDao: PatchDaoProtocol?
+    var categoryDao: CategoryDaoProtocol?
     var presenterInput: ItemPresenterInputProtocol?
 }
 
@@ -94,6 +99,23 @@ extension ItemInteractor: ItemInteractorInputProtocol {
             itemObject?.longitude = item?.longitude ?? 0.0
             itemObject?.patch = patch
             itemObject?.notice = item?.notice
+            
+            // categories
+            if let oldCategories = itemObject?.categories?.allObjects as? [Category] {
+                for oldCategory in oldCategories {
+                    itemObject?.removeFromCategories(oldCategory)
+                }
+            }
+            
+            if let newCategoryNames = item?.categoryNames {
+                for newCategoryName in newCategoryNames {
+                    
+                    // parent
+                    if let newCategory = self.categoryDao?.get(by: newCategoryName) {
+                        itemObject?.addToCategories(newCategory)
+                    }
+                }
+            }
 
             if let saved = self.itemDao?.save(item: itemObject) {
                 if saved {
@@ -135,6 +157,21 @@ extension ItemInteractor: ItemInteractorInputProtocol {
 
         return patchNames
     }
+    
+    func getAllCategoryNames() -> [String] {
+        
+        var categoryNames: [String] = []
+        
+        if let categories = self.categoryDao?.fetchAll() {
+            for category in categories {
+                if let categoryName = category.path() {
+                    categoryNames.append(categoryName)
+                }
+            }
+        }
+        
+        return categoryNames
+    }
 
     func showItems() {
         // we are in the details > go back
@@ -144,6 +181,11 @@ extension ItemInteractor: ItemInteractorInputProtocol {
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
 
         self.router?.showPatchSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
+    }
+    
+    func showCategoryName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
+        
+        self.router?.showCategorySelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
     }
 
     func showPatch(named patchName: String) {

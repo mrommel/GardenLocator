@@ -88,7 +88,7 @@ class Router {
     func getCategoriesViewController() -> UIViewController {
         
         let categoriesViewController = R.storyboard.main.categoriesViewController()!
-        let categoriesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonSettingsTitle(), image: R.image.category_outline(), selectedImage: R.image.category())
+        let categoriesBarItem = UITabBarItem(title: R.string.localizable.tabBarButtonCategoriesTitle(), image: R.image.category_outline(), selectedImage: R.image.category())
         
         let categoriesInteractor = CategoriesInteractor()
         let categoriesPresenter = CategoriesPresenter()
@@ -189,6 +189,7 @@ class Router {
                 itemInteractor.presenterInput = itemPresenter
                 itemInteractor.itemDao = self.itemDao
                 itemInteractor.patchDao = self.patchDao
+                itemInteractor.categoryDao = self.categoryDao
                 
                 itemViewController.interactor = itemInteractor
                 itemViewController.presenter = itemPresenter
@@ -213,6 +214,19 @@ class Router {
     }
     
     func showShapeSelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
+        
+        if let topController = UIApplication.topViewController() {
+            let viewController = SelectionViewController(
+                title: title,
+                data: data,
+                selectedIndex: selectedIndex,
+                onSelect: onSelect)
+            
+            topController.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func showCategorySelection(title: String, data: [String]?, selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
         
         if let topController = UIApplication.topViewController() {
             let viewController = SelectionViewController(

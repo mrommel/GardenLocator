@@ -139,6 +139,11 @@ class SettingsInteractor {
                 let _ = self.categoryDao?.create(named: "Kernobst", parent: category2)
                 let _ = self.categoryDao?.create(named: "Steinobst", parent: category2)
                 
+                if let item0 = self.itemDao?.get(by: "Tomaten"), let category1 = category1 {
+                    item0.addToCategories(category1)
+                    allCreated = allCreated && self.itemDao?.save(item: item0) ?? false
+                }
+                
                 if allCreated {
                     self.presenterInput?.viewInput?.showToast(message: "Successfully created")
                 } else {

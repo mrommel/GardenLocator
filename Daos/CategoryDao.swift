@@ -11,7 +11,8 @@ import CoreData
 
 protocol CategoryDaoProtocol {
     
-    func fetch() -> [Category]?
+    func fetchRoot() -> [Category]?
+    func fetchAll() -> [Category]?
     func get(by objectId: NSManagedObjectID) -> Category?
     func get(by name: String) -> Category?
     func create(named name: String, parent: Category?) -> Bool
@@ -25,7 +26,7 @@ class CategoryDao: BaseDao {
 
 extension CategoryDao: CategoryDaoProtocol {
     
-    func fetch() -> [Category]? {
+    func fetchRoot() -> [Category]? {
         guard let context = self.context else {
             fatalError("Can't get context for fetching categories")
         }
@@ -33,6 +34,19 @@ extension CategoryDao: CategoryDaoProtocol {
         do {
             let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "parent == nil")
+            return try context.fetch(fetchRequest)
+        } catch {
+            return nil
+        }
+    }
+    
+    func fetchAll() -> [Category]? {
+        guard let context = self.context else {
+            fatalError("Can't get context for fetching categories")
+        }
+        
+        do {
+            let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
             return try context.fetch(fetchRequest)
         } catch {
             return nil
@@ -58,9 +72,16 @@ extension CategoryDao: CategoryDaoProtocol {
             fatalError("Can't get context for creating category")
         }
         
+        var cName = name
+        let parts = name.components(separatedBy: ">")
+        
+        if parts.count > 1 {
+            cName = parts.last!.trim()
+        }
+        
         do {
             let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+            fetchRequest.predicate = NSPredicate(format: "name == %@", cName)
             
             let patches = try context.fetch(fetchRequest)
             

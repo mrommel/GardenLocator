@@ -44,12 +44,16 @@ class ApplicationTabBarController: UITabBarController {
         let controllers = [mapViewController, patchesViewController, itemsViewController, categoriesViewController, settingsViewController]
 
         self.viewControllers = controllers.map { UINavigationController(rootViewController: $0)}
+        
+        self.selectedIndex = App.getLastSelectedTabIndex()
     }
 }
 
 extension ApplicationTabBarController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
+        App.setLastSelectedTab(index: self.selectedIndex)
         
         /*if let mapViewController = viewController.children.first as? MapViewController {   
         } else if let itemsViewController = viewController.children.first as? ItemsViewController {

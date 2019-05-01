@@ -17,6 +17,8 @@ class App {
         static var initialLongitude = 13.532160
         
         static var initialCoordinate = CLLocationCoordinate2D(latitude: initialLatitude, longitude: initialLongitude)
+        
+        static let lastSelectedTabIndex = "lastSelectedTabIndexStringKey"
     }
     
     struct Color {
@@ -46,6 +48,21 @@ class App {
         static var alertTextFont: UIFont { return UIFont.systemFont(ofSize: 12.0) }
         
         static var textViewFont: UIFont { return UIFont.systemFont(ofSize: 16.0) }
+    }
+    
+    static func setLastSelectedTab(index: Int) {
+        
+        let defaults = UserDefaults.standard
+        
+        defaults.set(index, forKey: App.Constants.lastSelectedTabIndex)
+    }
+    
+    static func getLastSelectedTabIndex() -> Int {
+        
+        let defaults = UserDefaults.standard
+        
+        // default: 0
+        return defaults.integer(forKey: App.Constants.lastSelectedTabIndex)
     }
     
     func setup() {

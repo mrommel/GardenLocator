@@ -70,6 +70,8 @@
 		C98771612270787B00E4534E /* OfflineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98771602270787B00E4534E /* OfflineViewController.swift */; };
 		C9877163227078B600E4534E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9877162227078B600E4534E /* NetworkManager.swift */; };
 		C98771652270B6E600E4534E /* OfflineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98771642270B6E600E4534E /* OfflineInteractor.swift */; };
+		C98771672279F03F00E4534E /* CategoryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98771662279F03F00E4534E /* CategoryExtension.swift */; };
+		C9877169227A18CF00E4534E /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9877168227A18CF00E4534E /* ArrayExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +143,8 @@
 		C98771602270787B00E4534E /* OfflineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineViewController.swift; sourceTree = "<group>"; };
 		C9877162227078B600E4534E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C98771642270B6E600E4534E /* OfflineInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineInteractor.swift; sourceTree = "<group>"; };
+		C98771662279F03F00E4534E /* CategoryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryExtension.swift; sourceTree = "<group>"; };
+		C9877168227A18CF00E4534E /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,7 @@
 				C90160C92246B9E8007309BC /* PatchExtension.swift */,
 				C913D1CA225106EA0041BDAC /* PatchColor.swift */,
 				C913D1CC2251070B0041BDAC /* PatchShape.swift */,
+				C98771662279F03F00E4534E /* CategoryExtension.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				C90160CF22496967007309BC /* StringExtension.swift */,
 				C913D1C8224C034B0041BDAC /* DoubleExtension.swift */,
 				C9877162227078B600E4534E /* NetworkManager.swift */,
+				C9877168227A18CF00E4534E /* ArrayExtension.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -523,6 +529,8 @@
 				C913D1CB225106EA0041BDAC /* PatchColor.swift in Sources */,
 				C913D1CD2251070B0041BDAC /* PatchShape.swift in Sources */,
 				C901609B224027F5007309BC /* TableViewExtension.swift in Sources */,
+				C98771672279F03F00E4534E /* CategoryExtension.swift in Sources */,
+				C9877169227A18CF00E4534E /* ArrayExtension.swift in Sources */,
 				C91048BC223DA78D00EE8FDB /* SettingsViewController.swift in Sources */,
 				C9016078223ED038007309BC /* ApplicationTabBarController.swift in Sources */,
 				C901607F223EDA14007309BC /* PatchesPresenter.swift in Sources */,
