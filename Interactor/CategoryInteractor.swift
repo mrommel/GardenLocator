@@ -13,6 +13,7 @@ protocol CategoryInteractorInputProtocol {
     
     var router: Router? { get set }
     var categoryDao: CategoryDaoProtocol? { get set }
+    var itemDao: ItemDaoProtocol? { get set }
     var presenterInput: CategoryPresenterInputProtocol? { get set }
     
     func refreshData(for identifier: NSManagedObjectID?)
@@ -24,12 +25,15 @@ protocol CategoryInteractorInputProtocol {
     func showCategories()
     func showCategory(named name: String)
     func showCategoryWith(parent: CategoryViewModel?)
+    
+    func showItem(named name: String)
 }
 
 class CategoryInteractor {
     
     var router: Router?
     var categoryDao: CategoryDaoProtocol?
+    var itemDao: ItemDaoProtocol?
     var presenterInput: CategoryPresenterInputProtocol?
 }
 
@@ -44,8 +48,6 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
     }
     
     func create(category: CategoryViewModel?, parent: CategoryViewModel?) {
-        
-        
         
         if let name = category?.name {
             
@@ -127,5 +129,13 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
     func showCategoryWith(parent: CategoryViewModel?) {
         
         self.router?.show(category: nil, parent: parent)
+    }
+    
+    func showItem(named name: String) {
+        
+        if let item = self.itemDao?.get(by: name) {
+            let itemViewModel = ItemViewModel(item: item)
+            self.router?.show(item: itemViewModel)
+        }
     }
 }

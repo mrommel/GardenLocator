@@ -252,18 +252,32 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
     
         // only show when in edit mode
         if !self.editMode {
-            return nil
+            return []
         }
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            
-            if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
-                self.viewModel?.removeCategory(named: categoryName)
-                self.tableView.reloadData()
+        if indexPath.section == 0 {
+            return []
+        }
+        
+        if indexPath.section == 1 {
+            // add category button should not have delete action
+            if indexPath.row == self.viewModel?.categoryNames.count ?? 0 {
+                return []
             }
+            
+            // only categoryies
+            let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+                
+                if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
+                    self.viewModel?.removeCategory(named: categoryName)
+                    self.tableView.reloadData()
+                }
+            }
+            
+            return [deleteAction]
         }
 
-        return [deleteAction]
+        return []
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -253,6 +253,7 @@ class Router {
                 categoryInteractor.router = self
                 categoryInteractor.presenterInput = categoryPresenter
                 categoryInteractor.categoryDao = self.categoryDao
+                categoryInteractor.itemDao = self.itemDao
                 
                 categoryViewController.interactor = categoryInteractor
                 categoryViewController.presenter = categoryPresenter

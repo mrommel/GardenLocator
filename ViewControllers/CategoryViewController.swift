@@ -26,11 +26,12 @@ class CategoryViewController: UIViewController {
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
     let reuseButtonIdentifier: String = "reuseButtonIdentifier"
     let reuseCategoryLabelIdentifier: String = "reuseCategoryLabelIdentifier"
+    let reuseItemLabelIdentifier: String = "reuseItemLabelIdentifier"
     
     let nameIndexPath = IndexPath(row: 0, section: 0)
     
-    let deleteButtonIndexPath = IndexPath(row: 0, section: 1)
-    let addButtonIndexPath = IndexPath(row: 0, section: 2)
+    let deleteButtonIndexPath = IndexPath(row: 0, section: 2)
+    //let addButtonIndexPath = IndexPath(row: 0, section: 2)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +102,7 @@ class CategoryViewController: UIViewController {
         
         if self.viewModel == nil {
             // create new category
-            self.viewModel = CategoryViewModel(name: name, childCategoryNames: [])
+            self.viewModel = CategoryViewModel(name: name, childCategoryNames: [], itemNames: [])
             isNewCategory = true
         } else {
             // update current category
@@ -173,11 +174,16 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if !self.editMode {
-            if section == 1 {
-                return R.string.localizable.categorySubcategoriesTitle()
+        if section == 1 {
+            return R.string.localizable.categorySubcategoriesTitle()
+        }
+        
+        if section == 2 {
+            if !self.editMode {
+                return "Items"
             }
         }
+
         return nil
     }
     
@@ -187,11 +193,11 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             return 1
         }
         
-        if self.editMode { // properties + delete button
-            return 2
+        if self.editMode { // properties + children + delete button
+            return 3
         }
         
-        return 3 // properties + children + add button
+        return 3 // properties + children + add child button
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -202,15 +208,17 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if section == 1 {
             if self.editMode {
-                return 1 // delete button
-            } else {
                 return self.viewModel?.childCategoryNames.count ?? 0
+            } else {
+                return (self.viewModel?.childCategoryNames.count ?? 0) + 1 // add child button
             }
         }
         
         if section == 2 {
-            if !self.editMode {
-                return 1 // add button
+            if self.editMode {
+                return 1 // delete button
+            } else {
+                return self.viewModel?.itemNames.count ?? 0 // items <<<<
             }
         }
         
@@ -235,6 +243,15 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell(style: .value1, reuseIdentifier: self.reuseCategoryLabelIdentifier)
     }
     
+    func getItemCell() -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseItemLabelIdentifier) {
+            return cell
+        }
+        
+        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseItemLabelIdentifier)
+    }
+    
     func getButtonCell() -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseButtonIdentifier) {
@@ -242,6 +259,34 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell(style: .default, reuseIdentifier: self.reuseButtonIdentifier)
+    }
+    
+    public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        // only show when in edit mode
+        if !self.editMode {
+            return []
+        }
+        
+        if indexPath.section == 1 {
+        
+            // add category button should not have delete action
+            if indexPath.row == self.viewModel?.childCategoryNames.count ?? 0 {
+                return []
+            }
+            
+            let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+                
+                /*if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
+                    self.viewModel?.removeCategory(named: categoryName)
+                    self.tableView.reloadData()
+                }*/
+            }
+            
+            return [deleteAction]
+        }
+        
+        return []
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -263,39 +308,55 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        // delete button is only displayed in edit mode
-        if indexPath == self.deleteButtonIndexPath {
-            if self.editMode {
-                let cell = self.getButtonCell()
-                cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = R.string.localizable.buttonDelete()
-                cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
-                return cell
-            }
-        }
-        
-        // add button is only displayed in view mode
-        if indexPath == self.addButtonIndexPath {
-            if !self.editMode {
-                let cell = self.getButtonCell()
-                cell.textLabel?.textAlignment = .center
-                cell.textLabel?.text = R.string.localizable.categoryAddCategory()
-                cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
-                return cell
-            }
-        }
-        
         if indexPath.section == 1 {
+            
             if !self.editMode {
+                if indexPath.row < self.viewModel?.childCategoryNames.count ?? 0 {
+                    let cell = getCategoryCell()
+                    cell.imageView?.image = R.image.category()
+                    cell.textLabel?.text = self.viewModel?.childCategoryName(at: indexPath.row)
+                    cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
+                    cell.accessoryType = self.editMode ? .none : .disclosureIndicator
+                    return cell
+                } else {
+                    let cell = self.getButtonCell()
+                    cell.textLabel?.textAlignment = .center
+                    cell.textLabel?.text = R.string.localizable.categoryAddCategory()
+                    cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
+                    return cell
+                }
+            } else {
                 let cell = getCategoryCell()
                 cell.imageView?.image = R.image.category()
                 cell.textLabel?.text = self.viewModel?.childCategoryName(at: indexPath.row)
                 cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = .disclosureIndicator
+                cell.accessoryType = self.editMode ? .none : .disclosureIndicator
                 return cell
             }
         }
         
+        if indexPath.section == 2 {
+            
+            if self.editMode {
+                // delete button is only displayed in edit mode
+                if indexPath == self.deleteButtonIndexPath {
+                    if self.editMode {
+                        let cell = self.getButtonCell()
+                        cell.textLabel?.textAlignment = .center
+                        cell.textLabel?.text = R.string.localizable.buttonDelete()
+                        cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
+                        return cell
+                    }
+                }
+            } else {
+                let cell = self.getItemCell()
+                cell.imageView?.image = R.image.pin()
+                cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            }
+        }
+
         fatalError("unknown view cell requested for \(indexPath)")
     }
     
@@ -317,17 +378,23 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        if indexPath == self.addButtonIndexPath {
-            
+        if indexPath.section == 1 {
             if !self.editMode {
-                
-                self.interactor?.showCategoryWith(parent: self.viewModel)
+                if indexPath.row < self.viewModel?.childCategoryNames.count ?? 0 {
+                    if let categoryName = self.viewModel?.childCategoryName(at: indexPath.row) {
+                        self.interactor?.showCategory(named: categoryName)
+                    }
+                } else {
+                    self.interactor?.showCategoryWith(parent: self.viewModel)
+                }
             }
         }
         
-        if indexPath.section == 1 {
-            if let categoryName = self.viewModel?.childCategoryName(at: indexPath.row) {
-                self.interactor?.showCategory(named: categoryName)
+        if indexPath.section == 2 {
+            if !self.editMode {
+                if let itemName = self.viewModel?.itemName(at: indexPath.row) {
+                    self.interactor?.showItem(named: itemName)
+                }
             }
         }
         

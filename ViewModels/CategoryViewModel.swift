@@ -13,10 +13,12 @@ class CategoryViewModel {
     var identifier: NSManagedObjectID?
     var name: String
     var childCategoryNames: [String]
+    var itemNames: [String]
     
-    init(name: String, childCategoryNames: [String]) {
+    init(name: String, childCategoryNames: [String], itemNames: [String]) {
         self.name = name
         self.childCategoryNames = childCategoryNames
+        self.itemNames = itemNames
     }
     
     init(category: Category) {
@@ -29,11 +31,23 @@ class CategoryViewModel {
                 self.childCategoryNames.append(category.name ?? "--")
             }
         }
+        
+        self.itemNames = []
+        if let items = category.items?.allObjects as? [Item] {
+            for item in items {
+                self.itemNames.append(item.name ?? "--")
+            }
+        }
     }
     
     func childCategoryName(at index: Int) -> String {
         
         return self.childCategoryNames[index]
+    }
+    
+    func itemName(at index: Int) -> String {
+        
+        return self.itemNames[index]
     }
     
     func isValid() -> Bool {
