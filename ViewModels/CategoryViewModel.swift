@@ -50,6 +50,11 @@ class CategoryViewModel {
         return self.itemNames[index]
     }
     
+    func removeItem(named itemName: String) {
+        
+        self.itemNames.removeFirst(object: itemName)
+    }
+    
     func isValid() -> Bool {
         return !self.name.isEmpty /* && self.patchName != ""*/
     }

@@ -171,10 +171,10 @@
 			isa = PBXGroup;
 			children = (
 				C90160B02242CC97007309BC /* MapViewModel.swift */,
-				C90160A422403A0C007309BC /* ItemsViewModel.swift */,
-				C90160A222403989007309BC /* ItemViewModel.swift */,
 				C9016082223EE26F007309BC /* PatchesViewModel.swift */,
 				C9016080223EDEC0007309BC /* PatchViewModel.swift */,
+				C90160A422403A0C007309BC /* ItemsViewModel.swift */,
+				C90160A222403989007309BC /* ItemViewModel.swift */,
 				C913D1D2225148A60041BDAC /* CategoriesViewModel.swift */,
 				C913D1D4225148D70041BDAC /* CategoryViewModel.swift */,
 				C90160C02243F108007309BC /* SettingsViewModel.swift */,
@@ -325,10 +325,10 @@
 			children = (
 				C98771602270787B00E4534E /* OfflineViewController.swift */,
 				C91048AD223DA70000EE8FDB /* MapViewController.swift */,
-				C91048AE223DA70000EE8FDB /* ItemsViewController.swift */,
-				C90160A822403CFC007309BC /* ItemViewController.swift */,
 				C91048AC223DA70000EE8FDB /* PatchesViewController.swift */,
 				C9016084223EECFA007309BC /* PatchViewController.swift */,
+				C91048AE223DA70000EE8FDB /* ItemsViewController.swift */,
+				C90160A822403CFC007309BC /* ItemViewController.swift */,
 				C913D1D022510E4F0041BDAC /* CategoriesViewController.swift */,
 				C913D1DA22514D340041BDAC /* CategoryViewController.swift */,
 				C91048AF223DA70000EE8FDB /* SettingsViewController.swift */,

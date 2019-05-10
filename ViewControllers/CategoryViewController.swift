@@ -22,16 +22,9 @@ class CategoryViewController: UIViewController {
     var viewModel: CategoryViewModel?
     var parentViewModel: CategoryViewModel?
     
-    let reuseNameLabelIdentifier: String = "reuseNameLabelIdentifier"
-    let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
-    let reuseButtonIdentifier: String = "reuseButtonIdentifier"
-    let reuseCategoryLabelIdentifier: String = "reuseCategoryLabelIdentifier"
-    let reuseItemLabelIdentifier: String = "reuseItemLabelIdentifier"
-    
     let nameIndexPath = IndexPath(row: 0, section: 0)
     
     let deleteButtonIndexPath = IndexPath(row: 0, section: 2)
-    //let addButtonIndexPath = IndexPath(row: 0, section: 2)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +39,7 @@ class CategoryViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
         
-        self.tableView.register(TextInputTableViewCell.self , forCellReuseIdentifier: reuseNameTextfieldIdentifier)
+        self.tableView.register(TextInputTableViewCell.self , forCellReuseIdentifier: self.presenter?.reuseNameTextfieldIdentifier ?? "")
         
         // store back button
         self.backButton = self.navigationItem.backBarButtonItem
@@ -225,42 +218,6 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         return 0
     }
     
-    func getNameCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseNameLabelIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseNameLabelIdentifier)
-    }
-    
-    func getCategoryCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseCategoryLabelIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseCategoryLabelIdentifier)
-    }
-    
-    func getItemCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseItemLabelIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .value1, reuseIdentifier: self.reuseItemLabelIdentifier)
-    }
-    
-    func getButtonCell() -> UITableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseButtonIdentifier) {
-            return cell
-        }
-        
-        return UITableViewCell(style: .default, reuseIdentifier: self.reuseButtonIdentifier)
-    }
-    
     public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         // only show when in edit mode
@@ -277,10 +234,10 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             
             let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
                 
-                /*if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
-                    self.viewModel?.removeCategory(named: categoryName)
+                if let itemName = self.viewModel?.itemName(at: indexPath.row) {
+                    self.viewModel?.removeItem(named: itemName)
                     self.tableView.reloadData()
-                }*/
+                }
             }
             
             return [deleteAction]
@@ -291,20 +248,22 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
+        }
+        
         if indexPath == self.nameIndexPath {
             
             if self.editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: reuseNameTextfieldIdentifier) as! TextInputTableViewCell
-                cell.configure(title: R.string.localizable.categoryNameTitle(), textFieldValue: self.viewModel?.name ?? "", placeHolder: R.string.localizable.categoryNamePlaceholder())
-                return cell
+                return presenter.getTextFieldCell(titled: R.string.localizable.categoryNameTitle(),
+                                                  value: self.viewModel?.name ?? "",
+                                                  placeholder: R.string.localizable.categoryNamePlaceholder(),
+                                                  tag: 0,
+                                                  in: self.tableView)
             } else {
-                let cell = self.getNameCell()
-                
-                cell.textLabel?.text = R.string.localizable.categoryNameTitle()
-                cell.detailTextLabel?.text = self.viewModel?.name ?? ""
-                cell.detailTextLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                
-                return cell
+                return presenter.getNameValueCell(for: R.string.localizable.categoryNameTitle(),
+                                                  and: self.viewModel?.name ?? "",
+                                                  in: self.tableView)
             }
         }
         
@@ -312,26 +271,17 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             
             if !self.editMode {
                 if indexPath.row < self.viewModel?.childCategoryNames.count ?? 0 {
-                    let cell = getCategoryCell()
-                    cell.imageView?.image = R.image.category()
-                    cell.textLabel?.text = self.viewModel?.childCategoryName(at: indexPath.row)
-                    cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                    cell.accessoryType = self.editMode ? .none : .disclosureIndicator
-                    return cell
+                    return presenter.getCategoryCell(titled: self.viewModel?.childCategoryName(at: indexPath.row) ?? "",
+                                                     withAccessoryType: self.editMode ? .none : .disclosureIndicator,
+                                                     in: self.tableView)
                 } else {
-                    let cell = self.getButtonCell()
-                    cell.textLabel?.textAlignment = .center
-                    cell.textLabel?.text = R.string.localizable.categoryAddCategory()
-                    cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
-                    return cell
+                    return presenter.getButtonCell(titled: R.string.localizable.categoryAddCategory(),
+                                                   in: self.tableView)
                 }
             } else {
-                let cell = getCategoryCell()
-                cell.imageView?.image = R.image.category()
-                cell.textLabel?.text = self.viewModel?.childCategoryName(at: indexPath.row)
-                cell.textLabel?.textColor = App.Color.tableViewCellTextEnabledColor
-                cell.accessoryType = self.editMode ? .none : .disclosureIndicator
-                return cell
+                return presenter.getCategoryCell(titled: self.viewModel?.childCategoryName(at: indexPath.row) ?? "",
+                                                 withAccessoryType: self.editMode ? .none : .disclosureIndicator,
+                                                 in: self.tableView)
             }
         }
         
@@ -341,19 +291,13 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
                 // delete button is only displayed in edit mode
                 if indexPath == self.deleteButtonIndexPath {
                     if self.editMode {
-                        let cell = self.getButtonCell()
-                        cell.textLabel?.textAlignment = .center
-                        cell.textLabel?.text = R.string.localizable.buttonDelete()
-                        cell.textLabel?.textColor = App.Color.tableViewCellDeleteButtonColor
-                        return cell
+                        return presenter.getButtonCell(titled: R.string.localizable.buttonDelete(),
+                                                       in: self.tableView)
                     }
                 }
             } else {
-                let cell = self.getItemCell()
-                cell.imageView?.image = R.image.pin()
-                cell.textLabel?.text = self.viewModel?.itemName(at: indexPath.row)
-                cell.accessoryType = .disclosureIndicator
-                return cell
+                return presenter.getItemCell(titled: self.viewModel?.itemName(at: indexPath.row) ?? "",
+                                             in: self.tableView)
             }
         }
 
