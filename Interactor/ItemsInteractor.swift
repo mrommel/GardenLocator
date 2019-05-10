@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ItemsPresenterInputProtocol {
     
@@ -15,6 +16,8 @@ protocol ItemsPresenterInputProtocol {
     
     func fetch()
     func show(items: [ItemViewModel])
+    
+    func getItemCell(titled title: String, in tableView: UITableView) -> UITableViewCell
 }
 
 protocol ItemsInteractorInputProtocol {

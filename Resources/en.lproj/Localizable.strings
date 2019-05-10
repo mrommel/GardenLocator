@@ -41,6 +41,9 @@
 "TabBarButton.Categories.Title" = "Categories";
 "TabBarButton.Settings.Title" = "Settings";
 
+/* OfflineViewController */
+"Offline.Title" = "Offline";
+
 /* MapViewController */
 "Maps.Title" = "Map";
 
@@ -65,6 +68,7 @@
 "Item.Color.Title" = "Color";
 "Item.Notice.Title" = "Notice";
 "Item.Notice.Placeholder" = "Please add Notices";
+"Item.Categories" = "Categories";
 
 "Item.Save.Success" = "Successfully saved";
 "Item.Save.Failure" = "Could not save";

@@ -19,6 +19,8 @@ class App {
         static var initialCoordinate = CLLocationCoordinate2D(latitude: initialLatitude, longitude: initialLongitude)
         
         static let lastSelectedTabIndex = "lastSelectedTabIndexStringKey"
+        
+        static let tableSectionHeaderHeight: CGFloat = 30.0
     }
     
     struct Color {

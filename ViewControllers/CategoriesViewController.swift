@@ -19,8 +19,6 @@ class CategoriesViewController: UIViewController {
     var interactor: CategoriesInteractorInputProtocol?
     var viewModel: CategoriesViewModel?
     
-    let reuseIdentifier: String = "categoriesCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +75,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 30.0
+        return App.Constants.tableSectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,22 +85,12 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
-            return cell
-        } else {
-            return UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if let categoryViewModel = self.viewModel?.categories[indexPath.row] {
-            cell.imageView?.image = R.image.category()
-            cell.textLabel?.text = categoryViewModel.name
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
         }
         
-        cell.tintColor = App.Color.tableViewCellAccessoryColor
-        cell.accessoryType = .disclosureIndicator
+        return presenter.getCategoryCell(titled: self.viewModel?.categoryName(at: indexPath.row) ?? "",
+                                         in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

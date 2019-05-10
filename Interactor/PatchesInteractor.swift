@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PatchesPresenterInputProtocol {
 
@@ -15,6 +16,8 @@ protocol PatchesPresenterInputProtocol {
 
     func fetch()
     func show(patches: [PatchViewModel])
+    
+    func getPatchCell(titled title: String, detailText: String, in tableView: UITableView) -> UITableViewCell
 }
 
 protocol PatchesInteractorInputProtocol {

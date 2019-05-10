@@ -15,4 +15,9 @@ class CategoriesViewModel {
     init(categories: [CategoryViewModel]) {
         self.categories = categories
     }
+    
+    func categoryName(at index: Int) -> String? {
+        
+        return self.categories[index].name
+    }
 }

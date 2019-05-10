@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Rswift
 
 class OfflineViewController: UIViewController {
     
@@ -18,11 +19,9 @@ class OfflineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Offline"
+        self.title = R.string.localizable.offlineTitle()
         
         self.networkManager.reachability?.whenReachable = { _ in
-            print("Network is back")
-            
             self.interactor?.showContentPage()
         }
     }

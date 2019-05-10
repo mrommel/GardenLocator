@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol CategoriesPresenterInputProtocol {
     
@@ -15,6 +16,8 @@ protocol CategoriesPresenterInputProtocol {
     
     func fetch()
     func show(categories: [CategoryViewModel])
+    
+    func getCategoryCell(titled title: String, in tableView: UITableView) -> UITableViewCell
 }
 
 protocol CategoriesInteractorInputProtocol {

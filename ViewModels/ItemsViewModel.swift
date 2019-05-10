@@ -15,4 +15,9 @@ class ItemsViewModel {
     init(items: [ItemViewModel]) {
         self.items = items
     }
+    
+    func itemName(at index: Int) -> String {
+        
+        return self.items[index].name
+    }
 }

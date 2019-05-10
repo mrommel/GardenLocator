@@ -18,8 +18,6 @@ class ItemsViewController: UIViewController {
     var presenter: ItemsPresenterInputProtocol?
     var interactor: ItemsInteractorInputProtocol?
     var viewModel: ItemsViewModel?
-    
-    let reuseIdentifier: String = "itemCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +75,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 30.0
+        return App.Constants.tableSectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,22 +85,12 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
-            return cell
-        } else {
-            return UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if let itemViewModel = self.viewModel?.items[indexPath.row] {
-            cell.imageView?.image = R.image.pin()
-            cell.textLabel?.text = itemViewModel.name
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
         }
         
-        cell.tintColor = App.Color.tableViewCellAccessoryColor
-        cell.accessoryType = .disclosureIndicator
+        return presenter.getItemCell(titled: self.viewModel?.itemName(at: indexPath.row) ?? "",
+                                     in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

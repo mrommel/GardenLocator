@@ -19,8 +19,6 @@ class PatchesViewController: UIViewController {
     var interactor: PatchesInteractorInputProtocol?
     var viewModel: PatchesViewModel?
     
-    let reuseIdentifier: String = "patchCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +75,7 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 30.0
+        return App.Constants.tableSectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,23 +85,13 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) {
-            return cell
-        } else {
-            return UITableViewCell(style: .value1, reuseIdentifier: reuseIdentifier)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if let patchViewModel = self.viewModel?.patches[indexPath.row] {
-            cell.imageView?.image = R.image.field()
-            cell.textLabel?.text = patchViewModel.name
-            cell.detailTextLabel?.text = "\(patchViewModel.itemNames.count) \(R.string.localizable.patchesItems())"
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
         }
         
-        cell.tintColor = App.Color.tableViewCellAccessoryColor
-        cell.accessoryType = .disclosureIndicator
+        return presenter.getPatchCell(titled: self.viewModel?.patchName(at: indexPath.row) ?? "",
+                                      detailText: "\(self.viewModel?.itemNames(at: indexPath.row).count ?? 0) \(R.string.localizable.patchesItems())",
+                                      in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

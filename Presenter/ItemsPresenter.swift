@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // View Controller must implement this
 protocol ItemsViewInputProtocol {
@@ -16,6 +17,8 @@ protocol ItemsViewInputProtocol {
 }
 
 class ItemsPresenter {
+    
+    let reuseItemIdentifier: String = "reuseItemIdentifier"
     
     var viewInput: ItemsViewInputProtocol?
     var interator: ItemsInteractorInputProtocol?
@@ -35,5 +38,30 @@ extension ItemsPresenter: ItemsPresenterInputProtocol {
         } else {
             self.viewInput?.present(viewModel: ItemsViewModel(items: items))
         }
+    }
+    
+    /// MARK :
+    
+    func getItemCell(for tableView: UITableView) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseItemIdentifier) {
+            return cell
+        } else {
+            return UITableViewCell(style: .default, reuseIdentifier: self.reuseItemIdentifier)
+        }
+    }
+    
+    /// MARK :
+    
+    func getItemCell(titled title: String, in tableView: UITableView) -> UITableViewCell {
+        
+        let cell = self.getItemCell(for: tableView)
+        
+        cell.imageView?.image = R.image.pin()
+        cell.textLabel?.text = title
+        cell.tintColor = App.Color.tableViewCellAccessoryColor
+        cell.accessoryType = .disclosureIndicator
+        
+        return cell
     }
 }

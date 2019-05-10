@@ -26,6 +26,10 @@ enum ItemFailure {
 
 protocol ItemPresenterInputProtocol {
     
+    var reuseCategoryHeaderIdentifier: String { get }
+    
+    func getSectionHeader(titled title: String, in tableView: UITableView) -> UIView?
+    
     func saveSuccess(identifier: NSManagedObjectID?)
     func saveFailure(failure: ItemFailure)
     
@@ -34,6 +38,8 @@ protocol ItemPresenterInputProtocol {
 }
 
 class ItemPresenter {
+    
+    let reuseCategoryHeaderIdentifier: String = "reuseCategoryHeaderIdentifier"
     
     var viewInput: ItemViewInputProtocol?
     var interator: ItemInteractorInputProtocol?
@@ -65,5 +71,16 @@ extension ItemPresenter: ItemPresenterInputProtocol {
     func deleteFailure(failure: ItemFailure) {
         
         self.viewInput?.presentUserFeedback(message: R.string.localizable.itemDeleteFailure())
+    }
+    
+    /// MARK
+    
+    /// MARK
+    
+    func getSectionHeader(titled title: String, in tableView: UITableView) -> UIView? {
+        
+        let sectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseCategoryHeaderIdentifier)
+        sectionHeaderView?.textLabel?.text = title
+        return sectionHeaderView
     }
 }

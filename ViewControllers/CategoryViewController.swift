@@ -162,7 +162,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 30.0
+        return App.Constants.tableSectionHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

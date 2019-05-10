@@ -40,7 +40,6 @@ class ItemViewController: UIViewController {
     let reusePatchSelectionIdentifier: String = "reusePatchSelectionIdentifier"
     let reuseNameTextfieldIdentifier: String = "reuseNameTextfieldIdentifier"
     let reuseNoticeLabelIdentifier: String = "reuseNoticeLabelIdentifier"
-    let reuseCategoryHeaderIdentifier: String = "reuseCategoryHeaderIdentifier"
     let reuseCategoryIdentifier: String = "reuseCategoryIdentifier"
     let reuseAddCategoryIdentifier: String = "reuseAddCategoryIdentifier"
     let reuseNoticeTextfieldIdentifier: String = "reuseNoticeTextfieldIdentifier"
@@ -67,7 +66,7 @@ class ItemViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
 
-        self.tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: reuseCategoryHeaderIdentifier)
+        self.tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: self.presenter?.reuseCategoryHeaderIdentifier ?? "")
         self.tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: reuseNameTextfieldIdentifier)
         self.tableView.register(MultilineTextFieldTableViewCell.self, forCellReuseIdentifier: reuseNoticeTextfieldIdentifier)
 
@@ -222,18 +221,21 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 280.0
         } else {
-            return 30.0
+            return App.Constants.tableSectionHeaderHeight
         }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
+        guard let presenter = self.presenter else {
+            fatalError("presenter not present")
+        }
+        
         if section == 0 {
             return self.mapView
         } else if section == 1 {
-            let sectionHeaderView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseCategoryHeaderIdentifier)
-            sectionHeaderView?.textLabel?.text = "Categories"
-            return sectionHeaderView
+            return presenter.getSectionHeader(titled: R.string.localizable.itemCategories(),
+                                              in: self.tableView)
         } else {
             return nil
         }
