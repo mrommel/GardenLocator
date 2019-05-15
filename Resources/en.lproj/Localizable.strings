@@ -69,6 +69,7 @@
 "Item.Notice.Title" = "Notice";
 "Item.Notice.Placeholder" = "Please add Notices";
 "Item.Categories" = "Categories";
+"Item.Button.AddCategory" = "Add Category";
 
 "Item.Save.Success" = "Successfully saved";
 "Item.Save.Failure" = "Could not save";

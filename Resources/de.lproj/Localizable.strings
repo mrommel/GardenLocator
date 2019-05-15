@@ -69,6 +69,7 @@
 "Item.Notice.Title" = "Notizen";
 "Item.Notice.Placeholder" = "Bitte fügen sie hier Notizen ein";
 "Item.Categories" = "Kategorien";
+"Item.Button.AddCategory" = "Kategorie hinzufügen";
 
 "Item.Save.Success" = "Speichern erfolgreich";
 "Item.Save.Failure" = "Speichern fehlgeschlagen";
