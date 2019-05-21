@@ -11,7 +11,7 @@ import Rswift
 
 class ApplicationTabBarController: UITabBarController {
     
-    let router = Router()
+    let coordinator = Coordinator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +26,20 @@ class ApplicationTabBarController: UITabBarController {
         super.viewWillAppear(animated)
         
         // Create Tab one
-        let mapViewController = self.router.getMapViewController()
+        let mapViewController = self.coordinator.getMapViewController()
         
         // Create Tab two
-        let patchesViewController = self.router.getPatchesViewController()
+        let patchesViewController = self.coordinator.getPatchesViewController()
         
         // Create Tab three
-        let itemsViewController = self.router.getItemsViewController()
+        let itemsViewController = self.coordinator.getItemsViewController()
         
         
         // Creare Tab four
-        let categoriesViewController = self.router.getCategoriesViewController()
+        let categoriesViewController = self.coordinator.getCategoriesViewController()
         
         // Creare Tab five
-        let settingsViewController = self.router.getSettingsViewController()
+        let settingsViewController = self.coordinator.getSettingsViewController()
         
         let controllers = [mapViewController, patchesViewController, itemsViewController, categoriesViewController, settingsViewController]
 

@@ -22,7 +22,7 @@ protocol PatchesPresenterInputProtocol {
 
 protocol PatchesInteractorInputProtocol {
 
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var presenterInput: PatchesPresenterInputProtocol? { get set }
 
@@ -33,7 +33,7 @@ protocol PatchesInteractorInputProtocol {
 
 class PatchesInteractor {
 
-    var router: Router?
+    var coordinator: Coordinator?
     var patchDao: PatchDaoProtocol?
     var presenterInput: PatchesPresenterInputProtocol?
 }
@@ -55,6 +55,6 @@ extension PatchesInteractor: PatchesInteractorInputProtocol {
 
     func show(patch: PatchViewModel?) {
 
-        self.router?.show(patch: patch)
+        self.coordinator?.show(patch: patch)
     }
 }

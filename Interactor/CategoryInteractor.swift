@@ -11,7 +11,7 @@ import CoreData
 
 protocol CategoryInteractorInputProtocol {
     
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var categoryDao: CategoryDaoProtocol? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var presenterInput: CategoryPresenterInputProtocol? { get set }
@@ -31,7 +31,7 @@ protocol CategoryInteractorInputProtocol {
 
 class CategoryInteractor {
     
-    var router: Router?
+    var coordinator: Coordinator?
     var categoryDao: CategoryDaoProtocol?
     var itemDao: ItemDaoProtocol?
     var presenterInput: CategoryPresenterInputProtocol?
@@ -115,27 +115,27 @@ extension CategoryInteractor: CategoryInteractorInputProtocol {
     
     func showCategories() {
         // we are in the details > go back
-        self.router?.popViewController()
+        self.coordinator?.popViewController()
     }
     
     func showCategory(named name: String) {
         
         if let category = self.categoryDao?.get(by: name) {
             let categoryViewModel = CategoryViewModel(category: category)
-            self.router?.show(category: categoryViewModel, parent: nil)
+            self.coordinator?.show(category: categoryViewModel, parent: nil)
         }
     }
     
     func showCategoryWith(parent: CategoryViewModel?) {
         
-        self.router?.show(category: nil, parent: parent)
+        self.coordinator?.show(category: nil, parent: parent)
     }
     
     func showItem(named name: String) {
         
         if let item = self.itemDao?.get(by: name) {
             let itemViewModel = ItemViewModel(item: item)
-            self.router?.show(item: itemViewModel)
+            self.coordinator?.show(item: itemViewModel)
         }
     }
 }

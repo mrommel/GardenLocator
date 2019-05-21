@@ -1,5 +1,5 @@
 //
-//  Router.swift
+//  Coordinator.swift
 //  GardenLocator
 //
 //  Created by Michael Rommel on 17.03.19.
@@ -9,7 +9,7 @@
 import Rswift
 import UIKit
 
-class Router {
+class Coordinator {
     
     let itemDao = ItemDao()
     let patchDao = PatchDao()
@@ -26,7 +26,7 @@ class Router {
         mapViewController.interactor = mapInteractor
         mapViewController.presenter = mapPresenter
         
-        mapViewController.interactor?.router = self
+        mapViewController.interactor?.coordinator = self
         mapViewController.interactor?.presenterInput = mapPresenter
         mapViewController.interactor?.itemDao = self.itemDao
         mapViewController.interactor?.patchDao = self.patchDao
@@ -52,7 +52,7 @@ class Router {
         
         patchesViewController.interactor?.presenterInput = patchesPresenter
         patchesViewController.interactor?.patchDao = self.patchDao
-        patchesViewController.interactor?.router = self
+        patchesViewController.interactor?.coordinator = self
         
         patchesViewController.presenter?.viewInput = patchesViewController
         patchesViewController.presenter?.interator = patchesInteractor
@@ -75,7 +75,7 @@ class Router {
         
         itemsViewController.interactor?.presenterInput = itemsPresenter
         itemsViewController.interactor?.itemDao = self.itemDao
-        itemsViewController.interactor?.router = self
+        itemsViewController.interactor?.coordinator = self
         
         itemsViewController.presenter?.viewInput = itemsViewController
         itemsViewController.presenter?.interator = itemsInteractor
@@ -98,7 +98,7 @@ class Router {
         
         categoriesViewController.interactor?.presenterInput = categoriesPresenter
         categoriesViewController.interactor?.categoryDao = categoryDao
-        categoriesViewController.interactor?.router = self
+        categoriesViewController.interactor?.coordinator = self
         
         categoriesViewController.presenter?.viewInput = categoriesViewController
         categoriesViewController.presenter?.interator = categoriesInteractor
@@ -123,7 +123,7 @@ class Router {
         settingsViewController.interactor?.itemDao = self.itemDao
         settingsViewController.interactor?.patchDao = self.patchDao
         settingsViewController.interactor?.categoryDao = self.categoryDao
-        settingsViewController.interactor?.router = self
+        settingsViewController.interactor?.coordinator = self
         
         settingsViewController.presenter?.viewInput = settingsViewController
         settingsViewController.presenter?.interator = settingsInteractor
@@ -140,7 +140,7 @@ class Router {
                 
                 let offlineInteractor = OfflineInteractor()
                 
-                offlineInteractor.router = self
+                offlineInteractor.coordinator = self
                 
                 offlineViewController.interactor = offlineInteractor
                 
@@ -160,7 +160,7 @@ class Router {
                 patchPresenter.interator = patchInteractor
                 patchPresenter.viewInput = patchViewController
                 
-                patchInteractor.router = self
+                patchInteractor.coordinator = self
                 patchInteractor.presenterInput = patchPresenter
                 patchInteractor.patchDao = self.patchDao
                 patchInteractor.itemDao = self.itemDao
@@ -185,7 +185,7 @@ class Router {
                 itemPresenter.interator = itemInteractor
                 itemPresenter.viewInput = itemViewController
                 
-                itemInteractor.router = self
+                itemInteractor.coordinator = self
                 itemInteractor.presenterInput = itemPresenter
                 itemInteractor.itemDao = self.itemDao
                 itemInteractor.patchDao = self.patchDao
@@ -250,7 +250,7 @@ class Router {
                 categoryPresenter.interator = categoryInteractor
                 categoryPresenter.viewInput = categoryViewController
                 
-                categoryInteractor.router = self
+                categoryInteractor.coordinator = self
                 categoryInteractor.presenterInput = categoryPresenter
                 categoryInteractor.categoryDao = self.categoryDao
                 categoryInteractor.itemDao = self.itemDao

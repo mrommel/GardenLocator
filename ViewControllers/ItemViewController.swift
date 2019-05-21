@@ -259,7 +259,7 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             // only categoryies
-            let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let deleteAction = UITableViewRowAction(style: .destructive, title: R.string.localizable.buttonDelete()) { (action, indexPath) in
                 
                 if let categoryName = self.viewModel?.categoryName(at: indexPath.row) {
                     self.viewModel?.removeCategory(named: categoryName)
@@ -437,17 +437,12 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
                     fatalError("Can't get all categories names")
                 }
                 
-                self.interactor?.showCategoryName(title: "New Category", data: data, selectedIndex: 0, onSelect: { newSelection in
+                self.interactor?.showCategoryName(title: R.string.localizable.itemCategoriesNew(), data: data, selectedIndex: 0, onSelect: { newSelection in
                     
                     // store
                     self.viewModel?.addCategory(named: newSelection)
                     
                     // update
-                    /*var indicesToUpdate: [IndexPath] = []
-                    for i in 0..<(self.viewModel?.categoryNames.count ?? 0) {
-                        indicesToUpdate.append(IndexPath(row: i, section: 1))
-                    }
-                    self.tableView.reloadRows(at: indicesToUpdate, with: .automatic)*/
                     self.tableView.reloadData()
                 })
             }

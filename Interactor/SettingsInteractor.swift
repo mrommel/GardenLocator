@@ -23,7 +23,7 @@ protocol SettingsPresenterInputProtocol {
 
 protocol SettingsInteractorInputProtocol {
 
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var categoryDao: CategoryDaoProtocol? { get set }
@@ -34,7 +34,7 @@ protocol SettingsInteractorInputProtocol {
 
 class SettingsInteractor {
 
-    var router: Router?
+    var coordinator: Coordinator?
     var patchDao: PatchDaoProtocol?
     var itemDao: ItemDaoProtocol?
     var categoryDao: CategoryDaoProtocol?

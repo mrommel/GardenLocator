@@ -22,7 +22,7 @@ protocol CategoriesPresenterInputProtocol {
 
 protocol CategoriesInteractorInputProtocol {
     
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var categoryDao: CategoryDaoProtocol? { get set }
     var presenterInput: CategoriesPresenterInputProtocol? { get set }
     
@@ -33,7 +33,7 @@ protocol CategoriesInteractorInputProtocol {
 
 class CategoriesInteractor {
     
-    var router: Router?
+    var coordinator: Coordinator?
     var categoryDao: CategoryDaoProtocol?
     var presenterInput: CategoriesPresenterInputProtocol?
 }
@@ -55,6 +55,6 @@ extension CategoriesInteractor: CategoriesInteractorInputProtocol {
     
     func show(category: CategoryViewModel?) {
         
-        self.router?.show(category: category, parent: nil)
+        self.coordinator?.show(category: category, parent: nil)
     }
 }

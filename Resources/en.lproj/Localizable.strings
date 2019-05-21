@@ -69,6 +69,7 @@
 "Item.Notice.Title" = "Notice";
 "Item.Notice.Placeholder" = "Please add Notices";
 "Item.Categories" = "Categories";
+"Item.Categories.New" = "New Category";
 "Item.Button.AddCategory" = "Add Category";
 
 "Item.Save.Success" = "Successfully saved";
@@ -110,6 +111,7 @@
 "Category.Name.Placeholder" = "Enter some text!";
 "Category.Subcategories.Title" = "Child categories";
 "Category.Add.Category" = "Add new child category";
+"Category.Items.Title" = "Items";
 "Category.Delete.Question.Title" = "Are you Sure?";
 "Category.Delete.Question.Message" = "Do you really want to delete category '%@'?";
 

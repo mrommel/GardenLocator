@@ -10,7 +10,7 @@ import Foundation
 
 protocol PatchInteractorInputProtocol {
 
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var presenterInput: PatchPresenterInputProtocol? { get set }
@@ -28,7 +28,7 @@ protocol PatchInteractorInputProtocol {
 
 class PatchInteractor {
 
-    var router: Router?
+    var coordinator: Coordinator?
     var patchDao: PatchDaoProtocol?
     var itemDao: ItemDaoProtocol?
     var presenterInput: PatchPresenterInputProtocol?
@@ -37,7 +37,7 @@ class PatchInteractor {
 extension PatchInteractor: PatchInteractorInputProtocol {
 
     func showOfflinePage() {
-        self.router?.showOfflinePage()
+        self.coordinator?.showOfflinePage()
     }
 
     func create(patch: PatchViewModel?) {
@@ -100,19 +100,19 @@ extension PatchInteractor: PatchInteractorInputProtocol {
 
     func showPatchShapes(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
 
-        self.router?.showShapeSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
+        self.coordinator?.showShapeSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
     }
 
     func showPatches() {
         // we are in the details > go back
-        self.router?.popViewController()
+        self.coordinator?.popViewController()
     }
 
     func showItem(named itemName: String) {
 
         if let item = self.itemDao?.get(by: itemName) {
             let itemViewModel = ItemViewModel(item: item)
-            self.router?.show(item: itemViewModel)
+            self.coordinator?.show(item: itemViewModel)
         }
     }
 }

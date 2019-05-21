@@ -173,7 +173,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         
         if section == 2 {
             if !self.editMode {
-                return "Items"
+                return R.string.localizable.categoryItemsTitle()
             }
         }
 
@@ -232,7 +232,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
                 return []
             }
             
-            let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
+            let deleteAction = UITableViewRowAction(style: .destructive, title: R.string.localizable.buttonDelete()) { (action, indexPath) in
                 
                 if let itemName = self.viewModel?.itemName(at: indexPath.row) {
                     self.viewModel?.removeItem(named: itemName)

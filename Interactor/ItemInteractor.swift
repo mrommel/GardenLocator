@@ -11,7 +11,7 @@ import CoreData
 
 protocol ItemInteractorInputProtocol {
 
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var categoryDao: CategoryDaoProtocol? { get set }
@@ -36,7 +36,7 @@ protocol ItemInteractorInputProtocol {
 
 class ItemInteractor {
 
-    var router: Router?
+    var coordinator: Coordinator?
     var itemDao: ItemDaoProtocol?
     var patchDao: PatchDaoProtocol?
     var categoryDao: CategoryDaoProtocol?
@@ -46,7 +46,7 @@ class ItemInteractor {
 extension ItemInteractor: ItemInteractorInputProtocol {
 
     func showOfflinePage() {
-        self.router?.showOfflinePage()
+        self.coordinator?.showOfflinePage()
     }
 
     func create(item: ItemViewModel?) {
@@ -175,24 +175,24 @@ extension ItemInteractor: ItemInteractorInputProtocol {
 
     func showItems() {
         // we are in the details > go back
-        self.router?.popViewController()
+        self.coordinator?.popViewController()
     }
 
     func showPatchName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
 
-        self.router?.showPatchSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
+        self.coordinator?.showPatchSelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
     }
     
     func showCategoryName(title: String, data: [String], selectedIndex: Int?, onSelect: @escaping (String) -> ()) {
         
-        self.router?.showCategorySelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
+        self.coordinator?.showCategorySelection(title: title, data: data, selectedIndex: selectedIndex, onSelect: onSelect)
     }
 
     func showPatch(named patchName: String) {
 
         if let patch = self.patchDao?.get(by: patchName) {
             let patchViewModel = PatchViewModel(patch: patch)
-            self.router?.show(patch: patchViewModel)
+            self.coordinator?.show(patch: patchViewModel)
         }
     }
 }

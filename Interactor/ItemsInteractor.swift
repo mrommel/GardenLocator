@@ -22,7 +22,7 @@ protocol ItemsPresenterInputProtocol {
 
 protocol ItemsInteractorInputProtocol {
     
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var presenterInput: ItemsPresenterInputProtocol? { get set }
     
@@ -33,7 +33,7 @@ protocol ItemsInteractorInputProtocol {
 
 class ItemsInteractor {
     
-    var router: Router?
+    var coordinator: Coordinator?
     var itemDao: ItemDaoProtocol?
     var presenterInput: ItemsPresenterInputProtocol?
 }
@@ -55,6 +55,6 @@ extension ItemsInteractor: ItemsInteractorInputProtocol {
 
     func show(item: ItemViewModel?) {
 
-        self.router?.show(item: item)
+        self.coordinator?.show(item: item)
     }
 }

@@ -69,6 +69,7 @@
 "Item.Notice.Title" = "Notizen";
 "Item.Notice.Placeholder" = "Bitte fügen sie hier Notizen ein";
 "Item.Categories" = "Kategorien";
+"Item.Categories.New" = "Neue Kategorie";
 "Item.Button.AddCategory" = "Kategorie hinzufügen";
 
 "Item.Save.Success" = "Speichern erfolgreich";
@@ -110,6 +111,7 @@
 "Category.Name.Placeholder" = "Hier Text einfügen!";
 "Category.Subcategories.Title" = "Unterkategorien";
 "Category.Add.Category" = "Neue Unterkategorie hinzufügen";
+"Category.Items.Title" = "Einträge";
 "Category.Delete.Question.Title" = "Bist du sicher?";
 "Category.Delete.Question.Message" = "Willst du wirklich die Kategorie '%@' löschen?";
 

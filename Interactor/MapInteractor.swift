@@ -19,7 +19,7 @@ protocol MapPresenterInputProtocol {
 
 protocol MapInteractorInputProtocol {
     
-    var router: Router? { get set }
+    var coordinator: Coordinator? { get set }
     var itemDao: ItemDaoProtocol? { get set }
     var patchDao: PatchDaoProtocol? { get set }
     var presenterInput: MapPresenterInputProtocol? { get set }
@@ -30,7 +30,7 @@ protocol MapInteractorInputProtocol {
 
 class MapInteractor {
 
-    var router: Router?
+    var coordinator: Coordinator?
     var itemDao: ItemDaoProtocol?
     var patchDao: PatchDaoProtocol?
     var presenterInput: MapPresenterInputProtocol?
@@ -39,7 +39,7 @@ class MapInteractor {
 extension MapInteractor: MapInteractorInputProtocol {
 
     func showOfflinePage() {
-        self.router?.showOfflinePage()
+        self.coordinator?.showOfflinePage()
     }
     
     func fetchItems() {
