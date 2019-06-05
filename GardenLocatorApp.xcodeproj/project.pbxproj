@@ -15,7 +15,7 @@
 		C9016083223EE26F007309BC /* PatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9016082223EE26F007309BC /* PatchesViewModel.swift */; };
 		C9016085223EECFA007309BC /* PatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9016084223EECFA007309BC /* PatchViewController.swift */; };
 		C901608A223EEFBB007309BC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9016089223EEFBB007309BC /* R.generated.swift */; };
-		C901608D223EF253007309BC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = C901608C223EF253007309BC /* Router.swift */; };
+		C901608D223EF253007309BC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C901608C223EF253007309BC /* Coordinator.swift */; };
 		C9016090223EF623007309BC /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C901608F223EF623007309BC /* TextInputTableViewCell.swift */; };
 		C9016093223FA254007309BC /* PatchesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9016092223FA254007309BC /* PatchesInteractor.swift */; };
 		C9016095223FF6F1007309BC /* PatchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9016094223FF6F1007309BC /* PatchPresenter.swift */; };
@@ -85,7 +85,7 @@
 		C9016082223EE26F007309BC /* PatchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchesViewModel.swift; sourceTree = "<group>"; };
 		C9016084223EECFA007309BC /* PatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchViewController.swift; sourceTree = "<group>"; };
 		C9016089223EEFBB007309BC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
-		C901608C223EF253007309BC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		C901608C223EF253007309BC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C901608F223EF623007309BC /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		C9016092223FA254007309BC /* PatchesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchesInteractor.swift; sourceTree = "<group>"; };
 		C9016094223FF6F1007309BC /* PatchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchPresenter.swift; sourceTree = "<group>"; };
@@ -208,12 +208,12 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		C901608B223EF234007309BC /* Router */ = {
+		C901608B223EF234007309BC /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				C901608C223EF253007309BC /* Router.swift */,
+				C901608C223EF253007309BC /* Coordinator.swift */,
 			);
-			path = Router;
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C901608E223EF61B007309BC /* Views */ = {
@@ -255,9 +255,10 @@
 		C910485D223D66B300EE8FDB = {
 			isa = PBXGroup;
 			children = (
+				C9C7F0BB22947AAA00A775B2 /* Repositories */,
 				C90160C82246B9D5007309BC /* Data */,
 				C901608E223EF61B007309BC /* Views */,
-				C901608B223EF234007309BC /* Router */,
+				C901608B223EF234007309BC /* Coordinator */,
 				C901607C223ED58D007309BC /* Daos */,
 				C9016091223FA222007309BC /* Interactor */,
 				C901607D223ED9EF007309BC /* Presenter */,
@@ -335,6 +336,13 @@
 				C90160AE22414EBF007309BC /* SelectionViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C9C7F0BB22947AAA00A775B2 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		D1B4834A9AD8EAB42B0C4395 /* Pods */ = {
@@ -548,7 +556,7 @@
 				C98771652270B6E600E4534E /* OfflineInteractor.swift in Sources */,
 				C90160B12242CC97007309BC /* MapViewModel.swift in Sources */,
 				C913D1D9225149A30041BDAC /* CategoriesInteractor.swift in Sources */,
-				C901608D223EF253007309BC /* Router.swift in Sources */,
+				C901608D223EF253007309BC /* Coordinator.swift in Sources */,
 				C9016083223EE26F007309BC /* PatchesViewModel.swift in Sources */,
 				C90160CE22493725007309BC /* MultilineTextFieldTableViewCell.swift in Sources */,
 				C9016081223EDEC0007309BC /* PatchViewModel.swift in Sources */,

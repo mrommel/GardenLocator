@@ -89,9 +89,9 @@ extension PatchesViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError("presenter not present")
         }
         
-        return presenter.getPatchCell(titled: self.viewModel?.patchName(at: indexPath.row) ?? "",
-                                      detailText: "\(self.viewModel?.itemNames(at: indexPath.row).count ?? 0) \(R.string.localizable.patchesItems())",
-                                      in: self.tableView)
+        let patchTitle = self.viewModel?.patchName(at: indexPath.row) ?? ""
+        let patchDetailText = "\(self.viewModel?.itemNames(at: indexPath.row).count ?? 0) \(R.string.localizable.patchesItems())"
+        return presenter.getPatchCell(titled: patchTitle, detailText: patchDetailText, in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

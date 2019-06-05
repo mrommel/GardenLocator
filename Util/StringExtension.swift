@@ -20,6 +20,7 @@ extension String {
 // https://stackoverflow.com/questions/26797739/does-swift-have-a-trim-method-on-string
 extension String {
     
+    // " abc " => "abc"
     func trim() -> String {
         
         return self.trimmingCharacters(in: NSCharacterSet.whitespaces)

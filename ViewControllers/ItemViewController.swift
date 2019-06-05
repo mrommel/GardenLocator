@@ -360,8 +360,9 @@ extension ItemViewController: UITableViewDataSource, UITableViewDelegate {
 
         if indexPath == self.patchIndexPath {
 
+            let patchText = self.viewModel?.patchName ?? self.patchNameTmp
             return presenter.getPatchCell(titled: R.string.localizable.itemPatch(),
-                                          detail: self.viewModel?.patchName ?? self.patchNameTmp,
+                                          detail: patchText,
                                           accessoryType: self.editMode ? .none : .disclosureIndicator,
                                           in: self.tableView)
         }

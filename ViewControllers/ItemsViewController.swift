@@ -89,8 +89,8 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError("presenter not present")
         }
         
-        return presenter.getItemCell(titled: self.viewModel?.itemName(at: indexPath.row) ?? "",
-                                     in: self.tableView)
+        let itemTitle = self.viewModel?.itemName(at: indexPath.row) ?? ""
+        return presenter.getItemCell(titled: itemTitle, in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

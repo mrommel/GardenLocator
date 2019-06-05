@@ -89,8 +89,8 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
             fatalError("presenter not present")
         }
         
-        return presenter.getCategoryCell(titled: self.viewModel?.categoryName(at: indexPath.row) ?? "",
-                                         in: self.tableView)
+        let categoryTitle = self.viewModel?.categoryName(at: indexPath.row) ?? ""
+        return presenter.getCategoryCell(titled: categoryTitle, in: self.tableView)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
